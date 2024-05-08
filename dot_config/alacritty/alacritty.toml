@@ -1,0 +1,32 @@
+[shell]
+program = "usr/local/bin/fish"
+# args = [k]
+
+[window]
+decorations = "None"
+option_as_alt = "Both"
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font Mono", style = "Regular" }
+size = 14.0
+builtin_box_drawing = true
+
+[scrolling]
+history = 100000
+
+[cursor]
+style = { shape = "Beam", blinking = "On" }
+vi_mode_style = { shape = "Block" }
+
+[keyboard]
+# bindings = [{ <key>, <mods>, <mode>, <action> | <chars> },]
+bindings = [
+  { key = "ArrowLeft", mods = "Command", chars = "\u0001" }, # move to start of the line (like HOME button)
+  { key = "ArrowRight", mods = "Command", chars = "\u0005" }, # move to the end of the line (like END button)
+  { key = "Backspace", mods = "Command", chars = "\u0015" }, # delete line
+  { key = "z", mods = "Command", chars = "\u001f" }, # undo
+  { key = "f", mods = "Command|Shift", action = "ToggleFullscreen" }
+]
+
+[debug]
+print_events = false
