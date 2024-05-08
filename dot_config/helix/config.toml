@@ -4,7 +4,6 @@ theme = "jetbrains_dark"
 line-number = "relative"
 mouse = false
 auto-save = true
-# bufferline = "always"
 scrolloff = 15
 color-modes = true
 popup-border = "none"
@@ -14,11 +13,11 @@ soft-wrap = { enable = true }
 
 [editor.cursor-shape]
 insert = "bar"
-normal = "block"
+normal = "underline"
 select = "underline"
 
 [editor.statusline]
-left = 	["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
 center = []
 right = ["version-control", "diagnostics", "selections", "register", "position", "file-encoding"]
 
@@ -33,6 +32,7 @@ skip-levels = 1
 
 [editor.lsp]
 display-inlay-hints = true
+display-messages = true
 
 [keys.insert]
 j.k = "normal_mode"
