@@ -1,0 +1,49 @@
+# https://docs.helix-editor.com/configuration.html
+theme = "jetbrains_dark"
+
+[editor]
+line-number = "relative"
+mouse = true
+auto-save = true
+scrolloff = 15
+color-modes = true
+popup-border = "none"
+preview-completion-insert = false
+indent-heuristic = "tree-sitter"
+soft-wrap = { enable = true }
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "underline"
+select = "underline"
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+center = []
+right = ["version-control", "diagnostics", "selections", "register", "position", "file-encoding"]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.file-picker]
+hidden = false
+
+[editor.whitespace]
+render.tab = "all"
+
+[editor.indent-guides]
+render = true
+skip-levels = 1
+
+[editor.lsp]
+display-inlay-hints = true
+display-messages = true
+
+[keys.normal]
+
+[keys.normal.space]
+t.g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
+t.f = ":sh bash -- wezterm cli kill-pane --pane-id=$(wezterm cli split-pane --top --top-level --percent 95 -- broot --sort-by-type-dirs-last -gh)"
+
+[keys.insert]
+j.k = "normal_mode"
