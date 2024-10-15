@@ -1,0 +1,8 @@
+[include]
+  path = ~/.config/lazygit/tokyonight_moon.gitconfig
+
+[delta]
+	navigate = true
+	line-numbers = true
+  true-color = always
+  features = tokyonight-moon
