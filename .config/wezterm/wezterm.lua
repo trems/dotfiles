@@ -21,5 +21,6 @@ config = {
 require("keys").apply_to_config(config)
 require("appearance").apply_to_config(config)
 require("status-bar").apply_to_config(config)
+require("smart-splits").apply_to_config(config)
 
 return config
