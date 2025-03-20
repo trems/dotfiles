@@ -20,3 +20,12 @@ end
 
 # Created by `pipx` on 2024-07-10 09:25:37
 set PATH $PATH /Users/msharashin/.local/bin
+
+if fish_is_in_nvim
+    fish_default_key_bindings
+else
+    fish_vi_key_bindings
+    bind -M insert -m default jj backward-char force-repaint
+end
+
+zoxide init fish | source

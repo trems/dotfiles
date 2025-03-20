@@ -66,7 +66,10 @@ function module.apply_to_config(config)
 		}))
 
 		-- Current working directory
-		local cwd = basename(pane:get_current_working_dir().file_path)
+		local cwd = pane:get_current_working_dir()
+		if cwd ~= nil then
+			cwd = basename(cwd.file_path)
+		end
 
 		-- Current command (only for 'local' domain)
 		local cmd = pane:get_foreground_process_name()
@@ -81,7 +84,7 @@ function module.apply_to_config(config)
 
 		window:set_right_status(wez.format({
 			{ Background = { Color = stat_bg_color } },
-			{ Text = nf.md_folder .. " " .. cwd },
+			cwd and { Text = nf.md_folder .. " " .. cwd },
 			{ Text = " | " },
 			cmd,
 			{ Text = " | " },

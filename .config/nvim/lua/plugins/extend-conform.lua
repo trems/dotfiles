@@ -2,7 +2,12 @@ return {
   "stevearc/conform.nvim",
   opts = {
     formatters_by_ft = {
-      -- ["markdown"] = { "prettier" },
+      ["sql"] = { "sqlfluff" },
+    },
+    formatters = {
+      sqlfluff = {
+        args = { "format", "-" },
+      },
     },
   },
 }

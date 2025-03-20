@@ -2,4 +2,15 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-vim.keymap.set("i", "jj", "<esc>")
+vim.keymap.set("i", "jj", "<esc>", { silent = true, noremap = true })
+-- vim.keymap.set("n", "<localleader>", '<cmd>lua require("which-key").show("\\\\")<cr>')
+-- vim.keymap.set("n", "<localleader>j", function()
+--   print("it works")
+-- end)
+vim.api.nvim_set_keymap("n", "<localleader>j", "", {
+  -- noremap = true,
+  desc = "test localleader",
+  callback = function()
+    vim.notify("notify!")
+  end,
+})

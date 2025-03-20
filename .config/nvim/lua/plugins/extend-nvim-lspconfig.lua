@@ -7,6 +7,21 @@ return {
     opts = {
       servers = {
         protols = {},
+        gopls = {
+          mason = false, -- use binary from PATH
+          settings = {
+            gopls = {
+              usePlaceholders = false,
+            },
+          },
+        },
+      },
+      setup = {
+        gopls = function(_, _)
+          LazyVim.lsp.on_attach(function()
+            vim.api.nvim_set_hl(0, "@lsp.type.string.go", {})
+          end, "gopls")
+        end,
       },
     },
   },

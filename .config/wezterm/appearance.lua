@@ -5,14 +5,14 @@ function module.apply_to_config(config)
 	config.color_scheme = "Tokyo Night Moon"
 	config.font = wez.font("JetBrains Mono", { weight = "Regular" })
 	config.harfbuzz_features = { "calt=0" } -- disable ligature
-	config.font_size = 14.0
+	config.font_size = 13.0
 	config.default_cursor_style = "SteadyBar"
 	config.prefer_to_spawn_tabs = true
 	config.window_background_opacity = 1.0
-	config.window_decorations = "RESIZE"
-	config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
+	config.window_decorations = "TITLE | RESIZE"
+	config.window_padding = { left = 0, right = 0, top = 0, bottom = 1 }
 	config.inactive_pane_hsb = { saturation = 0.3, brightness = 0.5 }
-	config.foreground_text_hsb = { brightness = 1.7, saturation = 0.99 }
+	config.foreground_text_hsb = { brightness = 1.6, saturation = 1.00 }
 
 	config.colors = wez.color.get_builtin_schemes()[config.color_scheme]
 	local bg = wez.color.parse(config.colors.background)

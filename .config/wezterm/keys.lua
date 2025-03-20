@@ -14,6 +14,16 @@ local function bindDirectionAction(targetTable, action, mods)
 	end
 end
 
+local function extend_copy_mode(config)
+	-- add vim-like binding for search
+	local copy_mode = nil
+	if wez.gui then
+		copy_mode = wez.gui.default_key_tables().copy_mode
+		table.insert(copy_mode, { key = "/", mods = "NONE", action = act.Search("CurrentSelectionOrEmptyString") })
+	end
+	config.key_tables.copy_mode = copy_mode
+end
+
 function module.apply_to_config(config)
 	config.leader = { key = "a", mods = "SUPER", timeout_milliseconds = 5000 }
 	config.key_tables = {
@@ -23,7 +33,7 @@ function module.apply_to_config(config)
 			{ key = "Enter", action = "PopKeyTable" },
 			{ key = "-", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 			{ key = "\\", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-			{ key = "x", action = act.CloseCurrentPane({ confirm = true }) },
+			{ key = "q", action = act.CloseCurrentPane({ confirm = true }) },
 			{ key = "z", action = act.TogglePaneZoomState },
 			{ key = "r", action = act.RotatePanes("Clockwise") },
 			{ key = "R", action = act.RotatePanes("CounterClockwise") },
@@ -32,6 +42,9 @@ function module.apply_to_config(config)
 			{ key = "Escape", action = "PopKeyTable" },
 			{ key = "Enter", action = "PopKeyTable" },
 		},
+		-- copy_mode = {
+		-- 	{ key = "/", action = act.Search("CurrentSelectionOrEmptyString") },
+		-- },
 	}
 	config.keys = {
 		-- send Cmd-A if pressed twice
@@ -41,28 +54,27 @@ function module.apply_to_config(config)
 		{ key = "Backspace", mods = "SUPER", action = act.SendString("\x15") }, -- remove all to the left
 		{ key = "z", mods = "SUPER", action = act.SendString("\x1f") }, -- undo
 		{ key = "c", mods = "LEADER", action = act.ActivateCopyMode },
+		{ key = "s", mods = "LEADER", action = act.QuickSelect },
 
 		{ key = "-", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ key = "\\", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 		{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
-
+		{ key = "w", mods = "SUPER", action = act.CloseCurrentPane({ confirm = true }) },
 		{
 			key = "p",
 			mods = "LEADER",
 			action = act.ActivateKeyTable({ name = "pane_control", one_shot = false }),
 		},
-		{
-			key = "w",
-			mods = "LEADER",
-			action = act.ActivateKeyTable({ name = "window_control", one_shot = false }),
-		},
+
+		-- Key table for moving tabs around
+		{ key = "m", mods = "LEADER", action = act.ActivateKeyTable({ name = "move_tab", one_shot = false }) },
 		-- Tab keybindings
 		{ key = "t", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
 		{ key = "[", mods = "LEADER", action = act.ActivateTabRelative(-1) },
 		{ key = "]", mods = "LEADER", action = act.ActivateTabRelative(1) },
 		{ key = "n", mods = "LEADER", action = act.ShowTabNavigator },
 		{
-			key = "e",
+			key = "r",
 			mods = "LEADER",
 			action = act.PromptInputLine({
 				description = wez.format({
@@ -77,11 +89,6 @@ function module.apply_to_config(config)
 				end),
 			}),
 		},
-		-- Key table for moving tabs around
-		{ key = "m", mods = "LEADER", action = act.ActivateKeyTable({ name = "move_tab", one_shot = false }) },
-		-- Or shortcuts to move tab w/o move_tab table. SHIFT is for when caps lock is on
-		{ key = "{", mods = "LEADER|SHIFT", action = act.MoveTabRelative(-1) },
-		{ key = "}", mods = "LEADER|SHIFT", action = act.MoveTabRelative(1) },
 
 		{ key = "w", mods = "LEADER", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
 		-- Prompt for a name to use for a new workspace and switch to it.
@@ -122,11 +129,12 @@ function module.apply_to_config(config)
 	bindDirectionAction(config.key_tables.pane_control, function(d)
 		return act.ActivatePaneDirection(d)
 	end)
-	-- Activate pane in LDR mode
-	bindDirectionAction(config.keys, function(d)
-		return act.ActivatePaneDirection(d)
-	end, "LEADER")
-	-- Resize pane in pane_control mode
+	-- Comment because moving between panes handled by smart-splits
+	-- -- Activate pane in LDR mode
+	-- bindDirectionAction(config.keys, function(d)
+	-- 	return act.ActivatePaneDirection(d)
+	-- end, "LEADER")
+	-- -- Resize pane in pane_control mode
 	bindDirectionAction(config.key_tables.pane_control, function(d)
 		return act.AdjustPaneSize({ d, 1 })
 	end, "CTRL")
@@ -138,6 +146,8 @@ function module.apply_to_config(config)
 		end
 		return act.MoveTabRelative(offset)
 	end)
+
+	extend_copy_mode(config)
 end
 
 return module
