@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://json.schemastore.org/lazygit.json
+gui:
+  expandFocusedSidePanel: true
+  nerdFontsVersion: "3"
+  border: "rounded"
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --paging=never
+
+notARepository: "skip"
+keybinding:
+  universal:
+    copyToClipboard: "y"
