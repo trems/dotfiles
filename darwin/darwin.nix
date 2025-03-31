@@ -8,9 +8,13 @@
     settings = { };
   };
 
-  environment.systemPackages = [
-    pkgs.home-manager # all packages managed by home-manager
-  ];
+  environment = {
+    systemPackages = [
+      pkgs.home-manager # all packages managed by home-manager
+    ];
+    # add fish to /etc/shells. Don't forget to change login shell: chsh -s /path/to/fish
+    shells = [ pkgs.fish ];
+  };
 
   programs = {
     gnupg.agent.enable = true;
