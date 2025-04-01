@@ -20,10 +20,6 @@ return {
         if state.node.key ~= nil then
           state.node.key = lmu.translate_keycode(state.node.key, "default", "ru")
         end
-        -- if state.node.keys ~= nil then
-        --   vim.notify("node keys: " .. state.node.key)
-        --   state.node.keys = lmu.translate_keycode(state.node.keys, "default", "ru")
-        -- end
 
         return check_orig(state, key)
       end
