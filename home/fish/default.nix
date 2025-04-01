@@ -9,6 +9,8 @@ let
   fishFiles = "${dotfiles}/home/fish/fish";
 in
 {
+  home.shell.enableFishIntegration = true;
+
   programs.fish = {
     enable = true;
     functions = {
