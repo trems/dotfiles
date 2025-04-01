@@ -11,7 +11,7 @@
     enable = true;
     nix-direnv.enable = true;
     config = {
-      global.load-dotenv = true;
+      global.load_dotenv = true;
     };
   };
 
