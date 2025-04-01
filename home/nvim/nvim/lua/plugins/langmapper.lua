@@ -2,7 +2,7 @@ return {
   {
     "Wansmer/langmapper.nvim",
     lazy = false,
-    enabled = false,
+    enabled = true,
     priority = 1, -- High priority is needed if you will use `autoremap()`
     opts = {},
   },
