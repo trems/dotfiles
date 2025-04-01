@@ -9,7 +9,7 @@ return {
   {
     "folke/which-key.nvim",
     opts = function(_, opts)
-      local lmu = require("langmapper.utils")
+      local lmu = require("langmapper.utils").translate_keycode(lhs, to_lang, from_lang?)
       local wk_state = require("which-key.state")
       local check_orig = wk_state.check
 
