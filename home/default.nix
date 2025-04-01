@@ -53,6 +53,7 @@ in
     ./fd
     ./eza
     ./k9s
+    ./direnv
 
     #services
     ./git-sync
