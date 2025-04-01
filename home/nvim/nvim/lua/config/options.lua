@@ -5,6 +5,8 @@ vim.o.wrap = true
 vim.o.virtualedit = "block,onemore"
 vim.o.spelllang = "en,ru"
 vim.o.spelloptions = "camel"
+vim.o.langmap =
+  "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ, фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
 
 if vim.g.neovide then
   vim.g.neovide_text_gamma = 0.1
