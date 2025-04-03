@@ -6,7 +6,7 @@ return {
     -- end,
     opts = {
       servers = {
-        protols = {},
+        buf_ls = {},
         gopls = {
           mason = false, -- use binary from PATH
           settings = {
