@@ -10,10 +10,10 @@ end
 local hops = {}
 
 return {
-  -- "backdround/neowords.nvim",
-  -- config = function()
-  --   hops = get_hops()
-  -- end,
+  "backdround/neowords.nvim",
+  config = function()
+    hops = get_hops()
+  end,
   keys = {
     {
       "w",
