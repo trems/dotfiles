@@ -11,6 +11,7 @@ local hops = {}
 
 return {
   "backdround/neowords.nvim",
+  lazy = false,
   config = function()
     hops = get_hops()
   end,
