@@ -19,7 +19,7 @@ return {
           enabled = true,
           init_options = {
             -- override command because default nvim-lspconfig config now use command for golangci-lint v2
-            command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
+            -- command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
           },
         },
         nil_ls = {},
