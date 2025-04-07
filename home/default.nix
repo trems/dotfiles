@@ -53,7 +53,9 @@ in
     ./fd
     ./eza
     ./k9s
+    ./kube
     ./direnv
+    ./karabiner
 
     #services
     ./git-sync

@@ -18,6 +18,9 @@ in
     interactiveShellInit = ''
       fish_vi_key_bindings
     '';
+    shellAliases = {
+      vi = "nvim";
+    };
   };
 
   xdg.configFile."fish/functions/fish_prompt.fish".source =

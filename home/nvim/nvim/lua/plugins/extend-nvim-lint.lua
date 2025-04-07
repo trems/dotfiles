@@ -5,7 +5,7 @@ return {
       linters_by_ft = {
         ["proto"] = { "buf_lint" },
         ["sql"] = { "sqlfluff" },
-        ["go"] = { "golangcilint" },
+        -- ["go"] = { "golangcilint" },
       },
       linters = {
         sqlfluff = {
