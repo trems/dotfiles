@@ -2,9 +2,9 @@ local function get_hops()
   local neowords = require("neowords")
   local p = neowords.pattern_presets
 
-  local h = neowords.get_word_hops(p.snake_case, p.camel_case, p.upper_case, p.number, p.hex_color, "\\v\\.+", "\\v,+")
-
-  return h
+  -- local h = neowords.get_word_hops(p.snake_case, p.camel_case, p.upper_case, p.number, p.hex_color, "\\v\\.+", "\\v,+")
+  --
+  -- return h
 end
 
 local hops = {}
