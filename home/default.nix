@@ -19,6 +19,7 @@ in
     packages = with pkgs; [
       harper
       micro
+      grpcurl
       hysteria
 
       go-task
