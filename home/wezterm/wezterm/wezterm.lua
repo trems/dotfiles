@@ -12,7 +12,6 @@ config = {
 	default_domain = "local",
 	default_workspace = "home",
 	set_environment_variables = {},
-	-- term = "wezterm",
 	enable_kitty_keyboard = false,
 	front_end = "WebGpu",
 	quick_select_patterns = {
