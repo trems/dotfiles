@@ -20,7 +20,7 @@ in
       harper
       micro
       grpcurl
-      psql
+      postgresql
       hysteria
 
       go-task
