@@ -11,7 +11,10 @@
     enable = true;
     enableFishIntegration = true;
     git = true;
-    extraOptions = [ ];
+    extraOptions = [
+      "--group-directories-first"
+      "--total-size"
+    ];
   };
 
 }
