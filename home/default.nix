@@ -32,11 +32,11 @@ in
       gopls
 
       nixfmt-rfc-style
+      golangci-lint
 
       go
       nodejs_23
 
-      golangci-lint
     ];
   };
   xdg.enable = true;
