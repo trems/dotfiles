@@ -35,5 +35,6 @@ return {
   },
   {
     "folke/snacks.nvim",
+    opts = function(_, opts) end,
   },
 }
