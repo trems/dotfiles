@@ -36,6 +36,15 @@ return {
   {
     "folke/snacks.nvim",
     optional = true,
-    opts = function(_, opts) end,
+    opts = function(_, _)
+      local translate_key = require("langmapper.utils").translate_keycode
+      local normkey_orig = Snacks.util.normkey
+      Snacks.util.normkey = function(key)
+        if key then
+          key = translate_key(key, "default", "ru")
+        end
+        return normkey_orig(key)
+      end
+    end,
   },
 }
