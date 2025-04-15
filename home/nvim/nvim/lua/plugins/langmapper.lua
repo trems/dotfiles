@@ -33,4 +33,7 @@ return {
       end
     end,
   },
+  {
+    "folke/snacks.nvim",
+  },
 }
