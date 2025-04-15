@@ -11,7 +11,7 @@ return {
     opts = function(_, opts)
       local translate_key = require("langmapper.utils").translate_keycode
       local wk_state = require("which-key.state")
-      local check_orig = wk_state.check
+      -- local check_orig = wk_state.check
 
       -- wk_state.check = function(state, key) ---@diagnostic disable-line: duplicate-set-field
       --   if key ~= nil then
