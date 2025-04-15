@@ -1,13 +1,5 @@
 return {
-  -- {
-  --   "folke/flash.nvim",
-  --   opts = {
-  --     labels = function()
-  --       return "йцукенг"
-  --     end,
-  --   },
   "folke/flash.nvim",
-  event = "VeryLazy",
   config = function()
     local flash = require("flash")
     local langmapper = require("langmapper")
