@@ -27,5 +27,5 @@ return {
     local opts = { modes = { char = { enabled = false } } }
 
     flash.setup(opts)
-  end, -- },
+  end,
 }
