@@ -18,6 +18,10 @@ return {
             hidden = true,
             ignored = true,
             exclude = { ".git", "vendor" },
+            layout = {
+              preset = "default",
+              preview = false,
+            },
           },
 
           grep = {
