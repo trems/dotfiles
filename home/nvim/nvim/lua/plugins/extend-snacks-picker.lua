@@ -90,7 +90,7 @@ return {
             layout = {
               preset = "sidebar",
               preview = "main",
-              auto_hide = "input"},
+              auto_hide = { "input" },
             },
             actions = {
               copy_file_path = { action = explorer_copy_file_path },
