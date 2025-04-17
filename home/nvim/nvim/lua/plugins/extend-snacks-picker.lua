@@ -19,8 +19,8 @@ return {
             ignored = true,
             exclude = { ".git", "vendor" },
             layout = {
-              preset = "sidebar",
-              preview = false,
+              preset = "default",
+              preview = true,
             },
           },
 
