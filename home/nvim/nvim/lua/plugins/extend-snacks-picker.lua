@@ -111,9 +111,7 @@ return {
               preview = true,
             },
             actions = {
-              copy_file_path = {
-                action = explorer_copy_file_path,
-              },
+              copy_file_path = { action = explorer_copy_file_path },
               find_in_directory = { action = explorer_find_in_directory },
               diff = { action = explorer_diff },
             },
