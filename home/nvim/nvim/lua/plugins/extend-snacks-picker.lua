@@ -1,4 +1,4 @@
-local copy_file_path = function(_, item)
+local explorer_copy_file_path = function(_, item)
   if not item then
     return
   end
@@ -62,7 +62,7 @@ return {
             },
             actions = {
               copy_file_path = {
-                action = copy_file_path(_, item),
+                action = explorer_copy_file_path,
               },
             },
           },
