@@ -23,6 +23,11 @@ return {
               preset = "sidebar",
               preview = true,
             },
+            actions = {
+              copy_file_path = {
+                action = function() end,
+              },
+            },
           },
 
           grep = {
