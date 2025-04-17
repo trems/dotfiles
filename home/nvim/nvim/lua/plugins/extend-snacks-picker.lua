@@ -20,7 +20,7 @@ return {
             ignored = true,
             exclude = { ".git", "vendor" },
             layout = {
-              preset = "select",
+              preset = "sidebat",
               preview = true,
             },
           },
