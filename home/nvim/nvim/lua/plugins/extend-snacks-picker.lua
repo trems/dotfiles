@@ -20,7 +20,7 @@ return {
             ignored = true,
             exclude = { ".git", "vendor" },
             layout = {
-              preset = "ivy_split",
+              preset = "vscode",
               preview = true,
             },
           },
