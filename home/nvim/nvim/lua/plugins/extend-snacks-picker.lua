@@ -100,7 +100,7 @@ return {
               copy_file_path = {
                 action = explorer_copy_file_path,
               },
-              find_in_directory = { action = explorer_find_in_directory,
+              find_in_directory = { action = explorer_find_in_directory },
             },
           },
 
