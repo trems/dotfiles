@@ -103,6 +103,15 @@ return {
               find_in_directory = { action = explorer_find_in_directory },
               diff = { action = explorer_diff },
             },
+            win = {
+              list = {
+                keys = {
+                  ["y"] = "copy_file_path",
+                  ["s"] = "search_in_directory",
+                  ["D"] = "diff",
+                },
+              },
+            },
           },
 
           grep = {
