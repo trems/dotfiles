@@ -100,7 +100,7 @@ return {
               list = {
                 keys = {
                   ["y"] = "copy_file_path",
-                  ["s"] = "find_in_directory",
+                  ["f"] = "find_in_directory",
                   ["D"] = "diff",
                 },
               },
