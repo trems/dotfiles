@@ -83,7 +83,7 @@ return {
             hidden = true,
           },
           explorer = {
-            auto_close = true,
+            auto_close = false,
             hidden = true,
             ignored = true,
             exclude = { ".git", "vendor" },
