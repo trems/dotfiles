@@ -52,8 +52,8 @@ return {
         -- { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
         -- { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
         -- Grep
-        { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
-        { "<leader>sg", LazyVim.pick("live_grep", {}), desc = "Grep (Root Dir)" },
+        -- { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
+        -- { "<leader>sg", LazyVim.pick("live_grep", {}), desc = "Grep (Root Dir)" },
         { "<leader>sG", function() Snacks.picker.grep({ dirs = { vim.fn.expand("%:p:h") }}) end, desc = "Grep (current buf dir)" },
         -- { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
         -- search
