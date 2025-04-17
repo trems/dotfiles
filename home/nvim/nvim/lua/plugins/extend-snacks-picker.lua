@@ -44,7 +44,7 @@ local explorer_find_in_directory = function(_, item)
   local dir = vim.fn.fnamemodify(item.file, ":p:h")
   Snacks.picker.grep({
     cwd = dir,
-    cmd = "rg",
+    -- cmd = "rg",
     -- args = {
     --   "-g",
     --   "!.git",
@@ -100,7 +100,7 @@ return {
               copy_file_path = {
                 action = explorer_copy_file_path,
               },
-              find_in_directory = explorer_find_in_directory,
+              find_in_directory = { action = explorer_find_in_directory,
             },
           },
 
