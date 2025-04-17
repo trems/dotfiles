@@ -89,7 +89,7 @@ return {
             exclude = { ".git", "vendor" },
             layout = {
               preset = "sidebar",
-              preview = true,
+              preview = "main",
             },
             actions = {
               copy_file_path = { action = explorer_copy_file_path },
