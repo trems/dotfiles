@@ -37,6 +37,40 @@ local explorer_copy_file_path = function(_, item)
   end)
 end
 
+local explorer_find_in_directory = function(_, item)
+                  if not item then
+                    return
+                  end
+                  local dir = vim.fn.fnamemodify(item.file, ":p:h")
+                  Snacks.picker.grep({
+                    cwd = dir,
+                    cmd = "rg",
+                    args = {
+                      "-g",
+                      "!.git",
+                      "-g",
+                      "!node_modules",
+                      "-g",
+                      "!dist",
+                      "-g",
+                      "!build",
+                      "-g",
+                      "!coverage",
+                      "-g",
+                      "!.DS_Store",
+                      "-g",
+                      "!.docusaurus",
+                      "-g",
+                      "!.dart_tool",
+                    },
+                    show_empty = true,
+                    hidden = true,
+                    ignored = true,
+                    follow = false,
+                    supports_live = true,
+                  })
+                end,
+
 return {
   {
     "folke/snacks.nvim",
