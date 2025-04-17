@@ -84,6 +84,7 @@ local explorer_diff = function(picker)
 
   Snacks.notify.info("Select two entries for the diff")
 end
+
 return {
   {
     "folke/snacks.nvim",
