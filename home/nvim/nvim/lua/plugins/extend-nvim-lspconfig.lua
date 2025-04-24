@@ -24,6 +24,9 @@ return {
         },
         nil_ls = {},
         nixd = {},
+        clangd = {
+          filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }, -- exclude "proto"
+        },
       },
       setup = {
         gopls = function(_, _)
