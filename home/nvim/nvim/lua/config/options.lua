@@ -3,6 +3,7 @@
 -- Add any additional options here
 vim.o.wrap = true
 vim.o.virtualedit = "block,onemore"
+vim.g.vim_json_conceal = 0
 vim.o.spelllang = "en,ru"
 vim.o.spelloptions = "camel"
 
