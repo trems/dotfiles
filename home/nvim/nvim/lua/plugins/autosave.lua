@@ -1,15 +1,12 @@
 return {
-  "Pocco81/auto-save.nvim",
-  lazy = false,
+  "okuuva/auto-save.nvim",
+  version = "*",
+  cmd = "ASToggle",
+  event = { "InsertLeave", "TextChanged" },
   opts = {
-    debounce_delay = 500,
-    execution_message = {
-      message = function()
-        return ""
-      end,
-    },
+    debounce_delay = 2000,
   },
   keys = {
-    { "<Leader>uv", "<cmd>ASToggle<CR>", desc = "Toggle AutoSave" },
+    { "<Leader>uv", "<cmd>ASToggle<CR>", desc = "Toggle Auto-Save" },
   },
 }

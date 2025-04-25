@@ -42,9 +42,9 @@ return {
               return ctx.trigger.initial_kind ~= "trigger_character"
             end,
           },
-          codeium = {
-            max_items = 3,
-          },
+          -- codeium = {
+          --   max_items = 3,
+          -- },
         },
       },
     },
