@@ -35,6 +35,8 @@ in
 
       go
       nodejs_24
+
+      aider-chat
     ];
   };
   xdg.enable = true;
