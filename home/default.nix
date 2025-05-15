@@ -17,7 +17,6 @@ in
     sessionVariables = { }; # environment variables
 
     packages = with pkgs; [
-      harper
       micro
       grpcurl
       postgresql
@@ -35,8 +34,7 @@ in
       golangci-lint
 
       go
-      nodejs_23
-
+      nodejs_24
     ];
   };
   xdg.enable = true;
