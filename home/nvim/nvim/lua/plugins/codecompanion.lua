@@ -21,7 +21,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     opts = function(_, opts)
-      local current_adapter = "openrouter"
+      local current_adapter = "lm_studio"
       opts.strategies = {
         chat = {
           adapter = current_adapter,
