@@ -19,6 +19,7 @@ in
     packages = with pkgs; [
       micro
       grpcurl
+      s3cmd
       postgresql
       hysteria
 
