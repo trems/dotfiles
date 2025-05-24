@@ -20,6 +20,7 @@ in
       micro
       grpcurl
       s3cmd
+      imagemagick
       postgresql
       hysteria
 
