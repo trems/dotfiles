@@ -13,6 +13,7 @@
       core = {
         autocrlf = "input";
       };
+      rebase.
       push.autoSetupRemote = true;
     };
     includes = [
