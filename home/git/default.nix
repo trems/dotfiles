@@ -13,7 +13,7 @@
       core = {
         autocrlf = "input";
       };
-      rebase.auto
+      rebase.autoStash = true;
       push.autoSetupRemote = true;
     };
     includes = [
