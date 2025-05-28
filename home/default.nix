@@ -21,6 +21,7 @@ in
       grpcurl
       s3cmd
       imagemagick
+      tokei
       postgresql
       hysteria
 
