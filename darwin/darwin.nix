@@ -32,7 +32,7 @@
   ];
 
   homebrew = {
-    enable = false;
+    enable = true;
     brews = [ ];
     casks = [ ];
     taps = [ ];
