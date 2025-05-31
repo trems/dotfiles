@@ -22,6 +22,7 @@ in
       s3cmd
       imagemagick
       tokei
+      tdf
       postgresql
       hysteria
 
