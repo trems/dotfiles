@@ -21,7 +21,6 @@ in
       grpcurl
       s3cmd
       imagemagick
-      pdfstudioviewer
       tokei
       postgresql
       hysteria
