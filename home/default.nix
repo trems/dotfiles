@@ -38,6 +38,7 @@ in
       golangci-lint
 
       go
+      rustup
       nodejs_24
 
       aider-chat
