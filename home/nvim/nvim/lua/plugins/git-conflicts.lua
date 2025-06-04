@@ -2,6 +2,7 @@ return {
   "akinsho/git-conflict.nvim",
   lazy = false,
   version = "*",
+  config = true,
   opts = {
     default_mappings = {
       ours = "<leader>ho",
