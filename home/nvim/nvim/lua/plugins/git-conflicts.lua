@@ -1,7 +1,8 @@
 return {
   "akinsho/git-conflict.nvim",
   -- lazy = false,
-  tag = "v2.1.0",
+  -- tag = "v2.1.0",
+  commit = "4bbfdd9",
   config = true,
   opts = {
     default_mappings = {
