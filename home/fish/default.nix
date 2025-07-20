@@ -25,6 +25,7 @@ in
     interactiveShellInit = ''
       fish_vi_key_bindings
       envsource ~/.env
+      npm config set prefix '~/npm-packages' && fish_add_path '~/npm-packages/bin' && set -U NODE_PATH ~/.npm-packages/lib/node_modules
     '';
     shellAliases = {
       v = "nvim";

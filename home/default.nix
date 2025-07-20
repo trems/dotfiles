@@ -27,7 +27,6 @@ in
 
       go-task
       gnumake
-      # cargo
 
       nixd
       nil
