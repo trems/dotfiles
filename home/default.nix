@@ -13,7 +13,10 @@ in
   _module.args = { inherit mkMutableSymlink dotfiles; };
   home = {
     stateVersion = "25.05";
-    sessionPath = [ "$HOME/.cargo/bin" ]; # Extra directories to prepend to PATH, e.g. "$HOME/.local/bin" or "\${xdg.configHome}/emacs/bin"
+    sessionPath = [
+      "$HOME/.cargo/bin"
+      "$HOME/go/bin"
+    ]; # Extra directories to prepend to PATH, e.g. "$HOME/.local/bin" or "\${xdg.configHome}/emacs/bin"
     sessionVariables = { }; # environment variables
 
     packages = with pkgs; [

@@ -82,16 +82,18 @@ function module.apply_to_config(config)
 		-- Time
 		local time = wez.strftime("%H:%M")
 
+		local separator = { Text = " | " }
+
 		window:set_right_status(wez.format({
 			{ Background = { Color = stat_bg_color } },
 			cwd and { Text = nf.md_folder .. " " .. cwd },
-			{ Text = " | " },
+			separator,
 			cmd,
-			{ Text = " | " },
+			separator,
 			{ Foreground = { Color = battery.color } },
 			{ Text = battery.icon .. " " .. battery.text },
 			"ResetAttributes",
-			{ Text = " | " },
+			separator,
 			{ Text = nf.md_clock .. " " .. time },
 			{ Text = "  " },
 		}))
