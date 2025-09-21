@@ -40,6 +40,7 @@
   };
   services = { };
   system = {
+    primaryUser = "msharashin";
     defaults = {
       NSGlobalDomain = {
         ApplePressAndHoldEnabled = false;
