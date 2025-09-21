@@ -1,5 +1,5 @@
 return {
-  "mini-nvim/mini.files",
+  "nvim-mini/mini.files",
   enabled = false,
   keys = {
     {
