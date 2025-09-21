@@ -34,6 +34,7 @@ in
       nixd
       nil
       gopls
+      tree-sitter
 
       nixfmt-rfc-style
       golangci-lint
