@@ -22,15 +22,15 @@ config = {
 	debug_key_events = true,
 }
 
--- if next(wez.battery_info()) ~= nil then
--- 	local b = wez.battery_info()[1]
--- 	if b.state == "Discharging" or b.state == "Empty" then
--- 		config.webgpu_power_preference = "LowPower"
--- 		config.animation_fps = 1
--- 	else
--- 		config.webgpu_power_preference = "HighPerformance"
--- 	end
--- end
+if next(wez.battery_info()) ~= nil then
+	local b = wez.battery_info()[1]
+	if b.state == "Discharging" or b.state == "Empty" then
+		config.webgpu_power_preference = "LowPower"
+		config.animation_fps = 1
+	else
+		config.webgpu_power_preference = "HighPerformance"
+	end
+end
 
 local currDir = (...):match("(.-)[^%.]+$")
 require(currDir .. "keys").apply_to_config(config)
