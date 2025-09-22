@@ -15,7 +15,7 @@ config = {
 	enable_kitty_keyboard = false,
 	-- front_end = "OpenGL",
 	front_end = "WebGpu",
-	webgpu_power_preference = "HighPerformance",
+	webgpu_power_preference = "LowPower",
 	quick_select_patterns = {
 		"v[0-9]+.+", -- golang version tag from 'git describe'
 	},
