@@ -14,6 +14,7 @@ config = {
 	set_environment_variables = {},
 	enable_kitty_keyboard = false,
 	front_end = "WebGpu",
+	webgpu_power_preference = "HighPerformance",
 	quick_select_patterns = {
 		"v[0-9]+.+", -- golang version tag from 'git describe'
 	},
