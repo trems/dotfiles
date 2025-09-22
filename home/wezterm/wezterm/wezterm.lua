@@ -13,7 +13,6 @@ config = {
 	default_workspace = "home",
 	set_environment_variables = {},
 	enable_kitty_keyboard = false,
-	-- front_end = "OpenGL",
 	front_end = "WebGpu",
 	webgpu_power_preference = "LowPower",
 	quick_select_patterns = {
