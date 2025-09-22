@@ -24,7 +24,7 @@ if next(wez.battery_info()) ~= nil then
 	local b = wez.battery_info()[1]
 	if b.state == "Discharging" or b.state == "Empty" then
 		config.webgpu_power_preference = "LowPower"
-		-- config.animation_fps = 1
+		config.animation_fps = 1
 	else
 		config.webgpu_power_preference = "HighPerformance"
 	end
