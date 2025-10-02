@@ -9,7 +9,9 @@
 {
   services.syncthing = {
     enable = true;
-    tray = false; # not supported on macos
+    tray = {
+      enable = false;
+    };
     guiAddress = "127.0.0.1:8384";
     settings = {
       devices = {

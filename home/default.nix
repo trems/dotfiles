@@ -39,7 +39,6 @@ in
       nixfmt-rfc-style
       golangci-lint
 
-      go
       rustup
       nodejs_24
 
@@ -65,6 +64,7 @@ in
     ./kube
     ./direnv
     ./karabiner
+    ./golang
 
     #services
     ./git-sync

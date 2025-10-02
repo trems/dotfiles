@@ -1,4 +1,4 @@
-return {} or {
+return {
   {
     "karb94/neoscroll.nvim",
     opts = {},

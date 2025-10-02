@@ -12,6 +12,12 @@ return {
           settings = {
             gopls = {
               usePlaceholders = false,
+              analyses = {
+                ["ST1000"] = false, -- package comments
+              },
+              hints = {
+                ["ignoredError"] = true,
+              },
             },
           },
         },
