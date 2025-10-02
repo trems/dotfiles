@@ -9,7 +9,7 @@
   programs.go = {
     enable = true;
     env = {
-      GOPRIVATE = ""
+      GOPRIVATE = "git.ucb.local";
     };
   };
 }
