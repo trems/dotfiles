@@ -65,6 +65,7 @@ return {
         ucb_ollama = function()
           return require("codecompanion.adapters").extend("ollama", {
             name = "ucb_ollama",
+            formatted_name = "UCB Ollama",
             env = {
               url = vim.env.UCB_OLLAMA_URL,
               api_key = "no_key",
