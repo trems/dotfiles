@@ -10,7 +10,7 @@ function module.apply_to_config(config)
 	config.prefer_to_spawn_tabs = true
 	config.window_background_opacity = 1.0
 	config.window_decorations = "TITLE | RESIZE"
-	config.window_padding = { left = 0, right = 0, top = 0, bottom = 1 }
+	config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 	config.inactive_pane_hsb = { saturation = 0.3, brightness = 0.5 }
 	config.foreground_text_hsb = { brightness = 1.3, saturation = 1.00 }
 
