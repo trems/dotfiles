@@ -36,10 +36,10 @@ function module.apply_to_config(config)
 			title = pane.title
 		end
 		local domain = ""
-		title = tab.tab_index + 1 .. ":" .. title
 		if pane.domain_name and pane.domain_name ~= "local" then
 			domain = "(" .. pane.domain_name .. ")"
 		end
+		title = tab.tab_index + 1 .. ":" .. title
 
 		local edge_background = bg_dark
 		local background = bg_dark
