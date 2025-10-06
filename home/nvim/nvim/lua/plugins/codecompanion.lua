@@ -78,18 +78,18 @@ return {
         end,
       }
     end,
-    -- keys = {
-    --   { "<leader>a", "", desc = "+companion", mode = { "n", "v" } },
-    --   {
-    --     "<leader>am",
-    --     function()
-    --       select_model()
-    --     end,
-    --     desc = "CC Select model",
-    --     mode = { "n", "v" },
-    --   },
-    --   { "<leader>ac", "<cmd>CodeCompanionChat<CR>", desc = "CC Chat", mode = { "n", "v" } },
-    --   { "<leader>aa", "<cmd>CodeCompanionActions<CR>", desc = "CC Actions", mode = { "n", "v" } },
-    -- },
+    keys = {
+      { "<leader>a", "", desc = "+companion", mode = { "n", "v" } },
+      {
+        "<leader>am",
+        function()
+          select_model()
+        end,
+        desc = "CC Select model",
+        mode = { "n", "v" },
+      },
+      { "<leader>ac", "<cmd>CodeCompanionChat<CR>", desc = "CC Chat", mode = { "n", "v" } },
+      { "<leader>aa", "<cmd>CodeCompanionActions<CR>", desc = "CC Actions", mode = { "n", "v" } },
+    },
   },
 }
