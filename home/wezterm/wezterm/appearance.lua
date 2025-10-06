@@ -26,7 +26,11 @@ function module.apply_to_config(config)
 	config.use_fancy_tab_bar = false
 	config.tab_max_width = 25
 
-  config.colors.
+  config.colors = {
+    tab_bar = {
+      new_tab = 
+    }
+  }
 
 	config.tab_bar_style = {
 		new_tab_left = wez.format({
