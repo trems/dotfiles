@@ -18,6 +18,7 @@ config = {
 		"v[0-9]+.+", -- golang version tag from 'git describe'
 	},
 	debug_key_events = true,
+  mouse_wheel_scrolls_tabs = false,
 }
 
 -- if next(wez.battery_info()) ~= nil then
