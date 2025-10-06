@@ -58,7 +58,7 @@ function module.apply_to_config(config)
 		end
 
 		local edge_background = bg_dark
-		local background = "#1b1032"
+		local background = bg
 		local foreground = "#808080"
 
 		if tab.is_active then
