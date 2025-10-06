@@ -95,7 +95,7 @@ function module.apply_to_config(config)
 			"ResetAttributes",
 			separator,
 			{ Text = nf.md_clock .. " " .. time },
-			{ Text = "  " },
+			{ Text = " " },
 		}))
 	end)
 end
