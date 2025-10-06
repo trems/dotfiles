@@ -60,11 +60,11 @@ function module.apply_to_config(config)
 		title = wez.truncate_right(title, max_width - 2)
 		local edge_foreground = background
 		return {
-			-- { Background = { Color = edge_background } },
-			-- { Foreground = { Color = edge_foreground } },
+			{ Background = { Color = edge_background } },
+			{ Foreground = { Color = edge_foreground } },
 			{ Text = wez.nerdfonts.pl_right_hard_divider },
-			-- { Background = { Color = background } },
-			-- { Foreground = { Color = foreground } },
+			{ Background = { Color = background } },
+			{ Foreground = { Color = foreground } },
 			{ Text = title },
 			{ Background = { Color = edge_background } },
 			{ Foreground = { Color = edge_foreground } },
