@@ -24,9 +24,9 @@ function module.apply_to_config(config)
 		inactive_titlebar_bg = bg_dark,
 	}
 
+	config.use_fancy_tab_bar = false
 	config.tab_max_width = 25
 
-	config.use_fancy_tab_bar = false
 	wez.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 		local pane = tab.active_pane
 		local title = ""
@@ -35,8 +35,10 @@ function module.apply_to_config(config)
 		else
 			title = pane.title
 		end
+		local domain = ""
 		title = tab.tab_index + 1 .. ":" .. title
 		if pane.domain_name and pane.domain_name ~= "local" then
+			domain = "(" .. pane.domain_name .. ")"
 			title = title .. "(" .. pane.domain_name .. ")"
 		end
 
