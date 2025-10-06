@@ -28,9 +28,9 @@ function module.apply_to_config(config)
 	config.tab_max_width = 25
 
 	config.tab_bar_style = {
-		new_tab_left = wez.format {
-      Background =
-    },
+		new_tab_left = wez.format({
+			Background = { Color = "white" },
+		}),
 	}
 
 	wez.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
