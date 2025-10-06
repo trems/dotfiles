@@ -69,6 +69,19 @@ function module.apply_to_config(config)
 		end
 
 		local edge_foreground = background
+return {
+				{ Background = { Color = edge_background } },
+				{ Foreground = { Color = edge_foreground } },
+				{ Text = SOLID_LEFT_ARROW },
+				{ Background = { Color = background } },
+				{ Foreground = { Color = foreground } },
+				{ Text = title },
+				{ Background = { Color = edge_background } },
+				{ Foreground = { Color = edge_foreground } },
+				{ Text = SOLID_RIGHT_ARROW },
+				-- { Text = SOLID_LEFT_ARROW },
+				-- { Text = title },
+			}
 
 		if tab.is_active then
 			return {
