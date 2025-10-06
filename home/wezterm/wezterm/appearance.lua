@@ -65,7 +65,7 @@ function module.apply_to_config(config)
 			background = bg --"#2b2042"
 			foreground = "white" --"#c0c0c0"
 		elseif hover then
-			background = bg:lighten(0.3)
+			background = bg:lighten(0.1)
 			foreground = "#909090"
 		end
 
