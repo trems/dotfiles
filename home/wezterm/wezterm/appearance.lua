@@ -68,7 +68,7 @@ function module.apply_to_config(config)
 			foreground = "#909090"
 		end
 
-		title = wezterm.truncate_right(title, max_width - 2)
+		title = wez.truncate_right(title, max_width - 2)
 		local edge_foreground = background
 		return {
 			{ Background = { Color = edge_background } },
