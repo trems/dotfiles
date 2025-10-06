@@ -14,7 +14,6 @@ function module.apply_to_config(config)
 	config.inactive_pane_hsb = { saturation = 0.3, brightness = 0.5 }
 	config.foreground_text_hsb = { brightness = 1.3, saturation = 1.00 }
 
-
 	config.colors = wez.color.get_builtin_schemes()[config.color_scheme]
 	local bg = wez.color.parse(config.colors.background)
 	local bg_dark = bg:darken(0.3)
@@ -36,27 +35,27 @@ function module.apply_to_config(config)
 		},
 	}
 
-	wez.on("format-tab-title", function(tab)
-		local pane = tab.active_pane
-		local title = ""
-		if tab.tab_title and #tab.tab_title > 0 then -- if tab title was explicitly set
-			title = tab.tab_title
-		else
-			title = pane.title
-		end
-		title = tab.tab_index + 1 .. ". " .. title
-		if pane.domain_name and pane.domain_name ~= "local" then
-			title = title .. " (" .. pane.domain_name .. ")"
-		end
-
-		if tab.is_active then
-			return {
-				-- { Background = { Color = color } },
-				{ Text = title },
-			}
-		end
-		return title
-	end)
+	-- wez.on("format-tab-title", function(tab)
+	-- 	local pane = tab.active_pane
+	-- 	local title = ""
+	-- 	if tab.tab_title and #tab.tab_title > 0 then -- if tab title was explicitly set
+	-- 		title = tab.tab_title
+	-- 	else
+	-- 		title = pane.title
+	-- 	end
+	-- 	title = tab.tab_index + 1 .. ". " .. title
+	-- 	if pane.domain_name and pane.domain_name ~= "local" then
+	-- 		title = title .. " (" .. pane.domain_name .. ")"
+	-- 	end
+	--
+	-- 	if tab.is_active then
+	-- 		return {
+	-- 			-- { Background = { Color = color } },
+	-- 			{ Text = title },
+	-- 		}
+	-- 	end
+	-- 	return title
+	-- end)
 end
 
 return module
