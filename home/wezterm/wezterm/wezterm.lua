@@ -19,7 +19,7 @@ config = {
 	},
 	debug_key_events = true,
 	mouse_wheel_scrolls_tabs = false,
-	alternate_buffer_wheel_scroll_speed = 0,
+	alternate_buffer_wheel_scroll_speed = 1,
 }
 
 -- if next(wez.battery_info()) ~= nil then
