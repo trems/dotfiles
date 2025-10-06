@@ -62,7 +62,7 @@ return {
             },
           })
         end,
-        ollama = function()
+        ucb_ollama = function()
           return require("codecompanion.adapters").extend("ollama", {
             env = {
               url = "https://my_ollama_url",
