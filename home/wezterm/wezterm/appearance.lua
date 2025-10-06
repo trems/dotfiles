@@ -31,7 +31,7 @@ function module.apply_to_config(config)
 		active_tab = {
 			bg_color = bg,
 			fg_color = "#f1f1f1",
-			intensity = "Bold",
+			intensity = "Half",
 		},
 		inactive_tab = {
 			bg_color = bg_dark,
