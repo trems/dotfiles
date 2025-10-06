@@ -31,8 +31,8 @@ function module.apply_to_config(config)
 		tab_bar = {
 			background = bg,
 			active_tab = {
-        
-      },
+				fg_color = "white",
+			},
 			new_tab = {
 				fg_color = "white",
 			},
