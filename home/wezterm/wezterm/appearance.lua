@@ -37,9 +37,6 @@ function module.apply_to_config(config)
 	-- }
 	config.tab_max_width = 25
 
-	-- The filled in variant of the < symbol
-	local SOLID_LEFT_ARROW = 
-
 	-- The filled in variant of the > symbol
 	local SOLID_RIGHT_ARROW = wez.nerdfonts.pl_left_hard_divider
 
@@ -75,7 +72,7 @@ function module.apply_to_config(config)
 		return {
 			{ Background = { Color = edge_background } },
 			{ Foreground = { Color = edge_foreground } },
-			{ Text = SOLID_LEFT_ARROW },
+			{ Text = wez.nerdfonts.pl_right_hard_divider },
 			{ Background = { Color = background } },
 			{ Foreground = { Color = foreground } },
 			{ Text = title },
