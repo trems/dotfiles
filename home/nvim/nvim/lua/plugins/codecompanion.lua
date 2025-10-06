@@ -65,7 +65,7 @@ return {
         ucb_ollama = function()
           return require("codecompanion.adapters").extend("ollama", {
             env = {
-              url = "https://my_ollama_url",
+              url = "http://khd-llm-app01.ipa.dev.ucb.local:11434",
               api_key = "OLLAMA_API_KEY",
             },
             headers = {
