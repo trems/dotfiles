@@ -66,7 +66,7 @@ return {
           return require("codecompanion.adapters").extend("ollama", {
             name = "ucb_ollama",
             env = {
-              url = "UCB_OLLAMA_URL",
+              url = vim.env.UCB_OLLAMA_URL,
               api_key = "no_key",
             },
             headers = {
