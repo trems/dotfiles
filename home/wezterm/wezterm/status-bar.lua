@@ -62,7 +62,7 @@ function module.apply_to_config(config)
 			{ Foreground = { Color = stat_fg_color } },
 			{ Text = "  " },
 			{ Text = nf.oct_table .. "  " .. stat },
-			{ Text = " |" },
+			{ Text = "|" },
 		}))
 
 		-- Current working directory
