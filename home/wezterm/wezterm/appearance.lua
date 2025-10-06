@@ -75,8 +75,6 @@ function module.apply_to_config(config)
 			{ Background = { Color = edge_background } },
 			{ Foreground = { Color = edge_foreground } },
 			{ Text = wez.nerdfonts.pl_left_hard_divider },
-			-- { Text = SOLID_LEFT_ARROW },
-			-- { Text = title },
 		}
 
 		-- if tab.is_active then
