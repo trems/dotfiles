@@ -26,16 +26,14 @@ function module.apply_to_config(config)
 	config.use_fancy_tab_bar = false
 	config.tab_max_width = 25
 
-	config.colors = {
+	config.colors.tab_bar = {
 
-		tab_bar = {
-			background = bg,
-			active_tab = {
-				fg_color = "white",
-			},
-			new_tab = {
-				fg_color = "white",
-			},
+		background = bg,
+		active_tab = {
+			fg_color = "white",
+		},
+		new_tab = {
+			fg_color = "white",
 		},
 	}
 
