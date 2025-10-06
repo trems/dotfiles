@@ -53,7 +53,7 @@ function module.apply_to_config(config)
 		else
 			title = pane.title
 		end
-		title = tab.tab_index + 1 .. ". " .. title
+		title = tab.tab_index + 1 .. "." .. title
 		if pane.domain_name and pane.domain_name ~= "local" then
 			title = title .. "(" .. pane.domain_name .. ")"
 		end
