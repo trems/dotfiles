@@ -60,7 +60,7 @@ function module.apply_to_config(config)
 		window:set_left_status(wez.format({
 			{ Background = { Color = stat_bg_color } },
 			{ Foreground = { Color = stat_fg_color } },
-			{ Text = "  " },
+			{ Text = " " },
 			{ Text = nf.oct_table .. "  " .. stat },
 			{ Text = "|" },
 		}))
