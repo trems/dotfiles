@@ -34,12 +34,12 @@ return {
         },
       }
 
-      local default_system_prompt = require("codecompanion.config").opts.system_prompt
+      -- local default_system_prompt = require("codecompanion.config").opts.system_prompt
       opts.opts = {
         -- language = "Russian",
-        system_prompt = function(opts)
-          return default_system_prompt(opts) .. "\n/no_think"
-        end,
+        -- system_prompt = function(opts)
+        --   return default_system_prompt(opts) .. "\n/no_think"
+        -- end,
       }
       opts.adapters = {
         opts = {
