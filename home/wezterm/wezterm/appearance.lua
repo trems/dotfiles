@@ -31,6 +31,10 @@ function module.apply_to_config(config)
 			Background = { Color = "white" },
 			Foreground = { Color = "white" },
 		}),
+		new_tab_left = wez.format({
+			Background = { Color = "white" },
+			Foreground = { Color = "white" },
+		}),
 	}
 
 	wez.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
