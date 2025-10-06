@@ -28,6 +28,9 @@ function module.apply_to_config(config)
 
 	config.colors = {
 		tab_bar = {
+      active_tab = {
+        
+      }
 			new_tab = {
 				fg_color = "white",
 			},
