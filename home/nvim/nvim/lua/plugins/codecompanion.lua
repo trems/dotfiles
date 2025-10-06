@@ -66,7 +66,7 @@ return {
           return require("codecompanion.adapters").extend("ollama", {
             env = {
               url = "http://khd-llm-app01.ipa.dev.ucb.local:11434",
-              api_key = "OLLAMA_API_KEY",
+              api_key = "no_key",
             },
             headers = {
               ["Content-Type"] = "application/json",
