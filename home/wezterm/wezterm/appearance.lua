@@ -34,7 +34,7 @@ function module.apply_to_config(config)
 	-- 		fg_color = "#808080",
 	-- 	},
 	-- }
-	config.tab_max_width = 30
+	config.tab_max_width = 25
 
 	-- The filled in variant of the < symbol
 	local SOLID_LEFT_ARROW = wez.nerdfonts.pl_right_hard_divider
@@ -57,7 +57,7 @@ function module.apply_to_config(config)
 			title = title .. " (" .. pane.domain_name .. ")"
 		end
 
-		local edge_background = "#0b0022"
+		local edge_background = bg
 		local background = "#1b1032"
 		local foreground = "#808080"
 
