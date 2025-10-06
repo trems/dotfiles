@@ -50,7 +50,7 @@ function module.apply_to_config(config)
 			foreground = "#f1f1f1"
 		elseif hover then
 			background = bg:darken(0.1)
-			foreground = fg:darken(0.1)
+			foreground = #cfcfcf
 		end
 
 		title = wez.truncate_right(title, max_width - 2)
