@@ -32,10 +32,10 @@ function module.apply_to_config(config)
 			bg_color = bg,
 			fg_color = "#f1f1f1",
 		},
-    inactive_tab = {
-      bg_color = bg_dark,
-      fg_color = ""
-    }
+		inactive_tab = {
+			bg_color = bg_dark,
+			fg_color = "#cfcfcf",
+		},
 		new_tab = {
 			bg_color = bg,
 			fg_color = "white",
