@@ -34,6 +34,7 @@ function module.apply_to_config(config)
 			fg_color = "white",
 		},
 		new_tab = {
+			bg_color = bg,
 			fg_color = "white",
 		},
 	}
