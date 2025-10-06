@@ -27,7 +27,7 @@ function module.apply_to_config(config)
 	config.tab_max_width = 25
 
 	config.colors.tab_bar = {
-		-- background = bg,
+		background = bg_dark,
 		active_tab = {
 			bg_color = bg,
 			fg_color = "#f1f1f1",
