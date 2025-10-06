@@ -47,7 +47,7 @@ config.tab_bar_style = {
     { Foreground = { Color = '#2b2042' } },
     { Text = SOLID_LEFT_ARROW },
   },
-  active_tab_right = wezterm.format {
+  active_tab_right = wez.format {
     { Background = { Color = '#0b0022' } },
     { Foreground = { Color = '#2b2042' } },
     { Text = SOLID_RIGHT_ARROW },
