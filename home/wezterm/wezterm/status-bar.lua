@@ -38,7 +38,7 @@ local function batteryStatus()
 end
 
 function module.apply_to_config(config)
-	local stat_bg_color = wez.color.parse(config.colors.background):darken(0.3)
+	local stat_bg_color = wez.color.parse(config.colors.background) --:darken(0.3)
 	-- configure status line (left and right sides of tab-bar)
 	-- Wezterm has a built-in nerd fonts
 	-- https://wezfurlong.org/wezterm/config/lua/wezterm/nerdfonts.html
