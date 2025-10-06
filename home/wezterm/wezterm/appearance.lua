@@ -35,6 +35,7 @@ function module.apply_to_config(config)
 		},
 	}
 
+	config.tab_bar_at_bottom = true
 	-- wez.on("format-tab-title", function(tab)
 	-- 	local pane = tab.active_pane
 	-- 	local title = ""
