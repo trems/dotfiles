@@ -26,16 +26,16 @@ function module.apply_to_config(config)
 	config.use_fancy_tab_bar = false
 	config.tab_max_width = 25
 
-	config.colors = {
-		tab_bar = {
-      active_tab = {
-        
-      }
-			new_tab = {
-				fg_color = "white",
-			},
-		},
-	}
+	-- config.colors = {
+	-- 	tab_bar = {
+	--      active_tab = {
+	--
+	--      }
+	-- 		new_tab = {
+	-- 			fg_color = "white",
+	-- 		},
+	-- 	},
+	-- }
 
 	wez.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 		local pane = tab.active_pane
