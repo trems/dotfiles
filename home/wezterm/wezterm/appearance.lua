@@ -57,7 +57,7 @@ function module.apply_to_config(config)
 			title = title .. " (" .. pane.domain_name .. ")"
 		end
 
-		local edge_background = bg
+		local edge_background = bg_dark
 		local background = "#1b1032"
 		local foreground = "#808080"
 
