@@ -23,17 +23,17 @@ function module.apply_to_config(config)
 		inactive_titlebar_bg = bg_dark,
 	}
 
-	config.colors.tab_bar = {
-		inactive_tab_edge = bg_dark,
-		active_tab = {
-			bg_color = bg,
-			fg_color = "#c0c0c0",
-		},
-		inactive_tab = {
-			bg_color = bg_dark,
-			fg_color = "#808080",
-		},
-	}
+	-- config.colors.tab_bar = {
+	-- 	inactive_tab_edge = bg_dark,
+	-- 	active_tab = {
+	-- 		bg_color = bg,
+	-- 		fg_color = "#c0c0c0",
+	-- 	},
+	-- 	inactive_tab = {
+	-- 		bg_color = bg_dark,
+	-- 		fg_color = "#808080",
+	-- 	},
+	-- }
 
 	-- The filled in variant of the < symbol
 	local SOLID_LEFT_ARROW = wez.nerdfonts.pl_right_hard_divider
