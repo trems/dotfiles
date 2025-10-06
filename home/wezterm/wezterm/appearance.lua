@@ -37,8 +37,8 @@ function module.apply_to_config(config)
 			bg_color = bg_dark,
 			fg_color = "grey",
 		},
-		inactive_tab = {
-			bg_color = bg_dark,
+		inactive_tab_hover = {
+			bg_color = bg:darken(0.1),
 			fg_color = "grey",
 		},
 		new_tab = {
