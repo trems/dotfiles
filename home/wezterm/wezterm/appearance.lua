@@ -40,9 +40,12 @@ function module.apply_to_config(config)
 		inactive_tab_hover = {
 			bg_color = bg:darken(0.1),
 			fg_color = "grey",
-			italic = true,
 		},
 		new_tab = {
+			bg_color = bg_dark,
+			fg_color = "#f1f1f1",
+		},
+		new_tab_hover = {
 			bg_color = bg_dark,
 			fg_color = "#f1f1f1",
 		},
