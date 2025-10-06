@@ -36,10 +36,10 @@ function module.apply_to_config(config)
 	}
 
   -- The filled in variant of the < symbol
-local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
+local SOLID_LEFT_ARROW = wez.nerdfonts.pl_right_hard_divider
 
 -- The filled in variant of the > symbol
-local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
+local SOLID_RIGHT_ARROW = wez.nerdfonts.pl_left_hard_divider
 
 config.tab_bar_style = {
   active_tab_left = wezterm.format {
