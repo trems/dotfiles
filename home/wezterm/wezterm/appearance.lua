@@ -29,7 +29,7 @@ function module.apply_to_config(config)
 	config.colors.tab_bar = {
 		background = bg_dark,
 		active_tab = {
-			bg_color = bg,
+			bg_color = bg_dark,
 			fg_color = "#f1f1f1",
 		},
 		new_tab = {
