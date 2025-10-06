@@ -62,7 +62,7 @@ function module.apply_to_config(config)
 		local foreground = "#808080"
 
 		if tab.is_active then
-			background = "#2b2042"
+			background = bg --"#2b2042"
 			foreground = "#c0c0c0"
 		elseif hover then
 			background = "#3b3052"
