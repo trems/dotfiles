@@ -70,7 +70,7 @@ function module.apply_to_config(config)
 		end
 
 		title = wez.truncate_right(title, max_width - 2)
-		local edge_foreground = background
+		local edge_foreground = bg
 		return {
 			{ Background = { Color = edge_background } },
 			{ Foreground = { Color = edge_foreground } },
