@@ -21,7 +21,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     opts = function(_, opts)
-      local current_adapter = "lm_studio"
+      local current_adapter = "ucb_ollama"
       opts.strategies = {
         chat = {
           adapter = current_adapter,
