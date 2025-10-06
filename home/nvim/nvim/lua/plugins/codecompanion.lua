@@ -75,7 +75,7 @@ return {
             -- },
             schema = {
               model = {
-                default = "qwen3-8b-mlx",
+                default = "qwen3-coder:30b",
               },
             },
 
