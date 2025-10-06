@@ -47,7 +47,7 @@ function module.apply_to_config(config)
 
 		if tab.is_active then
 			background = bg
-			foreground = fg
+			foreground = 
 		elseif hover then
 			background = bg:darken(0.1)
 			foreground = fg:darken(0.1)
