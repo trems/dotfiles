@@ -62,7 +62,7 @@ function module.apply_to_config(config)
 		local foreground = "#808080"
 
 		if tab.is_active then
-			background = bg --"#2b2042"
+			background = bg
 			foreground = "white" --"#c0c0c0"
 		elseif hover then
 			background = bg:lighten(0.1)
