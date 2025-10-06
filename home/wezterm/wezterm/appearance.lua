@@ -24,17 +24,6 @@ function module.apply_to_config(config)
 		inactive_titlebar_bg = bg_dark,
 	}
 
-	-- config.colors.tab_bar = {
-	-- 	inactive_tab_edge = bg_dark,
-	-- 	active_tab = {
-	-- 		bg_color = bg,
-	-- 		fg_color = "#c0c0c0",
-	-- 	},
-	-- 	inactive_tab = {
-	-- 		bg_color = bg_dark,
-	-- 		fg_color = "#808080",
-	-- 	},
-	-- }
 	config.tab_max_width = 25
 
 	config.use_fancy_tab_bar = false
@@ -76,23 +65,6 @@ function module.apply_to_config(config)
 			{ Foreground = { Color = edge_foreground } },
 			{ Text = wez.nerdfonts.pl_left_hard_divider },
 		}
-
-		-- if tab.is_active then
-		-- 	return {
-		-- 		{ Background = { Color = edge_background } },
-		-- 		{ Foreground = { Color = edge_foreground } },
-		-- 		{ Text = SOLID_LEFT_ARROW },
-		-- 		{ Background = { Color = background } },
-		-- 		{ Foreground = { Color = foreground } },
-		-- 		{ Text = title },
-		-- 		{ Background = { Color = edge_background } },
-		-- 		{ Foreground = { Color = edge_foreground } },
-		-- 		{ Text = SOLID_RIGHT_ARROW },
-		-- 		-- { Text = SOLID_LEFT_ARROW },
-		-- 		-- { Text = title },
-		-- 	}
-		-- end
-		-- return title
 	end)
 end
 
