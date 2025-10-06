@@ -82,6 +82,9 @@ function module.apply_to_config(config)
 		if tab.is_active then
 			return {
 				-- { Background = { Color = color } },
+				{ Background = { Color = "#0b0022" } },
+				{ Foreground = { Color = "#1b1032" } },
+				{ Text = SOLID_LEFT_ARROW },
 				{ Text = title },
 			}
 		end
