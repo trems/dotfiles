@@ -61,7 +61,7 @@ function module.apply_to_config(config)
 			{ Background = { Color = stat_bg_color } },
 			{ Foreground = { Color = stat_fg_color } },
 			{ Text = " " },
-			{ Text = nf.oct_table .. "  " .. stat },
+			{ Text = nf.oct_table .. " " .. stat },
 			{ Text = "|" },
 		}))
 
