@@ -46,7 +46,7 @@ function module.apply_to_config(config)
 			fg_color = "#f1f1f1",
 		},
 		new_tab_hover = {
-			bg_color = bg_dark,
+			bg_color = bg,
 			fg_color = "#f1f1f1",
 		},
 	}
