@@ -16,7 +16,7 @@ function module.apply_to_config(config)
 
 	config.colors = wez.color.get_builtin_schemes()[config.color_scheme]
 	local bg = wez.color.parse(config.colors.background)
-	local bg_dark = bg:darken(0.3)
+	local bg_dark = bg:darken(0.4)
 
 	config.window_frame = {
 		active_titlebar_bg = bg_dark,
@@ -63,7 +63,7 @@ function module.apply_to_config(config)
 
 		if tab.is_active then
 			background = bg
-			foreground = "white" --"#c0c0c0"
+			foreground = "white"
 		elseif hover then
 			background = bg:lighten(0.1)
 			foreground = "#909090"
