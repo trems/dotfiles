@@ -30,7 +30,9 @@ function module.apply_to_config(config)
 
 		tab_bar = {
 			background = bg,
-			active_tab = {},
+			active_tab = {
+        
+      },
 			new_tab = {
 				fg_color = "white",
 			},
