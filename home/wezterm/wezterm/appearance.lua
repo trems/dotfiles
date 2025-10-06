@@ -65,31 +65,8 @@ function module.apply_to_config(config)
 		end
 		title = tab.tab_index + 1 .. domain .. ":" .. title
 
-		local edge_background = bg_dark
-		local background = bg_dark
-		local foreground = "grey"
-
-		if tab.is_active then
-			background = bg
-			foreground = "#f1f1f1"
-		elseif hover then
-			background = bg:darken(0.1)
-			foreground = "#cfcfcf"
-		end
-
 		title = wez.truncate_right(title, max_width - 2)
-		local edge_foreground = background
-		return " " .. title .. " "{
-			-- { Background = { Color = edge_background } },
-			-- { Foreground = { Color = edge_foreground } },
-			-- { Text = wez.nerdfonts.pl_right_hard_divider },
-			-- { Background = { Color = background } },
-			-- { Foreground = { Color = foreground } },
-			{ Text = " " .. title .. " " },
-			-- { Background = { Color = edge_background } },
-			-- { Foreground = { Color = edge_foreground } },
-			-- { Text = wez.nerdfonts.pl_left_hard_divider },
-		}
+		return " " .. title .. " "
 	end)
 end
 
