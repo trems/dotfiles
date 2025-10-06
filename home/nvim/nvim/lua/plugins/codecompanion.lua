@@ -69,10 +69,10 @@ return {
               url = vim.env.UCB_OLLAMA_URL,
               api_key = "no_key",
             },
-            headers = {
-              ["Content-Type"] = "application/json",
-              ["Authorization"] = "Bearer ${api_key}",
-            },
+            -- headers = {
+            --   ["Content-Type"] = "application/json",
+            --   ["Authorization"] = "Bearer ${api_key}",
+            -- },
             parameters = {
               sync = true,
             },
