@@ -34,7 +34,7 @@ function module.apply_to_config(config)
 	-- 		fg_color = "#808080",
 	-- 	},
 	-- }
-	config.tab_max_width = 25
+	config.tab_max_width = 30
 
 	-- The filled in variant of the < symbol
 	local SOLID_LEFT_ARROW = wez.nerdfonts.pl_right_hard_divider
