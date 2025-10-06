@@ -67,7 +67,7 @@ function module.apply_to_config(config)
 			foreground = fg
 		elseif hover then
 			background = bg:lighten(0.1)
-			foreground = "grey"
+			foreground = fg:darken(0.1)
 		end
 
 		title = wez.truncate_right(title, max_width - 2)
