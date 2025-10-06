@@ -37,6 +37,10 @@ function module.apply_to_config(config)
 			bg_color = bg_dark,
 			fg_color = "grey",
 		},
+		inactive_tab = {
+			bg_color = bg_dark,
+			fg_color = "grey",
+		},
 		new_tab = {
 			bg_color = bg_dark,
 			fg_color = "#f1f1f1",
