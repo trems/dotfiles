@@ -73,6 +73,12 @@ return {
             --   ["Content-Type"] = "application/json",
             --   ["Authorization"] = "Bearer ${api_key}",
             -- },
+            schema = {
+              model = {
+                default = "qwen3-8b-mlx",
+              },
+            },
+
             parameters = {
               sync = true,
             },
