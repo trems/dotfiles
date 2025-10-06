@@ -62,6 +62,21 @@ return {
             },
           })
         end,
+        ollama = function()
+          return require("codecompanion.adapters").extend("ollama", {
+            env = {
+              url = "https://my_ollama_url",
+              api_key = "OLLAMA_API_KEY",
+            },
+            headers = {
+              ["Content-Type"] = "application/json",
+              ["Authorization"] = "Bearer ${api_key}",
+            },
+            parameters = {
+              sync = true,
+            },
+          })
+        end,
         openrouter = function()
           return require("codecompanion.adapters").extend("openai_compatible", {
             env = {
