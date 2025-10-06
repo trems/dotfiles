@@ -66,11 +66,11 @@ function module.apply_to_config(config)
 			-- { Background = { Color = edge_background } },
 			-- { Foreground = { Color = edge_foreground } },
 			{ Text = wez.nerdfonts.pl_right_hard_divider },
-			{ Background = { Color = background } },
-			{ Foreground = { Color = foreground } },
+			-- { Background = { Color = background } },
+			-- { Foreground = { Color = foreground } },
 			{ Text = title },
-			{ Background = { Color = edge_background } },
-			{ Foreground = { Color = edge_foreground } },
+			-- { Background = { Color = edge_background } },
+			-- { Foreground = { Color = edge_foreground } },
 			{ Text = wez.nerdfonts.pl_left_hard_divider },
 		}
 	end)
