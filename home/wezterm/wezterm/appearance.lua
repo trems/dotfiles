@@ -26,7 +26,9 @@ function module.apply_to_config(config)
 	config.use_fancy_tab_bar = false
 	config.tab_max_width = 25
 
+
 	config.colors = {
+
 		tab_bar = {
 			active_tab = {
         
