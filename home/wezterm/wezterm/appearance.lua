@@ -16,7 +16,6 @@ function module.apply_to_config(config)
 
 	config.colors = wez.color.get_builtin_schemes()[config.color_scheme]
 	local bg = wez.color.parse(config.colors.background)
-	local fg = wez.color.parse(config.colors.foreground)
 	local bg_dark = bg:darken(0.3)
 
 	config.window_frame = {
