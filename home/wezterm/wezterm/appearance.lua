@@ -27,6 +27,10 @@ function module.apply_to_config(config)
 	config.use_fancy_tab_bar = false
 	config.tab_max_width = 25
 
+  config.tab_bar_style = {
+    new_tab
+  }
+
 	wez.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 		local pane = tab.active_pane
 		local title = ""
