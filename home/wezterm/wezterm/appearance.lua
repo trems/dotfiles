@@ -30,6 +30,7 @@ function module.apply_to_config(config)
 		new_tab_left = wez.format({
 			Background = { Color = "white" },
 			Foreground = { Color = "white" },
+			Text = "   ",
 		}),
 		new_tab_right = wez.format({
 			Background = { Color = "white" },
