@@ -64,6 +64,7 @@ return {
         end,
         ucb_ollama = function()
           return require("codecompanion.adapters").extend("ollama", {
+            name = "ucb_ollama",
             env = {
               url = "UCB_OLLAMA_URL",
               api_key = "no_key",
