@@ -9,4 +9,4 @@ Nix-Darwin manages home-manager installation, HM manages all the rest
 
 1) Install Nix
 2) Install nix-darwin
-3) `darwin-rebuild switch --flake ~/dotfiles/`
+3) `sudo darwin-rebuild switch --flake ~/dotfiles/`

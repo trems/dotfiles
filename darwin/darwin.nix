@@ -32,7 +32,10 @@
   ];
 
   homebrew = {
-    enable = false;
+    enable = true;
+    onActivation = {
+      autoUpdate = true;
+    };
     brews = [ ];
     casks = [ ];
     taps = [ ];

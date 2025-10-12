@@ -42,7 +42,8 @@ in
       rustup
       nodejs_24
 
-      aider-chat
+      qwen-code
+      opencode
     ];
   };
   xdg.enable = true;
