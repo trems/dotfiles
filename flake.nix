@@ -76,7 +76,7 @@
         ssh-to-age
       ];
       shellHook = ''
-        # by default it expect keys 
+        # by default it expect keys at $HOME/Library/Application Support/sops/age/keys.txt on nix-darwin
         export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
         exec fish
       '';
