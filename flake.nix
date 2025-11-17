@@ -28,7 +28,9 @@
     sops-nix,
   }: let
     systemDarwin = "aarch64-darwin";
+    systemLinux = "x86_64-linux";
     pkgsDarwin = import nixpkgs {system = systemDarwin;};
+    pkgsLinux = import nixpkgs {system = systemLinux;};
     nixSettings = user: {
       settings = {
         trusted-users = [user];
@@ -65,6 +67,31 @@
     darwinConfigurations = {
       "IT-MAC-NB165" = darwinSystem {
         user = "msharashin";
+      };
+    };
+    nixosConfigurations = {
+      home-laptop2 = pkgsLinux.lib.nixosSystem {
+        # system = systemLinux;
+        modules = [./hosts/home-laptop2/configuration.nix];
+      };
+    };
+    colmenaHive = colmena.lib.makeHive self.outputs.colmena;
+    colmena = {
+      meta = {
+        nixpkgs = pkgsLinux;
+      };
+      defaults = {
+        # stateVersion = "25.05";
+        # imports = [
+        #   sops-nix.nixosModules.sops
+        # ];
+      };
+      home-laptop2 = {
+        deployment = {
+          targetHost = "192.168.0.102";
+          targetUser = "mike";
+          buildOnTarget = true; # особенно важно при развёртывании с macOS
+        };
       };
     };
 
