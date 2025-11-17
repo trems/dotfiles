@@ -73,6 +73,7 @@
         fish
         sops
         age
+        ssh-to-age
       ];
       shellHook = ''
         exec fish
