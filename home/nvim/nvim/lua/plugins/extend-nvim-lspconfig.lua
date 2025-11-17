@@ -29,6 +29,7 @@ return {
           },
         },
         nixd = {
+          -- from https://sbulav.github.io/vim/neovim-setting-up-nixd/
           nixpkgs = {
             -- For flake.
             -- This expression will be interpreted as "nixpkgs" toplevel
