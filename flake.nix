@@ -23,6 +23,7 @@
     nixpkgs,
     home-manager,
     colmena,
+    sops-nix,
   }: let
     systemDarwin = "aarch64-darwin";
     pkgsDarwin = import nixpkgs {system = systemDarwin;};
