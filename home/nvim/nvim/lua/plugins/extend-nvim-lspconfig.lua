@@ -38,6 +38,10 @@ return {
               formatting = {
                 command = { "alejandra" },
               },
+              options = {
+                nix
+              },
+
             },
           },
         },
