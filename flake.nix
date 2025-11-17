@@ -76,6 +76,7 @@
         ssh-to-age
       ];
       shellHook = ''
+        # by default it expect keys 
         export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
         exec fish
       '';
