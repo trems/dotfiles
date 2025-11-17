@@ -47,7 +47,17 @@
     logind.settings.Login.HandleLidSwitch = "ignore";
   };
 
-  
+  security.sudo.extraRules = [
+    {
+      users = ["mike"]; # ← замените на ваше имя пользователя
+      commands = [
+        {
+          command = "ALL";
+          options = ["NOPASSWD"];
+        }
+      ];
+    }
+  ];
 
   swapDevices = [
     {
