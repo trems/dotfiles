@@ -31,15 +31,10 @@ return {
         nixd = {
           -- from https://sbulav.github.io/vim/neovim-setting-up-nixd/
           nixpkgs = {
-            -- For flake.
-            -- This expression will be interpreted as "nixpkgs" toplevel
-            -- Nixd provides package, lib completion/information from it.
-            -- Resource Usage: Entries are lazily evaluated, entire nixpkgs takes 200~300MB for just "names".
-            -- Package documentation, versions, are evaluated by-need.
             expr = "import (builtins.getFlake(toString ./.)).inputs.nixpkgs { }",
           },
           formatting = {
-            command = { "alejandra" }, -- or nixfmt or nixpkgs-fmt
+            command = { "alejandra" },
           },
         },
         clangd = {
