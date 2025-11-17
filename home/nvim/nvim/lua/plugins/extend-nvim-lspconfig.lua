@@ -30,14 +30,15 @@ return {
         },
         nixd = {
           settings = {
-            nixd = {},
-          },
-          -- from https://sbulav.github.io/vim/neovim-setting-up-nixd/
-          nixpkgs = {
-            expr = "import (builtins.getFlake(toString ./.)).inputs.nixpkgs { }",
-          },
-          formatting = {
-            command = { "alejandra" },
+            nixd = {
+              -- from https://sbulav.github.io/vim/neovim-setting-up-nixd/
+              nixpkgs = {
+                expr = "import (builtins.getFlake(toString ./.)).inputs.nixpkgs { }",
+              },
+              formatting = {
+                command = { "alejandra" },
+              },
+            },
           },
         },
         clangd = {
