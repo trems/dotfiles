@@ -47,6 +47,8 @@
     logind.settings.Login.HandleLidSwitch = "ignore";
   };
 
+  
+
   swapDevices = [
     {
       device = "/swapfile";
