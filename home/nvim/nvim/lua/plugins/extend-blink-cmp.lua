@@ -1,7 +1,44 @@
+local source_icons = {
+  minuet = "󱗻",
+  orgmode = "",
+  otter = "󰼁",
+  nvim_lsp = "",
+  lsp = "",
+  buffer = "",
+  luasnip = "",
+  snippets = "",
+  path = "",
+  git = "",
+  tags = "",
+  cmdline = "󰘳",
+  latex_symbols = "",
+  cmp_nvim_r = "󰟔",
+  codeium = "󰩂",
+  -- FALLBACK
+  fallback = "󰜚",
+}
+
 return {
   {
     "saghen/blink.cmp",
+    dependencies = {
+      { "milanglacier/minuet-ai.nvim" },
+    },
     opts = {
+      appearance = {
+        nerd_font_variant = "normal",
+
+        kind_icons = {
+          claude = "󰋦",
+          openai = "󱢆",
+          codestral = "󱎥",
+          gemini = "",
+          Openrouter = "󱂇",
+          Ollama = "󰳆",
+          ["Llama.cpp"] = "󰳆",
+          Deepseek = "",
+        },
+      },
       completion = {
         trigger = {
           show_on_insert_on_trigger_character = true,
@@ -25,7 +62,7 @@ return {
           enabled = false,
         },
         documentation = {
-          treesitter_highlighting = false,
+          treesitter_highlighting = true,
         },
       },
       signature = {
@@ -42,9 +79,6 @@ return {
               return ctx.trigger.initial_kind ~= "trigger_character"
             end,
           },
-          -- codeium = {
-          --   max_items = 3,
-          -- },
         },
       },
     },

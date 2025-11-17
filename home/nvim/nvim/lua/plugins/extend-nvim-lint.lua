@@ -30,4 +30,19 @@ return {
       },
     },
   },
+  {
+    "nvim-lualine/lualine.nvim",
+    optional = true,
+    event = "VeryLazy",
+    opts = function(_, opts)
+      local lint_progress = function()
+        local linters = require("lint").get_running()
+        if #linters == 0 then
+          return "󰦕"
+        end
+        return "󱉶 " .. table.concat(linters, ", ")
+      end
+      table.insert(opts.sections.lualine_x, 2, lint_progress)
+    end,
+  },
 }

@@ -28,7 +28,6 @@ return {
             -- command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
           },
         },
-        nil_ls = {},
         nixd = {},
         clangd = {
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }, -- exclude "proto"
@@ -36,9 +35,9 @@ return {
       },
       setup = {
         gopls = function(_, _)
-          LazyVim.lsp.on_attach(function()
+          Snacks.util.lsp.on({ name = "gopls" }, function()
             vim.api.nvim_set_hl(0, "@lsp.type.string.go", {})
-          end, "gopls")
+          end)
         end,
       },
     },
