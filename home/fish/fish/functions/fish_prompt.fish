@@ -53,8 +53,8 @@ function fish_prompt
 
     set -l nix_shell_info (
       if test -n "$IN_NIX_SHELL"
-          # set delim $delim' '
-          set -e delim
+          set delim "> "
+          # set -e delim
           echo -n "<nix-shell> "
       end
     )
