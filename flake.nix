@@ -53,6 +53,7 @@
             users.users.${user}.home = "/Users/${user}";
             nix = nixSettings user;
           }
+          sops-nix.darwinModules.sops
         ];
       };
   in {
