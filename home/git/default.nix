@@ -7,23 +7,26 @@
 }:
 
 {
-  programs.git = {
-    enable = true;
-    extraConfig = {
-      core = {
-        autocrlf = "input";
+  programs = {
+    git = {
+      enable = true;
+      settings = {
+        core = {
+          autocrlf = "input";
+        };
+        rebase.autoStash = true;
+        push.autoSetupRemote = true;
       };
-      rebase.autoStash = true;
-      push.autoSetupRemote = true;
+      includes = [
+        {
+          # condition = "gitdir:~/work/";
+          path = "${config.home.homeDirectory}/work/.gitconfig";
+        }
+      ];
     };
-    includes = [
-      {
-        # condition = "gitdir:~/work/";
-        path = "${config.home.homeDirectory}/work/.gitconfig";
-      }
-    ];
     delta = {
       enable = true;
+      enableGitIntegration = true;
       options = {
         "tokyonight-moon" = {
           dark = true;
