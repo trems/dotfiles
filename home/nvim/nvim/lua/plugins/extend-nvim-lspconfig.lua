@@ -28,7 +28,8 @@ return {
             -- command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
           },
         },
-        nixd = {},
+        nixd = {]
+        },
         clangd = {
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }, -- exclude "proto"
         },
