@@ -70,7 +70,7 @@
       };
     };
     nixosConfigurations = {
-      home-laptop2 = pkgsLinux.lib.nixosSystem {
+      home-laptop2 = nixpkgs.lib.nixosSystem {
         # system = systemLinux;
         modules = [./hosts/home-laptop2/configuration.nix];
       };
