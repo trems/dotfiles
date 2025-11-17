@@ -43,7 +43,7 @@ return {
                   expr = "let flake = builtins.getFlake(toString ./.); in flake.nixosConfigurations.nz.options",
                 },
                 home_manager = {
-                  expr = 'let flake = builtins.getFlake(toString ./.); in flake.darwinConfigurations."".options',
+                  expr = 'let flake = builtins.getFlake(toString ./.); in flake.darwinConfigurations."IT-MAC-NB165".options.home-manager',
                 },
                 darwin = {
                   expr = "let flake = builtins.getFlake(toString ./.); in flake.darwinConfigurations.mbp16.options",
