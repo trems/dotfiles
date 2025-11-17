@@ -43,7 +43,8 @@
         PasswordAuthentication = false;
       };
     };
-    logind.lidSwitch = "ignore";
+    # logind.lidSwitch = "ignore";
+    logind.settings.Login.HandleLidSwitch = "ignore";
   };
 
   swapDevices = [
