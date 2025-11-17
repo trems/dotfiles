@@ -13,6 +13,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     colmena.url = "github:zhaofengli/colmena";
+    inputs.sops-nix.url = "github:Mic92/sops-nix";
+    inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {
