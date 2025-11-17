@@ -49,7 +49,7 @@
 
   security.sudo.extraRules = [
     {
-      users = ["mike"]; # ← замените на ваше имя пользователя
+      users = ["mike"];
       commands = [
         {
           command = "ALL";
