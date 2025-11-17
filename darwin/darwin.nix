@@ -21,7 +21,7 @@
     zsh = {
       enable = true; # Create /etc/zshrc that loads the nix-darwin environment.
       interactiveShellInit = ''
-        alias drs="darwin-rebuild switch --flake ~/dotfiles/"
+        alias drs="sudo darwin-rebuild switch --flake ~/dotfiles/"
       '';
     };
     fish.enable = true;

@@ -12,6 +12,7 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    colmena.url = "github:zhaofengli/colmena";
   };
 
   outputs =
@@ -20,8 +21,11 @@
       darwin,
       nixpkgs,
       home-manager,
+      colmena,
     }:
     let
+      systemDarwin = "aarch64-darwin";
+      pkgsDarwin = import nixpkgs { system = systemDarwin; };
       nixSettings = user: {
         settings = {
           trusted-users = [ user ];
@@ -34,7 +38,7 @@
       darwinSystem =
         {
           user,
-          arch ? "aarch64-darwin",
+          arch ? systemDarwin,
         }:
         darwin.lib.darwinSystem {
           system = arch;
@@ -55,11 +59,23 @@
     in
     {
       # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#simple
+      # $ sudo darwin-rebuild build --flake .#IT-MAC-NB165
       darwinConfigurations = {
         "IT-MAC-NB165" = darwinSystem {
           user = "msharashin";
         };
+      };
+
+      # nix develop
+      devShells."${systemDarwin}".default = pkgsDarwin.mkShell {
+        buildInputs = with pkgsDarwin; [
+          colmena.defaultPackage.${systemDarwin}
+          fish
+          sops
+        ];
+        shellHook = ''
+          exec fish
+        '';
       };
     };
 }

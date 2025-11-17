@@ -3,12 +3,10 @@ gui:
   expandFocusedSidePanel: true
   nerdFontsVersion: "3"
   border: "rounded"
-
 git:
-  paging:
-    colorArg: always
-    pager: delta --paging=never
-
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never
 notARepository: "skip"
 keybinding:
   universal:

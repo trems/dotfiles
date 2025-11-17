@@ -21,22 +21,25 @@ in
 
     packages = with pkgs; [
       micro
+      graphviz
       grpcurl
       s3cmd
       imagemagick
       tokei
       postgresql
       hysteria
+      yq-go
+      ffmpeg
+      temporal-cli
 
       go-task
       gnumake
 
       nixd
-      nil
       gopls
       tree-sitter
 
-      nixfmt-rfc-style
+      alejandra
       golangci-lint
 
       rustup
