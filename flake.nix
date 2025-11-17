@@ -72,6 +72,7 @@
           colmena.defaultPackage.${systemDarwin}
           fish
           sops
+          age
         ];
         shellHook = ''
           exec fish
