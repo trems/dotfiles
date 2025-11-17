@@ -4,9 +4,9 @@ function fish_prompt
     set -l normal (set_color normal)
     set -l usercolor (set_color $fish_color_user)
 
-    set -l delim \U1F525
+    set -l delim \U1F525 # fire emoji
     # If we don't have unicode use a simpler delimiter
-    # string match -qi utf-8 -- $LANG $LC_CTYPE $LC_ALL; or set delim ">"
+    string match -qir utf-8 -- $LANG $LC_CTYPE $LC_ALL; or set delim ">"
 
     fish_is_root_user; and set delim "#"
 
@@ -51,5 +51,12 @@ function fish_prompt
     # Shorten pwd if prompt is too long
     set -l pwd (prompt_pwd)
 
-    echo -n -s $prompt_host $cwd $pwd $normal $prompt_status $delim
+    set -l nix_shell_info (
+      if test -n "$IN_NIX_SHELL"
+          set delim $delim' '
+          echo -n "<nix-shell> "
+      end
+    )
+
+    echo -n -s $nix_shell_info $prompt_host $cwd $pwd $normal $prompt_status $delim
 end
