@@ -92,6 +92,7 @@
           targetUser = "mike";
           buildOnTarget = true; # особенно важно при развёртывании с macOS
         };
+        imports = [./hosts/home-laptop2/configuration.nix];
       };
     };
 
