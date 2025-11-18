@@ -19,8 +19,8 @@
 
   environment.systemPackages = with pkgs; [
     git
-    vim
     wget
+    neovim
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
