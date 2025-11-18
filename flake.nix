@@ -81,8 +81,8 @@
       nodes = {
         home-laptop2 = {
           remoteBuild = true;
-          sshUser = "mike";
           hostname = "192.168.0.102";
+          sshUser = "mike";
           profiles.system = {
             user = "mike";
             path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.home-laptop2;
