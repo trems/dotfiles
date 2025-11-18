@@ -90,10 +90,11 @@
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
-    # nix develop
+    # `nix develop`
     devShells."${systemDarwin}".default = pkgsDarwin.mkShell {
       buildInputs = with pkgsDarwin; [
         # colmena.defaultPackage.${systemDarwin}
+        deploy-rs
         fish
         sops
         age
