@@ -81,6 +81,7 @@
           home-laptop2 = {
             hostname = "192.168.0.102";
             profiles.system = {
+              user = "mike";
               
             };
           };
