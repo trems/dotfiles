@@ -94,7 +94,7 @@
     devShells."${systemDarwin}".default = pkgsDarwin.mkShell {
       buildInputs = with pkgsDarwin; [
         # colmena.defaultPackage.${systemDarwin}
-        deploy-rs
+        pkgsDarwin.deploy-rs
         fish
         sops
         age
