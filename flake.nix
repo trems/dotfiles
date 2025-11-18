@@ -77,9 +77,9 @@
       };
     };
     deploy = {
-      remoteBuild = true;
       nodes = {
         home-laptop2 = {
+          remoteBuild = true;
           hostname = "192.168.0.102";
           profiles.system = {
             user = "mike";
