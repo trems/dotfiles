@@ -84,6 +84,7 @@
           hostname = "192.168.0.102";
           profiles.system = {
             user = "mike";
+            ssh_user = "mike";
             path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.home-laptop2;
           };
         };
