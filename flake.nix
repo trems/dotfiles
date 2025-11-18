@@ -77,8 +77,12 @@
       };
     };
     deploy = {
-        
-      }
+        nodes = {
+          home-laptop2 = {
+            
+          };
+        };
+      };
     colmenaHive = colmena.lib.makeHive self.outputs.colmena;
     colmena = {
       meta = {
