@@ -81,7 +81,7 @@
       nodes = {
         home-laptop2 = {
           remoteBuild = true;
-          ssh_user = "mike";
+          sshUser = "mike";
           hostname = "192.168.0.102";
           profiles.system = {
             user = "mike";
