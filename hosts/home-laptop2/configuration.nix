@@ -44,6 +44,7 @@
       };
     };
     logind.settings.Login.HandleLidSwitch = "ignore";
+    tailscale.enable = true;
   };
 
   security.sudo.extraRules = [
