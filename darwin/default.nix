@@ -42,7 +42,7 @@
 
   services = {
     tailscale = {
-      enabled = true;
+      enable = true;
       overrideLocalDns = false;
     };
   };
