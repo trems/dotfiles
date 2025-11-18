@@ -88,7 +88,7 @@
           remoteBuild = true;
           hostname = "192.168.0.102";
           sshUser = "mike";
-          interactiveSudo = true;
+          # interactiveSudo = true;
           profiles.system = {
             user = "root";
             path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.home-laptop2;
