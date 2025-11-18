@@ -76,9 +76,10 @@
         system = systemLinux;
         modules = [
           ./hosts/home-laptop2/configuration.nix
-          {}
+          {
+            nix = nixSettings "mike";
+          }
         ];
-        nix = nixSettings "mike";
       };
     };
     deploy = {
