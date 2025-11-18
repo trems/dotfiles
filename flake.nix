@@ -77,34 +77,14 @@
       };
     };
     deploy = {
-        nodes = {
-          home-laptop2 = {
-            hostname = "192.168.0.102";
-            profiles.system = {
-              user = "mike";
-              path = deploy-rs.lib.${systemLinux}.activate.nixos self.
-            };
+      nodes = {
+        home-laptop2 = {
+          hostname = "192.168.0.102";
+          profiles.system = {
+            user = "mike";
+            path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.home-laptop2;
           };
         };
-      };
-    colmenaHive = colmena.lib.makeHive self.outputs.colmena;
-    colmena = {
-      meta = {
-        nixpkgs = pkgsLinux;
-      };
-      defaults = {
-        # stateVersion = "25.05";
-        # imports = [
-        #   sops-nix.nixosModules.sops
-        # ];
-      };
-      home-laptop2 = {
-        deployment = {
-          targetHost = "192.168.0.102";
-          targetUser = "mike";
-          buildOnTarget = true; # особенно важно при развёртывании с macOS
-        };
-        imports = [./hosts/home-laptop2/configuration.nix];
       };
     };
 
