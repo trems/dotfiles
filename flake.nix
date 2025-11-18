@@ -12,7 +12,7 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    colmena.url = "github:zhaofengli/colmena";
+    # colmena.url = "github:zhaofengli/colmena";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
