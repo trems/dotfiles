@@ -4,23 +4,20 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   mkMutableSymlink = config.lib.file.mkOutOfStoreSymlink;
   dotfiles = "${config.home.homeDirectory}/dotfiles";
-in
-{
-  _module.args = { inherit mkMutableSymlink dotfiles; };
+in {
+  _module.args = {inherit mkMutableSymlink dotfiles;};
   home = {
     stateVersion = "25.05";
     sessionPath = [
       "$HOME/.cargo/bin"
       "$HOME/go/bin"
     ]; # Extra directories to prepend to PATH, e.g. "$HOME/.local/bin" or "\${xdg.configHome}/emacs/bin"
-    sessionVariables = { }; # environment variables
+    sessionVariables = {}; # environment variables
 
     packages = with pkgs; [
-      micro
       graphviz
       grpcurl
       s3cmd
