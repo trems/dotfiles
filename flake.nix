@@ -17,7 +17,7 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    inputs.deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
 
   outputs = inputs @ {
@@ -72,7 +72,7 @@
     };
     nixosConfigurations = {
       home-laptop2 = nixpkgs.lib.nixosSystem {
-        # system = systemLinux;
+        system = systemLinux;
         modules = [./hosts/home-laptop2/configuration.nix];
       };
     };
