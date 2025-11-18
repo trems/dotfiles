@@ -43,7 +43,6 @@
         PasswordAuthentication = false;
       };
     };
-    # logind.lidSwitch = "ignore";
     logind.settings.Login.HandleLidSwitch = "ignore";
   };
 
