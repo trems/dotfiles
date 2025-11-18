@@ -79,6 +79,7 @@
     deploy = {
         nodes = {
           home-laptop2 = {
+            hostname = "192.168.0.102";
             
           };
         };
