@@ -85,7 +85,7 @@
           sshUser = "mike";
           interactiveSudo = true;
           profiles.system = {
-            user = "sudo";
+            user = "root";
             path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.home-laptop2;
           };
         };
