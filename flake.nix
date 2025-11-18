@@ -95,6 +95,8 @@
         };
       };
     };
+
+    # `nix flake check`
     checks = forAllSystems (system: let
       pkgs = nixpkgs.legacyPackages.${system};
       deploy-rs-checks = deploy-rs.lib.${system}.deployChecks self.deploy;
