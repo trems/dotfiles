@@ -110,7 +110,6 @@
     # `nix develop`
     devShells."${systemDarwin}".default = pkgsDarwin.mkShell {
       buildInputs = with pkgsDarwin; [
-        # colmena.defaultPackage.${systemDarwin}
         pkgsDarwin.deploy-rs
         fish
         sops
