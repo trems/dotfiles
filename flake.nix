@@ -25,7 +25,7 @@
     darwin,
     nixpkgs,
     home-manager,
-    colmena,
+    deploy-rs,
     sops-nix,
   }: let
     systemDarwin = "aarch64-darwin";
