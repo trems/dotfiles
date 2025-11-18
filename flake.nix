@@ -32,7 +32,7 @@
     systemLinux = "x86_64-linux";
     pkgsDarwin = import nixpkgs {system = systemDarwin;};
     pkgsLinux = import nixpkgs {system = systemLinux;};
-      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "x86_64-darwin" "i686-linux" "aarch64-linux" ];
+    forAllSystems = nixpkgs.lib.genAttrs [systemLinux systemDarwin];
     nixSettings = user: {
       settings = {
         trusted-users = [user];
