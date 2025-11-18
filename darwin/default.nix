@@ -1,11 +1,9 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
   nix = {
-    settings = { };
+    settings = {};
   };
 
   environment = {
@@ -13,7 +11,7 @@
       pkgs.home-manager # all packages managed by home-manager
     ];
     # add fish to /etc/shells. Don't forget to change login shell: chsh -s /path/to/fish
-    shells = [ pkgs.fish ];
+    shells = [pkgs.fish];
   };
 
   programs = {
@@ -36,12 +34,19 @@
     onActivation = {
       autoUpdate = true;
     };
-    brews = [ ];
-    casks = [ ];
-    taps = [ ];
-    masApps = { };
+    brews = [];
+    casks = [];
+    taps = [];
+    masApps = {};
   };
-  services = { };
+
+  services = {
+    tailscale = {
+      enabled = true;
+      overrideLocalDns = false;
+    };
+  };
+
   system = {
     primaryUser = "msharashin";
     defaults = {
@@ -74,7 +79,7 @@
     };
     keyboard = {
       enableKeyMapping = true;
-      userKeyMapping = [ ]; # see https://developer.apple.com/library/content/technotes/tn2450/_index.html
+      userKeyMapping = []; # see https://developer.apple.com/library/content/technotes/tn2450/_index.html
     };
   };
 }

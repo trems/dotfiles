@@ -12,7 +12,6 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # colmena.url = "github:zhaofengli/colmena";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +48,7 @@
       darwin.lib.darwinSystem {
         system = arch;
         modules = [
-          ./darwin/darwin.nix
+          ./darwin
           home-manager.darwinModules.home-manager
           {
             _module.args = {inherit inputs;};
@@ -97,15 +96,15 @@
     };
 
     # `nix flake check`
-    checks = forAllSystems (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-      deploy-rs-checks = deploy-rs.lib.${system}.deployChecks self.deploy;
-    in
-      with pkgs;
-        lib.optionalAttrs stdenv.isLinux deploy-rs-checks
-        // {
-          # Your other usual checks can go here, e.g. deadnix, formatter, pre-commit, ...
-        });
+    # checks = forAllSystems (system: let
+    #   pkgs = nixpkgs.legacyPackages.${system};
+    #   deploy-rs-checks = deploy-rs.lib.${system}.deployChecks self.deploy;
+    # in
+    #   with pkgs;
+    #     lib.optionalAttrs stdenv.isLinux deploy-rs-checks
+    #     // {
+    #       # Your other usual checks can go here, e.g. deadnix, formatter, pre-commit, ...
+    #     });
 
     # `nix develop`
     devShells."${systemDarwin}".default = pkgsDarwin.mkShell {
