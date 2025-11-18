@@ -82,7 +82,7 @@
             hostname = "192.168.0.102";
             profiles.system = {
               user = "mike";
-              path = deploy-rs.lib.${systemLinux}.nix
+              path = deploy-rs.lib.${systemLinux}.activate.nixos self.
             };
           };
         };
