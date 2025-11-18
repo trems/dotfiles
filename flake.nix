@@ -76,6 +76,9 @@
         modules = [./hosts/home-laptop2/configuration.nix];
       };
     };
+    deploy = {
+        
+      }
     colmenaHive = colmena.lib.makeHive self.outputs.colmena;
     colmena = {
       meta = {
