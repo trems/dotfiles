@@ -43,7 +43,6 @@ in {
       nodejs_24
 
       qwen-code
-      opencode
     ];
   };
   xdg.enable = true;
