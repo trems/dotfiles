@@ -14,6 +14,7 @@ return {
         },
         golangcilint = {
           condition = function(ctx)
+            return false
             -- exclude files from 'vendor' folder
             local root_dir = vim.fs.root(ctx.filename, { "go.mod", "go.work" })
 
