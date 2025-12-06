@@ -108,8 +108,6 @@
       buildInputs = with pkgsDarwin; [
         pkgsDarwin.deploy-rs
         fish
-        # age
-        # ssh-to-age
         agenix.packages.${systemDarwin}.default
       ];
       shellHook = ''
