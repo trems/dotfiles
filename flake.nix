@@ -12,7 +12,7 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+    agenix.url = "github:ryantm/agenix";
     deploy-rs.url = "github:serokell/deploy-rs";
   };
 
