@@ -22,7 +22,7 @@
     nixpkgs,
     home-manager,
     deploy-rs,
-    sops-nix,
+    agenix,
   }: let
     systemDarwin = "aarch64-darwin";
     systemLinux = "x86_64-linux";
