@@ -110,7 +110,7 @@
         fish
         # age
         # ssh-to-age
-        agenix.packages.${system}.default
+        agenix.packages.${systemDarwin}.default
       ];
       shellHook = ''
         exec fish
