@@ -59,7 +59,7 @@
               # identityPaths = ["${variable with path to user's home dir}/.ssh/id_ed25519"];
               secrets = {
                 test1 = {
-                  file = ../secrets/test1.age;
+                  file = ./secrets/test1.age;
                   owner = user;
                 };
               };
