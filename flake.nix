@@ -108,7 +108,6 @@
       buildInputs = with pkgsDarwin; [
         deploy-rs
         fish
-        sops
         age
         ssh-to-age
       ];
