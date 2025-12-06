@@ -106,7 +106,7 @@
     # `nix develop`
     devShells."${systemDarwin}".default = pkgsDarwin.mkShell {
       buildInputs = with pkgsDarwin; [
-        pkgsDarwin.deploy-rs
+        deploy-rs
         fish
         sops
         age
