@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  modulesPath,
+  config,
+  pkgs,
+  ...
+}: {
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
@@ -22,7 +27,6 @@
         alias drs="sudo darwin-rebuild switch --flake ~/dotfiles/"
       '';
     };
-    fish.enable = true;
   };
 
   fonts.packages = [

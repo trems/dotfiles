@@ -12,7 +12,7 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenix.url = "github:ryantm/agenix";
+    agenix.url = "github:yaxitech/ragenix";
     deploy-rs.url = "github:serokell/deploy-rs";
   };
 
@@ -55,6 +55,15 @@
             };
             users.users.${user}.home = "/Users/${user}";
             nix = nixSettings user;
+            age = {
+              # identityPaths = ["${variable with path to user's home dir}/.ssh/id_ed25519"];
+              secrets = {
+                test1 = {
+                  file = ../secrets/test1.age;
+                  owner = user;
+                };
+              };
+            };
           }
           agenix.darwinModules.default
         ];
@@ -75,6 +84,7 @@
           {
             nix = nixSettings "mike";
           }
+          agenix.nixosModules.default
         ];
       };
     };
