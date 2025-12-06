@@ -56,7 +56,7 @@
             users.users.${user}.home = "/Users/${user}";
             nix = nixSettings user;
           }
-          agenix.darwinModules.sops
+          agenix.darwinModules.default
         ];
       };
   in {
