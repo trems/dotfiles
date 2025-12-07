@@ -52,7 +52,8 @@ in {
     tailscale.enable = true;
     blocky = {
       enable = true;
-      
+      settings = {
+      };
     };
   };
 
