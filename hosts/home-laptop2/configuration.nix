@@ -53,6 +53,10 @@ in {
     blocky = {
       enable = true;
       settings = {
+        ports = {
+          dns = 53;
+          http = 4000;
+        };
         ports.dns = 53; # Port for incoming DNS Queries.
         upstreams.groups.default = [
           "https://one.one.one.one/dns-query" # Using Cloudflare's DNS over HTTPS server for resolving queries.
