@@ -77,6 +77,10 @@ in {
             kids-ipad = ["ads" "adult"];
           };
         };
+        prometheus = {
+          enable = true;
+          
+        };
       };
     };
   };
