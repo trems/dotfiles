@@ -71,6 +71,7 @@ in {
             #Adblocking
             ads = [
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts"
+              "https://blocklistproject.github.io/Lists/ads.txt"
             ];
             #Another filter for blocking adult sites
             adult = ["https://blocklistproject.github.io/Lists/porn.txt"];
