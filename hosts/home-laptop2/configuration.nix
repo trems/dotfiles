@@ -1,9 +1,13 @@
 {
+  self,
   config,
   lib,
   pkgs,
+  publicKeys,
   ...
-}: {
+}: let
+  user = "mike";
+in {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -24,11 +28,12 @@
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.mike = {
+  users.users.${user} = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager"];
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLeUpRLdLM9bNaZ2utFfHtw4MPIlj3vo6UjW2aFE9eA msharashin@IT-MAC-NB165.local"
+      publicKeys.ucb-mbp
+      # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLeUpRLdLM9bNaZ2utFfHtw4MPIlj3vo6UjW2aFE9eA msharashin@IT-MAC-NB165.local"
     ];
 
     packages = with pkgs; [
@@ -49,7 +54,7 @@
 
   security.sudo.extraRules = [
     {
-      users = ["mike"];
+      users = [user];
       commands = [
         {
           command = "ALL";

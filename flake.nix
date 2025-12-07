@@ -24,6 +24,7 @@
     deploy-rs,
     agenix,
   }: let
+    publicKeys = import ./secrets/pubkeys.nix;
     systemDarwin = "aarch64-darwin";
     systemLinux = "x86_64-linux";
     pkgsDarwin = import nixpkgs {system = systemDarwin;};
@@ -38,7 +39,7 @@
         ];
       };
     };
-    darwinSystem = {
+    mkDarwinSystem = {
       user,
       arch ? systemDarwin,
     }:
@@ -48,7 +49,7 @@
           ./darwin
           home-manager.darwinModules.home-manager
           {
-            _module.args = {inherit inputs;};
+            _module.args = {inherit inputs publicKeys;};
             home-manager = {
               users.${user} = import ./home;
               sharedModules = [];
@@ -72,7 +73,7 @@
     # Build darwin flake using:
     # $ sudo darwin-rebuild build --flake .#IT-MAC-NB165
     darwinConfigurations = {
-      "IT-MAC-NB165" = darwinSystem {
+      "IT-MAC-NB165" = mkDarwinSystem {
         user = "msharashin";
       };
     };
@@ -82,7 +83,15 @@
         modules = [
           ./hosts/home-laptop2/configuration.nix
           {
+            _module.args = {inherit publicKeys;};
             nix = nixSettings "mike";
+            age = {
+              secrets = {
+                test1 = {
+                  file = ./secrets/test1.age;
+                };
+              };
+            };
           }
           agenix.nixosModules.default
         ];
