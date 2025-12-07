@@ -50,6 +50,10 @@ in {
     };
     logind.settings.Login.HandleLidSwitch = "ignore";
     tailscale.enable = true;
+    blocky = {
+      enable = true;
+      
+    };
   };
 
   security.sudo.extraRules = [
