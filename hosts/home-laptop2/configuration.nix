@@ -59,6 +59,7 @@ in {
         };
         upstreams.groups.default = [
           "https://one.one.one.one/dns-query" # Using Cloudflare's DNS over HTTPS server for resolving queries.
+          "tls://dns.adguard-dns.com"
         ];
         # For initially solving DoH/DoT Requests when no system Resolver is available.
         bootstrapDns = {
