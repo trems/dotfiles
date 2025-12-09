@@ -86,7 +86,6 @@ in {
           #Configure what block categories are used
           clientGroupsBlock = {
             default = ["default"];
-            kids-ipad = ["ads" "adult"];
           };
         };
         prometheus = {
