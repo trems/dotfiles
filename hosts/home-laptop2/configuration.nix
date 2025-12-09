@@ -73,11 +73,12 @@ in {
             ads = [
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts"
               "https://blocklistproject.github.io/Lists/ads.txt"
+              "https://github.com/Zalexanninev15/NoADS_RU/raw/refs/heads/main/hosts/blockerFL.txt"
             ];
             #Another filter for blocking adult sites
             adult = ["https://blocklistproject.github.io/Lists/porn.txt"];
             #You can add additional categories
-            bypass = ["https://github.com/Zalexanninev15/NoADS_RU/raw/refs/heads/main/hosts/blocker.txt"];
+            bypass = [];
           };
           #Configure what block categories are used
           clientGroupsBlock = {
