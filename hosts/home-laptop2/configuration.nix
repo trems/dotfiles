@@ -75,6 +75,7 @@ in {
               "apps.skype.com"
               ''                |
                               apps.skype.com
+                              appleid.apple.com
               ''
             ];
           };
