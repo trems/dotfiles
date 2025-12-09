@@ -68,7 +68,6 @@ in {
           upstream = "https://dns.cloudflare.com/dns-query";
           ips = ["1.1.1.1" "1.0.0.1"];
         };
-        #Enable blocking of certain domains.
         blocking = {
           denylists = {
             default = [
