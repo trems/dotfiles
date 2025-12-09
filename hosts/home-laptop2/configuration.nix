@@ -15,9 +15,11 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "home-laptop2"; # должно совпадать с именем в flake!
+  networking.
   networking.networkmanager.enable = true;
-  networking = {};
+  networking = {
+    hostName = "home-laptop2"; # должно совпадать с именем в flake!
+  };
 
   time.timeZone = "Asia/Yekaterinburg";
   i18n.defaultLocale = "en_US.UTF-8";
