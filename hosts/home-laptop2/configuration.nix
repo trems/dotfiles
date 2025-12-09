@@ -77,7 +77,7 @@ in {
             #Another filter for blocking adult sites
             adult = ["https://blocklistproject.github.io/Lists/porn.txt"];
             #You can add additional categories
-            bypass = [];
+            bypass = ["https://github.com/Zalexanninev15/NoADS_RU/raw/refs/heads/main/hosts/blocker.txt"];
           };
           #Configure what block categories are used
           clientGroupsBlock = {
