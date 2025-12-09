@@ -70,7 +70,7 @@ in {
         };
         #Enable blocking of certain domains.
         blocking = {
-          blackLists = {
+          denylists = {
             #Adblocking
             ads = [
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts"
