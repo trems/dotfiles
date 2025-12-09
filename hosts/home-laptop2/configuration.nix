@@ -17,6 +17,7 @@ in {
 
   networking.hostName = "home-laptop2"; # должно совпадать с именем в flake!
   networking.networkmanager.enable = true;
+  networking = {};
 
   time.timeZone = "Asia/Yekaterinburg";
   i18n.defaultLocale = "en_US.UTF-8";
