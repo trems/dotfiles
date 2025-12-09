@@ -72,9 +72,9 @@ in {
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts"
               "https://blocklistproject.github.io/Lists/ads.txt"
               "https://github.com/Zalexanninev15/NoADS_RU/raw/refs/heads/main/hosts/blockerFL.txt"
-              ''                
-                                apps.skype.com
-                                appleid.apple.com
+              ''
+                apps.skype.com
+                appleid.apple.com
               ''
             ];
           };
