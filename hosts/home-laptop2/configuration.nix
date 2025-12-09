@@ -71,7 +71,6 @@ in {
         #Enable blocking of certain domains.
         blocking = {
           denylists = {
-            #Adblocking
             ads = [
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts"
               "https://blocklistproject.github.io/Lists/ads.txt"
