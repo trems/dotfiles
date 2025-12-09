@@ -59,7 +59,7 @@ in {
         };
         upstreams.groups.default = [
           "https://one.one.one.one/dns-query"
-          https://dns.comss.one/dns-query
+          "https://dns.comss.one/dns-query"
           "tcp+tls://dns.adguard-dns.com"
         ];
         # For initially solving DoH/DoT Requests when no system Resolver is available.
