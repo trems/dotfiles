@@ -82,6 +82,8 @@ in {
             # bypass = ["https://raw.githubusercontent.com/Zalexanninev15/NoADS_RU/refs/heads/main/hosts/bypass.txt"];
           };
           allowlists = {
+            default = [
+            ];
           };
           #Configure what block categories are used
           clientGroupsBlock = {
