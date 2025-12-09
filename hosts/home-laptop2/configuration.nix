@@ -74,8 +74,8 @@ in {
               "https://github.com/Zalexanninev15/NoADS_RU/raw/refs/heads/main/hosts/blockerFL.txt"
               "apps.skype.com"
               ''                |
-                              apps.skype.com
-                              appleid.apple.com
+                                              apps.skype.com
+                                              appleid.apple.com
               ''
             ];
           };
