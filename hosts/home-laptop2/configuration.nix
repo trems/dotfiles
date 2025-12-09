@@ -75,7 +75,7 @@ in {
             ];
           };
           allowlists = {
-            default = ["https://raw.githubusercontent.com/Zalexanninev15/NoADS_RU/refs/heads/main/hosts/bypass.txt"];
+            default = ["https://raw.githubusercontent.com/anudeepND/whitelist/refs/heads/master/domains/whitelist.txt"];
           };
           #Configure what block categories are used
           clientGroupsBlock = {
