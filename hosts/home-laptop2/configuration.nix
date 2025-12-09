@@ -73,6 +73,9 @@ in {
               "https://blocklistproject.github.io/Lists/ads.txt"
               "https://github.com/Zalexanninev15/NoADS_RU/raw/refs/heads/main/hosts/blockerFL.txt"
               "apps.skype.com"
+              ''                |
+                              apps.skype.com
+              ''
             ];
           };
           allowlists = {
