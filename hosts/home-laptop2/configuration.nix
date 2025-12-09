@@ -85,7 +85,7 @@ in {
           };
           #Configure what block categories are used
           clientGroupsBlock = {
-            default = ["ads" "bypass"];
+            default = ["ads"];
             kids-ipad = ["ads" "adult"];
           };
         };
