@@ -76,9 +76,6 @@ in {
               "https://blocklistproject.github.io/Lists/ads.txt"
               "https://github.com/Zalexanninev15/NoADS_RU/raw/refs/heads/main/hosts/blockerFL.txt"
             ];
-            #Another filter for blocking adult sites
-            adult = ["https://blocklistproject.github.io/Lists/porn.txt"];
-            #You can add additional categories
           };
           allowlists = {
             default = ["https://raw.githubusercontent.com/Zalexanninev15/NoADS_RU/refs/heads/main/hosts/bypass.txt"];
