@@ -63,7 +63,6 @@ in {
         ];
         # For initially solving DoH/DoT Requests when no system Resolver is available.
         bootstrapDns = {
-          # upstream = "https://one.one.one.one/dns-query";
           upstream = "https://dns.cloudflare.com/dns-query";
           ips = ["1.1.1.1" "1.0.0.1"];
         };
