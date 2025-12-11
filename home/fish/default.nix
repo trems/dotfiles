@@ -7,6 +7,9 @@
 }: let
   fishFiles = "${dotfiles}/home/fish/fish";
 in {
+  xdg.configFile."fish/functions/fish_prompt.fish".source =
+    mkMutableSymlink "${fishFiles}/functions/fish_prompt.fish";
+
   home.shell.enableFishIntegration = true;
 
   programs.fish = {
