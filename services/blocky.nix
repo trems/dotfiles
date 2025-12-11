@@ -39,7 +39,7 @@ in {
         };
       };
       hostsFile = {
-        sources = [];
+        sources = ["https://raw.githubusercontent.com/Zalexanninev15/NoADS_RU/refs/heads/main/hosts/bypass.txt"];
       };
       prometheus = {
         enable = true;
