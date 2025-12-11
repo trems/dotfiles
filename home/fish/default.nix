@@ -4,11 +4,9 @@
   mkMutableSymlink,
   dotfiles,
   ...
-}:
-let
+}: let
   fishFiles = "${dotfiles}/home/fish/fish";
-in
-{
+in {
   home.shell.enableFishIntegration = true;
 
   programs.fish = {
@@ -31,8 +29,4 @@ in
       v = "nvim";
     };
   };
-
-  xdg.configFile."fish/functions/fish_prompt.fish".source =
-    mkMutableSymlink "${fishFiles}/functions/fish_prompt.fish";
-
 }
