@@ -39,7 +39,7 @@ in {
         };
       };
       hostsFile = {
-        
+        sources = [];
       };
       prometheus = {
         enable = true;
