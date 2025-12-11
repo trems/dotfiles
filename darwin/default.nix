@@ -27,7 +27,7 @@
         alias drs="sudo darwin-rebuild switch --flake ~/dotfiles/"
       '';
     };
-    fish.enable = true;
+    fish.enable = true; # required for login shell
   };
 
   fonts.packages = [
