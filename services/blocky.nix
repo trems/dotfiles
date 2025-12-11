@@ -38,6 +38,9 @@ in {
           default = ["default"];
         };
       };
+      hostsFile = {
+        
+      };
       prometheus = {
         enable = true;
         path = "/metrics";
