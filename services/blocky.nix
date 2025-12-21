@@ -28,7 +28,7 @@ in {
           default = [
             "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts"
             "https://blocklistproject.github.io/Lists/ads.txt"
-            # "https://raw.githubusercontent.com/Zalexanninev15/NoADS_RU/refs/heads/main/hosts/blockerFL.txt"
+            "https://raw.githubusercontent.com/Zalexanninev15/NoADS_RU/refs/heads/main/hosts/blockerFL.txt"
           ];
         };
         allowlists = {
