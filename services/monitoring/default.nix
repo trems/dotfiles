@@ -21,6 +21,9 @@ in {
               targets = ["home-laptop2:${toString nodeExporterPort}"];
               labels.type = "node";
             }
+            {
+              targets = ["home-laptop2:4000"]
+            }
           ];
         }
       ];
