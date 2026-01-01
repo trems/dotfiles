@@ -82,11 +82,7 @@ in {
   services.prometheus.exporters.node = {
     enable = true;
     port = nodeExporterPort;
-    enabledCollectors = [
-      "systemd"
-      # "textfile" # для кастомных метрик (полезно!)
-      # "timex" # для контроля времени — критично для распределённых систем
-    ];
+    enabledCollectors = ["systemd"];
   };
   environment.etc."grafana/dashboards".source = ./dashboards;
 }
