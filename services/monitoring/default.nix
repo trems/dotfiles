@@ -22,7 +22,7 @@ in {
               labels.type = "node";
             }
             {
-              targets = ["home-laptop2:${toString config.services.blocky.}"];
+              targets = ["home-laptop2:${toString config.services.blocky.settings.ports.http}"];
             }
           ];
         }
