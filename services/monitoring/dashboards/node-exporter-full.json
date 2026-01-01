@@ -15674,7 +15674,7 @@
         "label": "Datasource",
         "name": "ds_prometheus",
         "options": [],
-        "query": "prometheus",
+        "query": "vic",
         "refresh": 1,
         "regex": "",
         "type": "datasource"
