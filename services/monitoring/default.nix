@@ -44,7 +44,6 @@ in {
           {
             name = "VictoriaMetrics";
             type = "victoriametrics-metrics-datasource";
-            # type = "prometheus";
             access = "proxy";
             url = "http://127.0.0.1:${toString vmPort}";
             isDefault = true;
