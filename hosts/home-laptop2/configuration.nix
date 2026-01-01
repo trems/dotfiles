@@ -11,6 +11,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     ../../services/blocky.nix
+    ../../services/monitoring
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -28,6 +29,7 @@ in {
     git
     wget
     neovim
+    btop
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
