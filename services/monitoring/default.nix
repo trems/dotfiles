@@ -85,5 +85,5 @@ in {
     port = nodeExporterPort;
     enabledCollectors = ["systemd"];
   };
-  # environment.etc."grafana/dashboards".source = ./dashboards;
+  environment.etc."grafana/dashboards".source = ./dashboards;
 }
