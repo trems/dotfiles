@@ -27,9 +27,7 @@ in {
           job_name = "blocky";
           metrics_path = "/metrics";
           static_configs = [
-            {
-              targets = ["home-laptop2:${toString config.services.blocky.settings.ports.http}"];
-            }
+            {targets = ["home-laptop2:${toString config.services.blocky.settings.ports.http}"];}
           ];
         }
       ];
