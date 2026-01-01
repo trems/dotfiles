@@ -65,6 +65,7 @@ in {
           providers = [
             {
               name = "Overview";
+              disableDeletion = false;
               options = {
                 path = "/etc/grafana/dashboards";
                 foldersFromFilesStructure = true;
