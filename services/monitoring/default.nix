@@ -63,13 +63,13 @@ in {
         settings = {
           apiVersion = 1;
           providers = [
-            # {
-            #   name = "Overview";
-            #   options = {
-            #     path = "/etc/grafana/dashboards";
-            #     foldersFromFilesStructure = true;
-            #   };
-            # }
+            {
+              name = "Overview";
+              options = {
+                path = "/etc/grafana/dashboards";
+                foldersFromFilesStructure = true;
+              };
+            }
           ];
         };
       };
