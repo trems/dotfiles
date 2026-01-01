@@ -14,7 +14,7 @@ in {
     prometheusConfig = {
       scrape_configs = [
         {
-          job_name = "node-exporter";
+          job_name = "node";
           metrics_path = "/metrics";
           static_configs = [
             {
