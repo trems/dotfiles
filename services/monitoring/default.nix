@@ -26,6 +26,11 @@ in {
             }
           ];
         }
+        {
+          job_name = "blocky";
+          metrics_path = "/metrics";
+          static_configs = []
+        }
       ];
     };
   };
