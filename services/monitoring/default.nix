@@ -63,7 +63,7 @@ in {
           apiVersion = 1;
           providers = [
             {
-              name = "Overview";
+              name = "My dashboards";
               disableDeletion = false;
               options = {
                 path = "/etc/grafana/dashboards";
