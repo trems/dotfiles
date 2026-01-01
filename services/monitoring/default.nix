@@ -74,15 +74,15 @@ in {
         };
       };
     };
-    # declarativePlugins = with pkgs.grafanaPlugins; [
-    # victoriametrics-metrics-datasource
-    # victoriametrics-logs-datasource
-    # ];
+    declarativePlugins = with pkgs.grafanaPlugins; [
+      victoriametrics-metrics-datasource
+      # victoriametrics-logs-datasource
+    ];
   };
   services.prometheus.exporters.node = {
     enable = true;
     port = nodeExporterPort;
     enabledCollectors = ["systemd"];
   };
-  # environment.etc."grafana/dashboards".source = ./dashboards;
+  environment.etc."grafana/dashboards".source = ./dashboards;
 }
