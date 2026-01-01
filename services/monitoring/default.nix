@@ -21,15 +21,16 @@ in {
               targets = ["home-laptop2:${toString nodeExporterPort}"];
               labels.type = "node";
             }
-            {
-              targets = ["home-laptop2:${toString config.services.blocky.settings.ports.http}"];
-            }
           ];
         }
         {
           job_name = "blocky";
           metrics_path = "/metrics";
-          static_configs = [];
+          static_configs = [
+            {
+              targets = ["home-laptop2:${toString config.services.blocky.settings.ports.http}"];
+            }
+          ];
         }
       ];
     };
