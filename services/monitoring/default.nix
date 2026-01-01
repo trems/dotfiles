@@ -83,9 +83,9 @@ in {
     enable = true;
     port = nodeExporterPort;
     enabledCollectors = [
-      "systemd" # если вы используете systemd и хотите видеть состояние сервисов
-      "textfile" # для кастомных метрик (полезно!)
-      "timex" # для контроля времени — критично для распределённых систем
+      "systemd"
+      # "textfile" # для кастомных метрик (полезно!)
+      # "timex" # для контроля времени — критично для распределённых систем
     ];
   };
   environment.etc."grafana/dashboards".source = ./dashboards;
