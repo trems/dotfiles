@@ -15674,7 +15674,7 @@
         "label": "Datasource",
         "name": "ds_prometheus",
         "options": [],
-        "query": "vic",
+        "query": "victoriametrics-metrics-datasource",
         "refresh": 1,
         "regex": "",
         "type": "datasource"
