@@ -4,13 +4,15 @@
   mkMutableSymlink,
   dotfiles,
   ...
-}:
-
-{
+}: {
   programs = {
     git = {
       enable = true;
       settings = {
+        user = {
+          name = "trems";
+          email = "trems95@gmail.com";
+        };
         core = {
           autocrlf = "input";
         };
@@ -41,7 +43,6 @@
           plus-empty-line-marker-style = ''syntax "#273849"'';
           line-numbers-plus-style = ''"#b8db87"'';
           line-numbers-zero-style = ''"#3b4261"'';
-
         };
         navigate = true;
         line-numbers = true;
@@ -50,5 +51,4 @@
       };
     };
   };
-
 }
