@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  user,
   ...
 }: {
   # Used for backwards compatibility, please read the changelog before changing.
@@ -12,8 +13,8 @@
   };
 
   environment = {
-    systemPackages = [
-      pkgs.home-manager # all packages managed by home-manager
+    systemPackages = with pkgs; [
+      home-manager # all packages managed by home-manager
     ];
     # add fish to /etc/shells. Don't forget to change login shell: chsh -s /path/to/fish
     shells = [pkgs.fish];
@@ -35,7 +36,7 @@
   ];
 
   homebrew = {
-    enable = true;
+    enable = false;
     onActivation = {
       autoUpdate = true;
     };
@@ -46,6 +47,7 @@
   };
 
   services = {
+    openssh.enable = true;
     tailscale = {
       enable = true;
       overrideLocalDns = false;
@@ -53,7 +55,7 @@
   };
 
   system = {
-    primaryUser = "msharashin";
+    primaryUser = user;
     defaults = {
       NSGlobalDomain = {
         ApplePressAndHoldEnabled = false;

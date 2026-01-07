@@ -7,7 +7,7 @@ end
 
 config = {
 	-- Settings
-	default_prog = { "fish", "--login" },
+	-- default_prog = { "fish" },
 	unix_domains = { { name = "work" } },
 	default_domain = "local",
 	default_workspace = "home",

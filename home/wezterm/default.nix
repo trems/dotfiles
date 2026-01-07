@@ -4,18 +4,30 @@
   mkMutableSymlink,
   dotfiles,
   ...
-}:
-
-{
+}: let
+  rootConfig = ''
+    return require("extra.wezterm")
+  '';
+in {
   programs.wezterm = {
     enable = true;
-    extraConfig = ''
-      return require("extra.wezterm")
-    '';
+    extraConfig = rootConfig;
   };
 
-  xdg.configFile."wezterm/extra" = {
-    source = mkMutableSymlink "${dotfiles}/home/wezterm/wezterm";
-  };
-
+  xdg.configFile = let
+    weztermLua =
+      if !config.programs.wezterm.enable
+      then {
+        "wezterm/wezterm.lua" = {
+          text = rootConfig;
+        };
+      }
+      else {};
+  in
+    {
+      "wezterm/extra" = {
+        source = mkMutableSymlink "${dotfiles}/home/wezterm/wezterm";
+      };
+    }
+    // weztermLua;
 }

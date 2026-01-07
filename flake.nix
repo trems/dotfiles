@@ -14,12 +14,14 @@
     };
     agenix.url = "github:yaxitech/ragenix";
     deploy-rs.url = "github:serokell/deploy-rs";
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
   outputs = inputs @ {
     self,
     darwin,
     nixpkgs,
+    mac-app-util,
     home-manager,
     deploy-rs,
     agenix,
@@ -27,7 +29,10 @@
     publicKeys = import ./secrets/pubkeys.nix;
     systemDarwin = "aarch64-darwin";
     systemLinux = "x86_64-linux";
-    pkgsDarwin = import nixpkgs {system = systemDarwin;};
+    pkgsDarwin = import nixpkgs {
+      system = systemDarwin;
+      config.allowUnfree = true;
+    };
     pkgsLinux = import nixpkgs {system = systemLinux;};
     forAllSystems = nixpkgs.lib.genAttrs [systemLinux systemDarwin];
     nixSettings = user: {
@@ -46,18 +51,25 @@
       darwin.lib.darwinSystem {
         system = arch;
         modules = [
+          {
+            _module.args = {
+              inherit user inputs publicKeys;
+            };
+          }
           ./darwin
+          mac-app-util.darwinModules.default
           home-manager.darwinModules.home-manager
           {
-            _module.args = {inherit inputs publicKeys;};
             home-manager = {
               users.${user} = import ./home;
-              sharedModules = [];
+              sharedModules = [
+                mac-app-util.homeManagerModules.default
+              ];
             };
             users.users.${user}.home = "/Users/${user}";
             nix = nixSettings user;
             age = {
-              identityPaths = ["/Users/${user}/.ssh/id_ed25519"];
+              # identityPaths = ["/Users/${user}/.ssh/id_ed25519"];
               secrets = {
                 test1 = {
                   file = ./secrets/test1.age;
@@ -71,10 +83,13 @@
       };
   in {
     # Build darwin flake using:
-    # $ sudo darwin-rebuild build --flake .#IT-MAC-NB165
+    # $ sudo darwin-rebuild build --flake .#macbook-air-m1
     darwinConfigurations = {
       "IT-MAC-NB165" = mkDarwinSystem {
         user = "msharashin";
+      };
+      "macbook-air-m1" = mkDarwinSystem {
+        user = "m";
       };
     };
     nixosConfigurations = {
