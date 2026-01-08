@@ -36,9 +36,7 @@ in {
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager"];
-    openssh.authorizedKeys.keys = [
-      publicKeys.ucb-mbp
-    ];
+    openssh.authorizedKeys.keys = with publicKeys; [ucb-mbp macbook-air-m1];
 
     packages = with pkgs; [
       tree
@@ -54,6 +52,10 @@ in {
     };
     logind.settings.Login.HandleLidSwitch = "ignore";
     tailscale.enable = true;
+    dae = {
+      enable = false;
+      configFile = "/etc/dae/config.dae";
+    };
   };
 
   security.sudo.extraRules = [

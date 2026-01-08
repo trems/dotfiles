@@ -16,10 +16,19 @@ in {
     enable = true;
     functions = {
       envsource = ''
-        for line in (cat $argv | grep -v '^#')
+        if not test -f $argv[1]
+            echo "envsource: file '$argv[1]' does not exist or is not a regular file." >&2
+            exit 1
+        end
+
+        for line in (cat $argv[1] | grep -v '^#')
             set item (string split -m 1 '=' $line)
-            set -gx $item[1] $item[2]
-            echo "Exported key $item[1]"
+            if test (count $item) -ge 2
+                set -gx $item[1] $item[2]
+                echo "Exported key $item[1]"
+            else
+                echo "Warning: Skipping invalid line: '$line'" >&2
+            end
         end
       '';
     };

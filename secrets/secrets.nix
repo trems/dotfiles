@@ -1,5 +1,5 @@
 let
   pk = import ./pubkeys.nix;
 in {
-  "test1.age".publicKeys = pk.all;
+  # "hy2-client-config.yaml.age".publicKeys = pk.all;
 }

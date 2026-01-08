@@ -58,6 +58,7 @@
           }
           ./darwin
           mac-app-util.darwinModules.default
+          agenix.darwinModules.default
           home-manager.darwinModules.home-manager
           {
             home-manager = {
@@ -78,7 +79,6 @@
               };
             };
           }
-          agenix.darwinModules.default
         ];
       };
   in {
@@ -97,6 +97,7 @@
         system = systemLinux;
         modules = [
           ./hosts/home-laptop2/configuration.nix
+          agenix.nixosModules.default
           {
             _module.args = {inherit publicKeys;};
             nix = nixSettings "mike";
@@ -108,7 +109,6 @@
               };
             };
           }
-          agenix.nixosModules.default
         ];
       };
     };
