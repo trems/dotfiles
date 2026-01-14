@@ -70,10 +70,12 @@
             users.users.${user}.home = "/Users/${user}";
             nix = nixSettings user;
             age = {
-              # identityPaths = ["/Users/${user}/.ssh/id_ed25519"];
+              identityPaths = ["/Users/${user}/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key"];
               secrets = {
-                test1 = {
-                  file = ./secrets/test1.age;
+                hysteria2-client-conf = {
+                  name = "hy2-client.yaml";
+                  file = ./secrets/hysteria-client-conf.age;
+                  mode = "400";
                   owner = user;
                 };
               };
@@ -85,9 +87,6 @@
     # Build darwin flake using:
     # $ sudo darwin-rebuild build --flake .#macbook-air-m1
     darwinConfigurations = {
-      "IT-MAC-NB165" = mkDarwinSystem {
-        user = "msharashin";
-      };
       "macbook-air-m1" = mkDarwinSystem {
         user = "m";
       };
@@ -103,9 +102,7 @@
             nix = nixSettings "mike";
             age = {
               secrets = {
-                test1 = {
-                  file = ./secrets/test1.age;
-                };
+                hysteria2-client-conf.file = ./secrets/hysteria-client-conf.age;
               };
             };
           }

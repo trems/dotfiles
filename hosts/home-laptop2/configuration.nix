@@ -52,10 +52,6 @@ in {
     };
     logind.settings.Login.HandleLidSwitch = "ignore";
     tailscale.enable = true;
-    dae = {
-      enable = false;
-      configFile = "/etc/dae/config.dae";
-    };
   };
 
   security.sudo.extraRules = [
