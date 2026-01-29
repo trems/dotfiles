@@ -4,9 +4,7 @@
   mkMutableSymlink,
   dotfiles,
   ...
-}:
-
-{
+}: {
   services.syncthing = {
     enable = true;
     tray = {
@@ -24,11 +22,17 @@
           enable = true;
           id = "9uxkv-kkef5";
           path = "~/obsidian";
-          devices = [ "phone" ];
+          devices = ["phone"];
+          type = "sendreceive";
+        };
+        "trashsync" = {
+          enable = true;
+          id = "6y306-ss0w1";
+          path = "~/trashsync";
+          devices = ["phone"];
           type = "sendreceive";
         };
       };
     };
   };
-
 }

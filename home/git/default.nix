@@ -21,7 +21,7 @@
       };
       includes = [
         {
-          # condition = "gitdir:~/work/";
+          condition = "gitdir:${config.home.homeDirectory}/work/**";
           path = "${config.home.homeDirectory}/work/.gitconfig";
         }
       ];

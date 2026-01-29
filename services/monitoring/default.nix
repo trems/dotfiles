@@ -8,10 +8,14 @@
 in {
   services.victoriametrics = {
     enable = true;
+    retentionPeriod = "14d";
     listenAddress = ":${toString vmPort}";
     # basicAuthUsername = "odmen";
     # basicAuthPasswordFile = agenix....;
     prometheusConfig = {
+      global = {
+        scrape_interval = "60s";
+      };
       scrape_configs = [
         {
           job_name = "node";
@@ -25,7 +29,7 @@ in {
         }
         {
           job_name = "blocky";
-          metrics_path = "/metrics";
+          metrics_path = config.services.blocky.settings.prometheus.path;
           static_configs = [
             {targets = ["home-laptop2:${toString config.services.blocky.settings.ports.http}"];}
           ];
@@ -56,13 +60,6 @@ in {
             url = "http://127.0.0.1:${toString vmPort}";
             isDefault = true;
           }
-          # {
-          #   name = "VictoriaLogs";
-          #   type = "victoriametrics-logs-datasource";
-          #   access = "proxy";
-          #   url = "http://127.0.0.1:9428";
-          #   isDefault = false;
-          # }
         ];
         deleteDatasources = [];
       };
@@ -83,7 +80,7 @@ in {
       };
     };
     declarativePlugins = with pkgs.grafanaPlugins; [
-      victoriametrics-metrics-datasource
+      # victoriametrics-metrics-datasource
       # victoriametrics-logs-datasource
     ];
   };

@@ -7,7 +7,6 @@ function fish_prompt
     set -l delim \U1F525 # fire emoji
     # If we don't have unicode use a simpler delimiter
     string match -qir utf-8 -- $LANG $LC_CTYPE $LC_ALL; or set delim ">"
-
     fish_is_root_user; and set delim "#"
 
     set -l cwd (set_color $fish_color_cwd)
@@ -53,9 +52,8 @@ function fish_prompt
 
     set -l nix_shell_info (
       if test -n "$IN_NIX_SHELL"
-          set delim "> "
-          # set -e delim
-          echo -n "<nix-shell> "
+          # set delim "> "
+          echo -n "<$name> "
       end
     )
 

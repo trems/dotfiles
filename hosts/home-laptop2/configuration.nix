@@ -12,6 +12,7 @@ in {
     ./hardware-configuration.nix
     ../../services/blocky.nix
     ../../services/monitoring
+    ../../services/torrent.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -36,7 +37,7 @@ in {
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager"];
-    openssh.authorizedKeys.keys = with publicKeys; [ucb-mbp macbook-air-m1];
+    openssh.authorizedKeys.keys = with publicKeys; [macbook-air-m1];
 
     packages = with pkgs; [
       tree
@@ -51,7 +52,17 @@ in {
       };
     };
     logind.settings.Login.HandleLidSwitch = "ignore";
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      authKeyFile = config.age.secrets.tailscale-auth-key.path;
+    };
+  };
+
+  age = {
+    secrets = {
+      tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
+      hysteria2-client-conf.file = ./secrets/hysteria-client-conf.age;
+    };
   };
 
   security.sudo.extraRules = [

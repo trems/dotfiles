@@ -29,6 +29,12 @@
     publicKeys = import ./secrets/pubkeys.nix;
     systemDarwin = "aarch64-darwin";
     systemLinux = "x86_64-linux";
+
+    nixpkgsFor = system:
+      import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     pkgsDarwin = import nixpkgs {
       system = systemDarwin;
       config.allowUnfree = true;
@@ -100,11 +106,6 @@
           {
             _module.args = {inherit publicKeys;};
             nix = nixSettings "mike";
-            age = {
-              secrets = {
-                hysteria2-client-conf.file = ./secrets/hysteria-client-conf.age;
-              };
-            };
           }
         ];
       };
@@ -113,7 +114,7 @@
       nodes = {
         home-laptop2 = {
           remoteBuild = true;
-          hostname = "home-laptop2";
+          hostname = "192.168.0.102";
           sshUser = "mike";
           profiles.system = {
             user = "root";
@@ -135,15 +136,33 @@
     #     });
 
     # `nix develop`
-    devShells."${systemDarwin}".default = pkgsDarwin.mkShell {
-      buildInputs = with pkgsDarwin; [
-        pkgsDarwin.deploy-rs
-        fish
-        agenix.packages.${systemDarwin}.default
-      ];
-      shellHook = ''
-        exec fish
-      '';
-    };
+    devShells = forAllSystems (system: let
+      pkgs = nixpkgsFor system;
+    in {
+      default = pkgs.mkShell {
+        name = "dotfiles";
+        packages = with pkgs; [
+          fish
+          agenix.packages.${system}.default
+        ];
+        buildInputs = [
+          pkgs.deploy-rs
+        ];
+        # shellHook = ''
+        #   exec fish
+        # '';
+      };
+    });
+    # devShells."${systemDarwin}".default = pkgsDarwin.mkShell {
+    #   name = "dotfiles";
+    #   packages = with pkgsDarwin; [
+    #     pkgsDarwin.deploy-rs
+    #     fish
+    #     agenix.packages.${systemDarwin}.default
+    #   ];
+    #   shellHook = ''
+    #     exec fish
+    #   '';
+    # };
   };
 }

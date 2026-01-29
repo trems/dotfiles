@@ -42,7 +42,8 @@ in {
       rustup
       nodejs_24
 
-      qwen-code
+      # qwen-code
+      # opencode
     ];
   };
   xdg.enable = true;

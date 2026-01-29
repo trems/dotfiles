@@ -18,6 +18,9 @@
     ];
     # add fish to /etc/shells. Don't forget to change login shell: chsh -s /path/to/fish
     shells = [pkgs.fish];
+    interactiveShellInit = ''
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    '';
   };
 
   programs = {
@@ -36,11 +39,13 @@
   ];
 
   homebrew = {
-    enable = false;
+    enable = true;
     onActivation = {
       autoUpdate = true;
     };
-    brews = [];
+    brews = [
+      "qwen-code" # unstable nixpkgs contains old version
+    ];
     casks = [];
     taps = [];
     masApps = {};

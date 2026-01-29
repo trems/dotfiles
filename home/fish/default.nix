@@ -18,7 +18,7 @@ in {
       envsource = ''
         if not test -f $argv[1]
             echo "envsource: file '$argv[1]' does not exist or is not a regular file." >&2
-            exit 1
+            return
         end
 
         for line in (cat $argv[1] | grep -v '^#')
