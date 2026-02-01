@@ -12,7 +12,8 @@ in {
     ./hardware-configuration.nix
     ../../services/blocky.nix
     ../../services/monitoring
-    ../../services/torrent.nix
+    ../../services/media-server.nix
+    # ../../services/dae.nix # пока что dae не умеет в salamander obfs
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -56,12 +57,16 @@ in {
       enable = true;
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
     };
+    my-media-server = {
+      enable = true;
+      user = user;
+      # sharePath по умолчанию будет /srv/share
+    };
   };
 
   age = {
     secrets = {
       tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
-      hysteria2-client-conf.file = ./secrets/hysteria-client-conf.age;
     };
   };
 

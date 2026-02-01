@@ -28,7 +28,7 @@ in {
       hysteria
       yq-go
       ffmpeg
-      temporal-cli
+      proxychains-ng
 
       go-task
       gnumake
@@ -51,7 +51,7 @@ in {
 
   imports = [
     ./git
-    # ./ssh
+    ./ssh
     ./wezterm
     ./nvim
     ./fish

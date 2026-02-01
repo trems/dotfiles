@@ -1,6 +1,6 @@
 let
   pk = import ./pubkeys.nix;
 in {
-  "hysteria-client-conf.age".publicKeys = pk.all;
+  "hy2-client-conf.yaml.age".publicKeys = pk.all;
   "tailscale-auth-key.age".publicKeys = [pk.home-laptop2];
 }

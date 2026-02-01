@@ -41,9 +41,9 @@
     };
     pkgsLinux = import nixpkgs {system = systemLinux;};
     forAllSystems = nixpkgs.lib.genAttrs [systemLinux systemDarwin];
-    nixSettings = user: {
+    nixSettings = users: {
       settings = {
-        trusted-users = [user];
+        trusted-users = users;
         extra-experimental-features = [
           "nix-command"
           "flakes"
@@ -74,13 +74,12 @@
               ];
             };
             users.users.${user}.home = "/Users/${user}";
-            nix = nixSettings user;
+            nix = nixSettings [user];
             age = {
               identityPaths = ["/Users/${user}/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key"];
               secrets = {
                 hysteria2-client-conf = {
-                  name = "hy2-client.yaml";
-                  file = ./secrets/hysteria-client-conf.age;
+                  file = ./secrets/hy2-client.yaml.age;
                   mode = "400";
                   owner = user;
                 };
@@ -123,7 +122,7 @@
           agenix.nixosModules.default
           {
             _module.args = {inherit publicKeys;};
-            nix = nixSettings "mike";
+            nix = nixSettings ["mike"];
           }
         ];
       };

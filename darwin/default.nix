@@ -45,6 +45,8 @@
     };
     brews = [
       "qwen-code" # unstable nixpkgs contains old version
+      "gemini-cli"
+      "opencode"
     ];
     casks = [];
     taps = [];
