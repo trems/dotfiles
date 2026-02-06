@@ -48,7 +48,9 @@
       "gemini-cli"
       "opencode"
     ];
-    casks = [];
+    casks = [
+      "orbstack"
+    ];
     taps = [];
     masApps = {};
   };
