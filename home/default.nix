@@ -21,6 +21,7 @@ in {
     packages = with pkgs; [
       graphviz
       grpcurl
+      nmap
       s3cmd
       imagemagick
       tokei
@@ -28,7 +29,6 @@ in {
       hysteria
       yq-go
       ffmpeg
-      proxychains-ng
 
       go-task
       gnumake
@@ -67,6 +67,7 @@ in {
     ./direnv
     ./karabiner
     ./golang
+    ./proxychains.nix
 
     #services
     ./git-sync
