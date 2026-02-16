@@ -4,15 +4,12 @@
   mkMutableSymlink,
   dotfiles,
   ...
-}:
-
-{
+}: {
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
     config = {
-      global.load_dotenv = true;
+      global.load_dotenv = false;
     };
   };
-
 }

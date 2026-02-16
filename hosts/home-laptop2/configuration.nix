@@ -10,14 +10,16 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    ../../services/blocky.nix
+    # ../../services/blocky.nix
     ../../services/monitoring
-    ../../services/media-server.nix
+    # ../../services/media-server.nix
+    ../../services/sing-box.nix
     # ../../services/dae.nix # пока что dae не умеет в salamander obfs
   ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = ["xt_TPROXY" "nf_tproxy_ipv4"];
 
   networking = {
     hostName = "home-laptop2"; # должно совпадать с именем в flake!
@@ -57,11 +59,11 @@ in {
       enable = true;
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
     };
-    my-media-server = {
-      enable = true;
-      user = user;
-      # sharePath по умолчанию будет /srv/share
-    };
+    # my-media-server = {
+    #   enable = true;
+    #   user = user;
+    #   # sharePath по умолчанию будет /srv/share
+    # };
   };
 
   age = {

@@ -8,7 +8,7 @@ in {
   };
 
   services.blocky = {
-    enable = true;
+    enable = false;
     settings = {
       ports = {
         dns = dnsPort;

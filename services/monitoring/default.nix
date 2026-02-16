@@ -27,13 +27,13 @@ in {
             }
           ];
         }
-        {
-          job_name = "blocky";
-          metrics_path = config.services.blocky.settings.prometheus.path;
-          static_configs = [
-            {targets = ["home-laptop2:${toString config.services.blocky.settings.ports.http}"];}
-          ];
-        }
+        # {
+        #   job_name = "blocky";
+        #   metrics_path = config.services.blocky.settings.prometheus.path;
+        #   static_configs = [
+        #     {targets = ["home-laptop2:${toString config.services.blocky.settings.ports.http}"];}
+        #   ];
+        # }
       ];
     };
   };
