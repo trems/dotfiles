@@ -9,6 +9,7 @@
   dotfiles = "${config.home.homeDirectory}/dotfiles";
 in {
   _module.args = {inherit mkMutableSymlink dotfiles;};
+
   home = {
     stateVersion = "25.05";
     sessionPath = [
@@ -72,7 +73,15 @@ in {
     ./syncthing
   ];
 
-  targets.darwin = {
-    linkApps.enable = true;
-  };
+  targets =
+    if pkgs.stdenv.isDarwin
+    then {
+      darwin.linkApps.enable = true;
+    }
+    else {
+      genericLinux = {
+        enable = true;
+        gpu.enable = true;
+      };
+    };
 }

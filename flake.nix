@@ -97,6 +97,24 @@
         user = "m";
       };
     };
+    homeConfigurations = let
+      user = "sharashin.mihail";
+    in {
+      "${user}" = home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgsLinux;
+        modules = [
+          ./home
+          {
+            home = {
+              username = user;
+              homeDirectory = "/home/${user}";
+            };
+            programs.home-manager.enable = true;
+          }
+        ];
+        extraSpecialArgs = {}; # to pass extra args to module
+      };
+    };
     nixosConfigurations = {
       home-laptop2 = nixpkgs.lib.nixosSystem {
         system = systemLinux;
@@ -153,16 +171,5 @@
         # '';
       };
     });
-    # devShells."${systemDarwin}".default = pkgsDarwin.mkShell {
-    #   name = "dotfiles";
-    #   packages = with pkgsDarwin; [
-    #     pkgsDarwin.deploy-rs
-    #     fish
-    #     agenix.packages.${systemDarwin}.default
-    #   ];
-    #   shellHook = ''
-    #     exec fish
-    #   '';
-    # };
   };
 }
