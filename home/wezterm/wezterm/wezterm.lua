@@ -9,6 +9,11 @@ config = {
 	-- Settings
 	-- default_prog = { "fish" },
 	unix_domains = { { name = "work" } },
+	ssh_domains = {
+		-- 	{
+		-- 		name = "corp",
+		-- 	},
+	},
 	default_domain = "local",
 	default_workspace = "home",
 	set_environment_variables = {},

@@ -77,7 +77,6 @@
                     },
                     {
                         "description": "capslock to escape for wezterm",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -96,7 +95,6 @@
                     },
                     {
                         "description": "(Vim 1/11) caps_lock -> on, caps_lock, esc, control+[ or any pointing_button -> off (exclude wezterm)",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -313,7 +311,6 @@
                     {
                         "available_since": "12.6.9",
                         "description": "(Vim 2/11) finger on trackpad + any key -> off",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -349,7 +346,6 @@
                     },
                     {
                         "description": "(Vim 3/11) visual mode + h,j,k,l,e,b,0,^,$,gg,G,{,} + d,y,c,x",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -1071,7 +1067,6 @@
                     },
                     {
                         "description": "(Vim 4/11) dd,de,db,d0,d^,d$,dgg,dG,d{,d}",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -1573,7 +1568,6 @@
                     },
                     {
                         "description": "(Vim 5/11) yy,ye,yb,y0,y^,y$,ygg,yG,y{,y}",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -2079,7 +2073,6 @@
                     },
                     {
                         "description": "(Vim 6/11) cc,ce,cb,c0,c^,c$,cgg,cG,c{,c}",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -2705,7 +2698,6 @@
                     },
                     {
                         "description": "(Vim 7/11) x,X,p,P,u,control+r",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -2848,7 +2840,6 @@
                     },
                     {
                         "description": "(Vim 8/11) h,j,k,l (+ control/option/command/shift),e,b,0,^,$,gg,G,{,}",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -3216,7 +3207,6 @@
                     },
                     {
                         "description": "(Vim 9/11) i,I,a,A,o,O",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -3538,7 +3528,6 @@
                     },
                     {
                         "description": "(Vim 11/11) disable unused keys",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -3736,10 +3725,6 @@
             "name": "Default profile",
             "selected": true,
             "simple_modifications": [
-                {
-                    "from": { "key_code": "caps_lock" },
-                    "to": [{ "key_code": "escape" }]
-                },
                 {
                     "from": { "key_code": "right_command" },
                     "to": [{ "apple_vendor_keyboard_key_code": "language" }]

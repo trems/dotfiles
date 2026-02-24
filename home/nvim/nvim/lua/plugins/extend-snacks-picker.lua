@@ -2,7 +2,16 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      styles = {
+        lazygit = {
+          width = 0,
+          height = 0,
+        },
+      },
       picker = {
+        layout = {
+          fullscreen = true,
+        },
         previewers = {
           diff = { builtin = false, cmd = { "delta" } },
           git = { builtin = false },
