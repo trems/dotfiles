@@ -50,6 +50,7 @@
     ];
     casks = [
       "orbstack"
+      "codex"
     ];
     taps = [];
     masApps = {};
@@ -95,7 +96,8 @@
     };
     keyboard = {
       enableKeyMapping = true;
-      userKeyMapping = []; # see https://developer.apple.com/library/content/technotes/tn2450/_index.html
+      remapCapsLockToEscape = true;
+      userKeyMapping = [ ]; # see https://developer.apple.com/library/content/technotes/tn2450/_index.html
     };
   };
 }
