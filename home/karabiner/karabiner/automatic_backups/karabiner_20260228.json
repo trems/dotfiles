@@ -5,24 +5,6 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Remap Right Command to Shift + Option + Space",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "right_command",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "spacebar",
-                                        "modifiers": ["right_control", "right_option"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Quit application by holding command-q",
                         "manipulators": [
                             {
@@ -3757,6 +3739,10 @@
                 {
                     "from": { "key_code": "caps_lock" },
                     "to": [{ "key_code": "escape" }]
+                },
+                {
+                    "from": { "key_code": "right_command" },
+                    "to": [{ "apple_vendor_keyboard_key_code": "language" }]
                 }
             ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
