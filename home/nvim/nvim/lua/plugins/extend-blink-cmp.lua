@@ -90,16 +90,16 @@ return {
           },
         },
         ghost_text = {
-          enabled = false,
+          enabled = vim.g.ai_cmp,
         },
         documentation = {
           auto_show = true,
           treesitter_highlighting = true,
-          draw = function(opts)
-            -- local s_opts = serializeTable(opts)
-            -- print(s_opts)
-            opts.default_implementation()
-          end,
+          -- draw = function(opts)
+          -- local s_opts = serializeTable(opts)
+          -- print(s_opts)
+          --   opts.default_implementation()
+          -- end,
         },
       },
       signature = {
