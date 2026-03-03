@@ -9,6 +9,7 @@
 in {
   xdg.configFile."fish/functions/fish_prompt.fish".source =
     mkMutableSymlink "${fishFiles}/functions/fish_prompt.fish";
+  xdg.configFile."fish/themes".source = mkMutableSymlink "${fishFiles}/themes";
 
   home.shell.enableFishIntegration = true;
 
