@@ -16,10 +16,13 @@ in {
       "$HOME/.cargo/bin"
       "$HOME/go/bin"
     ]; # Extra directories to prepend to PATH, e.g. "$HOME/.local/bin" or "\${xdg.configHome}/emacs/bin"
-    sessionVariables = {}; # environment variables
+    sessionVariables = {
+      EDITOR = "nvim";
+    }; # environment variables
 
     packages = with pkgs; [
       graphviz
+      nerd-fonts.jetbrains-mono
       grpcurl
       nmap
       s3cmd
@@ -73,6 +76,8 @@ in {
     ./git-sync
     ./syncthing
   ];
+
+  fonts.fontconfig.enable = true;
 
   targets =
     if pkgs.stdenv.isDarwin
