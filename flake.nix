@@ -108,10 +108,10 @@
             home = {
               username = user;
               homeDirectory = "/home/${user}";
-            };
               packages = with pkgsLinux; [
                 tailscale
               ];
+            };
             programs.home-manager.enable = true;
           }
         ];
