@@ -108,6 +108,7 @@
             home = {
               username = user;
               homeDirectory = "/home/${user}";
+              packages = [];
             };
             programs.home-manager.enable = true;
           }
