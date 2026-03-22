@@ -6,8 +6,6 @@ if wez.config_builder then
 end
 
 config = {
-	-- Settings
-	-- default_prog = { "fish" },
 	unix_domains = { { name = "work" } },
 	ssh_domains = {
 		-- 	{
@@ -18,10 +16,11 @@ config = {
 	default_workspace = "home",
 	set_environment_variables = {},
 	enable_kitty_keyboard = false,
-	-- front_end = "WebGpu",
+	front_end = "WebGpu",
 	quick_select_patterns = {
 		"v[0-9]+.+", -- golang version tag from 'git describe'
 	},
+	max_fps = 120,
 	debug_key_events = true,
 	mouse_wheel_scrolls_tabs = false,
 	alternate_buffer_wheel_scroll_speed = 1,
