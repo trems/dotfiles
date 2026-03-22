@@ -31,7 +31,12 @@
         alias drs="sudo darwin-rebuild switch --flake ~/dotfiles/"
       '';
     };
-    fish.enable = true; # required for login shell
+    fish = {
+      enable = true; # required for login shell
+      interactiveShellInit = ''
+        alias drs="sudo darwin-rebuild switch --flake ~/dotfiles/"
+      '';
+    };
   };
 
   fonts.packages = [
@@ -49,8 +54,10 @@
       "opencode"
     ];
     casks = [
+      "brave-browser"
       "orbstack"
       "codex"
+      "karabiner-elements"
     ];
     taps = [];
     masApps = {};
@@ -58,10 +65,6 @@
 
   services = {
     openssh.enable = true;
-    tailscale = {
-      enable = true;
-      overrideLocalDns = false;
-    };
   };
 
   system = {

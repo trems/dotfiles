@@ -74,7 +74,8 @@
               ];
             };
             users.users.${user}.home = "/Users/${user}";
-            nix = nixSettings [user];
+            #nix = nixSettings [user];
+            nix.enable = false;
             age = {
               identityPaths = ["/Users/${user}/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key"];
               secrets = {
@@ -94,6 +95,9 @@
     # $ sudo darwin-rebuild build --flake .#macbook-air-m1
     darwinConfigurations = {
       "macbook-air-m1" = mkDarwinSystem {
+        user = "m";
+      };
+      "mbp" = mkDarwinSystem {
         user = "m";
       };
     };
