@@ -29,6 +29,7 @@ in {
       hysteria
       yq-go
       ffmpeg
+      resterm
 
       go-task
       gnumake
@@ -42,9 +43,6 @@ in {
 
       rustup
       nodejs_24
-
-      # qwen-code
-      # opencode
     ];
   };
   xdg.enable = true;
@@ -67,7 +65,6 @@ in {
     ./direnv
     ./karabiner
     ./golang
-    ./proxychains.nix
 
     #services
     ./git-sync
