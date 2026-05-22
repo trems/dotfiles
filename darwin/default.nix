@@ -15,6 +15,7 @@
   environment = {
     systemPackages = with pkgs; [
       home-manager # all packages managed by home-manager
+      python3
     ];
     # add fish to /etc/shells. Don't forget to change login shell: chsh -s /path/to/fish
     shells = [pkgs.fish];
@@ -50,14 +51,16 @@
     };
     brews = [
       "qwen-code" # unstable nixpkgs contains old version
-      "gemini-cli"
       "opencode"
+      "pi-coding-agent"
     ];
     casks = [
       "brave-browser"
       "orbstack"
       "codex"
+      "antigravity"
       "karabiner-elements"
+      "handy"
     ];
     taps = [];
     masApps = {};

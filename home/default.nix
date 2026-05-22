@@ -59,6 +59,7 @@ in {
     ./ripgrep
     ./fzf
     ./fd
+    ./btop.nix
     ./eza
     ./k9s
     ./kube

@@ -40,7 +40,7 @@ in {
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager"];
-    openssh.authorizedKeys.keys = with publicKeys; [macbook-air-m1];
+    openssh.authorizedKeys.keys = with publicKeys; [macbook-air-m1 mbp];
 
     packages = with pkgs; [
       tree
