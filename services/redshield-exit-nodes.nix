@@ -98,7 +98,8 @@ EOF
         echo "Configuring direct route bypass for Russian subnets..."
         awk -v gw="$ORIG_GW" '/^#/ || /^$/ { next } {print "route add " $1 " via " gw " dev eth0"}' /tmp/ru-ips.txt > /tmp/route-batch.txt
         ip -batch /tmp/route-batch.txt || true
-        echo "Direct routes applied successfully."
+        iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+        echo "Direct routes and NAT masquerade applied successfully."
     fi
 
     # Start Tailscaled
