@@ -78,7 +78,7 @@ in {
     enable = true;
     tailscaleAuthKeyPath = config.age.secrets.tailscale-auth-key.path;
     redshieldPrivateKeyPath = config.age.secrets.rs-private-key.path;
-    nodes = [ "rsv-latvia" "rsv-kazakhstan" "rsv-france" ];
+    nodes = [ "latvia" "kazakhstan" "france" ];
   };
 
   security.sudo.extraRules = [

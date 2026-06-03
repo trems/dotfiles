@@ -186,7 +186,7 @@ EOF
       AWG_H4 = "425164664-434856083";
     };
     volumes = [
-      "/var/lib/rsv-multitun/${removePrefix "rsv-" id}:/var/lib/tailscale"
+      "/var/lib/rsv-multitun/${id}:/var/lib/tailscale"
     ];
   };
 
@@ -247,14 +247,14 @@ in {
           ${pkgs.docker}/bin/docker load -i ${rsvImage}
         '';
       };
-    } // (genAttrs (map (id: "docker-${id}") cfg.nodes) (serviceName: {
+    } // (genAttrs (map (id: "docker-rsv-${id}") cfg.nodes) (serviceName: {
       after = [ "rsv-prep-env.service" "rsv-load-image.service" ];
       wants = [ "rsv-prep-env.service" "rsv-load-image.service" ];
     }));
 
     virtualisation.oci-containers = {
       backend = "docker";
-      containers = mapAttrs (id: node: mkExitNodeContainer id node) enabledNodes;
+      containers = mapAttrs' (id: node: nameValuePair "rsv-${id}" (mkExitNodeContainer id node)) enabledNodes;
     };
   };
 }

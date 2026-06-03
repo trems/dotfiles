@@ -53,13 +53,12 @@ def main():
         if not name or not hosts:
             continue
 
-        # Clean name to be a valid Nix key and prefix with rsv-
+        # Clean name to be a valid Nix key
         clean_name = name.split("|")[0].strip().lower()
         clean_name = re.sub(r"[^a-z0-9_-]", "-", clean_name)
         clean_name = re.sub(r"-+", "-", clean_name).strip("-")
-        clean_name = f"rsv-{clean_name}"
         
-        hostname = f"rsv-exit-{code.lower()}"
+        hostname = f"rsv-{clean_name}"
         endpoint = f"{hosts[0]}:{awg_port}"
         
         # Determine bypassRu status: preserve existing if present, otherwise default to True
