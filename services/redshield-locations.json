@@ -1,0 +1,207 @@
+{
+  "rsv-aec1d5cec4-a1b1-1": {
+    "bypassRu": true,
+    "endpoint": "51.250.92.61:3478",
+    "hostname": "rsv-exit-pz-wl101"
+  },
+  "rsv-aec1d5cec4-a1b1-2": {
+    "bypassRu": true,
+    "endpoint": "84.201.138.49:3478",
+    "hostname": "rsv-exit-pz-wl102"
+  },
+  "rsv-aec1d5cec4-a1b1-4": {
+    "bypassRu": true,
+    "endpoint": "158.160.227.184:3478",
+    "hostname": "rsv-exit-pz-wl104"
+  },
+  "rsv-aec1d5cec4-a1b1-6": {
+    "bypassRu": true,
+    "endpoint": "94.126.205.101:3478",
+    "hostname": "rsv-exit-pz-wl106"
+  },
+  "rsv-argentina": {
+    "bypassRu": true,
+    "endpoint": "185.21.252.19:3478",
+    "hostname": "rsv-exit-ag"
+  },
+  "rsv-armenia": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.20:3478",
+    "hostname": "rsv-exit-am"
+  },
+  "rsv-austria": {
+    "bypassRu": true,
+    "endpoint": "166.88.177.225:3478",
+    "hostname": "rsv-exit-au"
+  },
+  "rsv-belarus": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.18:3478",
+    "hostname": "rsv-exit-rb"
+  },
+  "rsv-brazil": {
+    "bypassRu": true,
+    "endpoint": "201.182.96.220:3478",
+    "hostname": "rsv-exit-br"
+  },
+  "rsv-canada": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.140:3478",
+    "hostname": "rsv-exit-ca"
+  },
+  "rsv-cyprus": {
+    "bypassRu": true,
+    "endpoint": "185.191.206.4:3478",
+    "hostname": "rsv-exit-cy"
+  },
+  "rsv-czech-republic": {
+    "bypassRu": true,
+    "endpoint": "50.114.23.219:3478",
+    "hostname": "rsv-exit-pra"
+  },
+  "rsv-finland": {
+    "bypassRu": true,
+    "endpoint": "45.38.50.129:3478",
+    "hostname": "rsv-exit-fin"
+  },
+  "rsv-france": {
+    "bypassRu": true,
+    "endpoint": "166.88.150.237:3478",
+    "hostname": "rsv-exit-fr"
+  },
+  "rsv-georgia": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.21:3478",
+    "hostname": "rsv-exit-ge"
+  },
+  "rsv-germany": {
+    "bypassRu": true,
+    "endpoint": "166.0.218.251:3478",
+    "hostname": "rsv-exit-fra"
+  },
+  "rsv-hong-kong": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.143:3478",
+    "hostname": "rsv-exit-hk"
+  },
+  "rsv-hungary": {
+    "bypassRu": true,
+    "endpoint": "166.0.123.70:3478",
+    "hostname": "rsv-exit-bu"
+  },
+  "rsv-israel": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.135:3478",
+    "hostname": "rsv-exit-il"
+  },
+  "rsv-italy": {
+    "bypassRu": true,
+    "endpoint": "166.88.196.147:3478",
+    "hostname": "rsv-exit-it"
+  },
+  "rsv-japan": {
+    "bypassRu": true,
+    "endpoint": "43.230.163.117:3478",
+    "hostname": "rsv-exit-jp"
+  },
+  "rsv-kazakhstan": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.17:3478",
+    "hostname": "rsv-exit-kz"
+  },
+  "rsv-latvia": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.15:3478",
+    "hostname": "rsv-exit-lv"
+  },
+  "rsv-lithuania": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.19:3478",
+    "hostname": "rsv-exit-lt"
+  },
+  "rsv-los-angeles": {
+    "bypassRu": true,
+    "endpoint": "172.96.142.167:3478",
+    "hostname": "rsv-exit-la"
+  },
+  "rsv-netherlands": {
+    "bypassRu": true,
+    "endpoint": "166.0.113.31:3478",
+    "hostname": "rsv-exit-ams"
+  },
+  "rsv-new-york": {
+    "bypassRu": true,
+    "endpoint": "172.93.109.208:3478",
+    "hostname": "rsv-exit-ny"
+  },
+  "rsv-poland": {
+    "bypassRu": true,
+    "endpoint": "136.0.175.197:3478",
+    "hostname": "rsv-exit-po"
+  },
+  "rsv-portugal": {
+    "bypassRu": true,
+    "endpoint": "166.1.44.250:3478",
+    "hostname": "rsv-exit-pt"
+  },
+  "rsv-russia": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.16:3478",
+    "hostname": "rsv-exit-ru"
+  },
+  "rsv-serbia": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.142:3478",
+    "hostname": "rsv-exit-rs"
+  },
+  "rsv-singapore": {
+    "bypassRu": true,
+    "endpoint": "210.16.67.117:3478",
+    "hostname": "rsv-exit-sg"
+  },
+  "rsv-spain": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.139:3478",
+    "hostname": "rsv-exit-es"
+  },
+  "rsv-sweden": {
+    "bypassRu": true,
+    "endpoint": "166.1.72.28:3478",
+    "hostname": "rsv-exit-stm"
+  },
+  "rsv-switzerland": {
+    "bypassRu": true,
+    "endpoint": "166.88.133.241:3478",
+    "hostname": "rsv-exit-sw"
+  },
+  "rsv-thailand": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.136:3478",
+    "hostname": "rsv-exit-th"
+  },
+  "rsv-turkey": {
+    "bypassRu": true,
+    "endpoint": "110.172.145.142:3478",
+    "hostname": "rsv-exit-tr"
+  },
+  "rsv-uae": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.141:3478",
+    "hostname": "rsv-exit-ae"
+  },
+  "rsv-ukraine": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.22:3478",
+    "hostname": "rsv-exit-ua"
+  },
+  "rsv-united-kingdom": {
+    "bypassRu": true,
+    "endpoint": "166.88.151.199:3478",
+    "hostname": "rsv-exit-lon"
+  },
+  "rsv-uzbekistan": {
+    "bypassRu": true,
+    "endpoint": "104.252.128.23:3478",
+    "hostname": "rsv-exit-uz"
+  }
+}

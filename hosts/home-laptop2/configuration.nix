@@ -13,7 +13,8 @@ in {
     # ../../services/blocky.nix
     ../../services/monitoring
     # ../../services/media-server.nix
-    ../../services/sing-box.nix
+    # ../../services/sing-box.nix
+    ../../services/redshield-exit-nodes.nix
     # ../../services/dae.nix # пока что dae не умеет в salamander obfs
   ];
 
@@ -39,7 +40,7 @@ in {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager"];
+    extraGroups = ["wheel" "networkmanager" "docker"];
     openssh.authorizedKeys.keys = with publicKeys; [macbook-air-m1 mbp];
 
     packages = with pkgs; [
@@ -69,7 +70,15 @@ in {
   age = {
     secrets = {
       tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
+      rs-private-key.file = ../../secrets/rs-private-key.age;
     };
+  };
+
+  services.redshield-exit-nodes = {
+    enable = true;
+    tailscaleAuthKeyPath = config.age.secrets.tailscale-auth-key.path;
+    redshieldPrivateKeyPath = config.age.secrets.rs-private-key.path;
+    nodes = [ "rsv-latvia" "rsv-kazakhstan" "rsv-france" ];
   };
 
   security.sudo.extraRules = [
