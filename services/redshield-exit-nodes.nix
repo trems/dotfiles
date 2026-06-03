@@ -6,7 +6,7 @@ let
   sysctl-wrapper = pkgs.writeShellScriptBin "sysctl" ''
     echo "sysctl wrapper called with: $@" >&2
     for arg in "$@"; do
-      if [[ "$arg" == *src_valid_mark=1* || "$arg" == *ip_forward=1* ]]; then
+      if [[ "$arg" == *src_valid_mark=1* || "$arg" == *ip_forward=1* || "$arg" == *forwarding=1* ]]; then
         echo "sysctl wrapper: bypassing $arg" >&2
         exit 0
       fi
@@ -162,6 +162,7 @@ EOF
       "--device=/dev/net/tun:/dev/net/tun"
       "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
       "--sysctl=net.ipv4.ip_forward=1"
+      "--sysctl=net.ipv6.conf.all.forwarding=1"
       "--dns=1.1.1.1"
       "--dns=8.8.8.8"
     ];
