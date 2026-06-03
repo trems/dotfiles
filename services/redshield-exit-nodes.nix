@@ -30,11 +30,12 @@ let
   # Parameterized userspace entrypoint script
   entrypoint = pkgs.writeShellScriptBin "entrypoint" ''
     set -e
-    export PATH="${lib.makeBinPath [ pkgs.iptables pkgs.iproute2 pkgs.amneziawg-go amneziawg-tools-custom pkgs.tailscale pkgs.coreutils pkgs.curl pkgs.gnugrep pkgs.gawk sysctl-wrapper ]}:$PATH"
+    export PATH="${lib.makeBinPath [ pkgs.iptables pkgs.iproute2 pkgs.amneziawg-go amneziawg-tools-custom pkgs.tailscale pkgs.coreutils pkgs.curl pkgs.gnugrep pkgs.gawk sysctl-wrapper pkgs.xray ]}:$PATH"
     export WG_QUICK_USERSPACE_IMPLEMENTATION=amneziawg-go
+    export SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt
 
     # Ensure required directories exist
-    mkdir -p /tmp /dev/net
+    mkdir -p /tmp /dev/net /var/log
     if [ ! -c /dev/net/tun ]; then
         mknod /dev/net/tun c 10 200
     fi
@@ -59,10 +60,6 @@ H2 = $AWG_H2
 H3 = $AWG_H3
 H4 = $AWG_H4
 
-# NAT rules to masquerade Tailscale exit node traffic out through AmneziaWG
-PostUp = iptables -t nat -A POSTROUTING -o %i -j MASQUERADE; iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT
-PostDown = iptables -t nat -D POSTROUTING -o %i -j MASQUERADE; iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT
-
 [Peer]
 PublicKey = $VPN_PUBLIC_KEY
 AllowedIPs = 0.0.0.0/0, ::/0
@@ -70,37 +67,71 @@ Endpoint = $VPN_ENDPOINT
 PersistentKeepalive = 25
 EOF
 
-    # Optional: Fetch Russian subnets list before VPN default route takes over
-    if [ "$BYPASS_RU" = "true" ]; then
-        echo "Fetching Russian subnets list..."
-        ORIG_GW=$(ip route show default | grep eth0 | awk '{print $3}' | head -n1)
-        if [ -n "$ORIG_GW" ]; then
-            echo "Original gateway detected: $ORIG_GW"
-            export SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt
-            for i in {1..5}; do
-                if curl -s -f https://raw.githubusercontent.com/ipverse/country-ip-blocks/master/country/ru/ipv4-aggregated.txt > /tmp/ru-ips.txt; then
-                    echo "Russian IP list fetched successfully."
-                    break
-                fi
-                echo "Fetch failed, retrying in 2 seconds (attempt $i of 5)..."
-                sleep 2
-            done
-        else
-            echo "Error: Could not locate original default gateway."
-        fi
-    fi
-
     # Start AmneziaWG userspace tunnel
     awg-quick up awg0
 
-    # Optional: Bypass Russian subnets directly via container's host gateway
-    if [ "$BYPASS_RU" = "true" ] && [ -s /tmp/ru-ips.txt ]; then
-        echo "Configuring direct route bypass for Russian subnets..."
-        awk -v gw="$ORIG_GW" '/^#/ || /^$/ { next } {print "route add " $1 " via " gw " dev eth0"}' /tmp/ru-ips.txt > /tmp/route-batch.txt
-        ip -batch /tmp/route-batch.txt || true
+    # Apply global forwarding rules for the VPN interface
+    iptables -A FORWARD -i awg0 -j ACCEPT
+    iptables -A FORWARD -o awg0 -j ACCEPT
+
+    # Setup Xray if bypassRu is enabled
+    if [ "$BYPASS_RU" = "true" ]; then
+        echo "Setting up Xray for Russian subnet bypass..."
+        
+        # Prepare asset directory
+        mkdir -p /var/lib/xray
+        ln -sf ${pkgs.v2ray-geoip}/share/v2ray/geoip.dat /var/lib/xray/geoip.dat
+        ln -sf ${pkgs.v2ray-domain-list-community}/share/v2ray/geosite.dat /var/lib/xray/geosite.dat
+
+        # Fetch/update zapret.dat from GitHub if missing or older than 24h
+        ZAPRET_FILE="/var/lib/tailscale/zapret.dat"
+        if [ ! -f "$ZAPRET_FILE" ] || [ -n "$(find "$ZAPRET_FILE" -mmin +1440 2>/dev/null)" ]; then
+            echo "Downloading latest zapret.dat..."
+            if curl -s -f -L -o "$ZAPRET_FILE.tmp" "https://github.com/kutovoys/ru_gov_zapret/releases/latest/download/zapret.dat"; then
+                if [ -s "$ZAPRET_FILE.tmp" ]; then
+                    mv "$ZAPRET_FILE.tmp" "$ZAPRET_FILE"
+                    echo "zapret.dat updated successfully."
+                else
+                    echo "Error: Downloaded zapret.dat is empty!"
+                    rm -f "$ZAPRET_FILE.tmp"
+                fi
+            else
+                echo "Warning: failed to download zapret.dat, using cached version."
+            fi
+        fi
+
+        if [ -f "$ZAPRET_FILE" ]; then
+            ln -sf "$ZAPRET_FILE" /var/lib/xray/zapret.dat
+        else
+            echo "Error: zapret.dat is missing! Xray may fail to start."
+        fi
+
+        # Start Xray daemon
+        export XRAY_LOCATION_ASSET=/var/lib/xray
+        xray run -config /etc/xray/config.json >/var/log/xray-run.log 2>&1 &
+
+        # Set up NAT masquerading for eth0 (bypassed traffic NAT)
         iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-        echo "Direct routes and NAT masquerade applied successfully."
+
+        # Set up iptables REDIRECT rules for Xray TCP traffic
+        iptables -t nat -N XRAY
+        iptables -t nat -A PREROUTING -i tailscale0 -j XRAY
+        iptables -t nat -A XRAY -d 0.0.0.0/8 -j RETURN
+        iptables -t nat -A XRAY -d 10.0.0.0/8 -j RETURN
+        iptables -t nat -A XRAY -d 100.64.0.0/10 -j RETURN
+        iptables -t nat -A XRAY -d 127.0.0.0/8 -j RETURN
+        iptables -t nat -A XRAY -d 169.254.0.0/16 -j RETURN
+        iptables -t nat -A XRAY -d 172.16.0.0/12 -j RETURN
+        iptables -t nat -A XRAY -d 192.168.0.0/16 -j RETURN
+        iptables -t nat -A XRAY -d 224.0.0.0/4 -j RETURN
+        iptables -t nat -A XRAY -d 240.0.0.0/4 -j RETURN
+        iptables -t nat -A XRAY -d 100.100.100.100/32 -j RETURN
+        iptables -t nat -A XRAY -p tcp -j REDIRECT --to-ports 12345
+        echo "Xray and redirection rules set up successfully."
     fi
+
+    # Set up normal exit-node NAT masquerading for awg0 (VPN tunnel NAT)
+    iptables -t nat -A POSTROUTING -o awg0 -j MASQUERADE
 
     # Start Tailscaled
     mkdir -p /var/run/tailscale /var/lib/tailscale
@@ -118,6 +149,110 @@ EOF
 
     wait -n
   '';
+
+  xrayConfigFile = pkgs.writeTextFile {
+    name = "xray-config.json";
+    destination = "/etc/xray/config.json";
+    text = builtins.toJSON {
+      log = {
+        loglevel = "warning";
+      };
+      dns = {
+        servers = [
+          "8.8.8.8"
+          "1.1.1.1"
+          "100.100.100.100"
+        ];
+      };
+      inbounds = [
+        {
+          listen = "0.0.0.0";
+          port = 12345;
+          protocol = "dokodemo-door";
+          tag = "redir-in";
+          settings = {
+            network = "tcp";
+            followRedirect = true;
+          };
+          sniffing = {
+            enabled = true;
+            destOverride = [ "http" "tls" "quic" ];
+            routeOnly = true;
+          };
+        }
+      ];
+      outbounds = [
+        {
+          protocol = "freedom";
+          tag = "vpn";
+          settings = {};
+        }
+        {
+          protocol = "freedom";
+          tag = "direct";
+          settings = {};
+          streamSettings = {
+            sockopt = {
+              mark = 51820; # 0xca6c
+            };
+          };
+        }
+        {
+          protocol = "blackhole";
+          tag = "block";
+        }
+      ];
+      routing = {
+        domainStrategy = "AsIs";
+        rules = [
+          {
+            type = "field";
+            domain = [
+              "domain:chatgpt.com"
+              "domain:openai.com"
+              "geosite:openai"
+              "geosite:google"
+              "geosite:youtube"
+              "domain:gemini.google.com"
+              "ext:zapret.dat:zapret"
+              "ext:zapret.dat:zapret-zapad"
+            ];
+            outboundTag = "vpn";
+          }
+          {
+            type = "field";
+            domain = [
+              "domain:kinopoisk.ru"
+              "domain:hd.kinopoisk.ru"
+              "domain:yandex.ru"
+              "domain:yandex.net"
+              "domain:vk.com"
+              "domain:gosuslugi.ru"
+              "geosite:category-ru"
+            ];
+            outboundTag = "direct";
+          }
+          {
+            type = "field";
+            ip = [ "geoip:ru" ];
+            outboundTag = "direct";
+          }
+
+          {
+            type = "field";
+            inboundTag = [ "redir-in" ];
+            ip = [ "geoip:private" ];
+            outboundTag = "direct";
+          }
+          {
+            type = "field";
+            network = "tcp,udp";
+            outboundTag = "vpn";
+          }
+        ];
+      };
+    };
+  };
 
   # Build container image natively via Nix
   rsvImage = pkgs.dockerTools.buildImage {
@@ -139,6 +274,8 @@ EOF
         pkgs.cacert
         sysctl-wrapper
         entrypoint
+        pkgs.xray
+        xrayConfigFile
       ];
       pathsToLink = [ "/bin" "/etc" ];
     };
