@@ -258,6 +258,17 @@ EOF
     # Set up normal exit-node NAT masquerading for awg0 (VPN tunnel NAT)
     iptables -t nat -A POSTROUTING -o awg0 -j MASQUERADE
 
+    # Wait for singtun0 interface to exist
+    for i in {1..20}; do
+        if ip link show dev singtun0 >/dev/null 2>&1; then
+            break
+        fi
+        sleep 0.5
+    done
+    # Add route for Tailscale controlplane via singtun0 in main table to prevent routing loop with host
+    ip route add 192.200.0.0/21 dev singtun0 || true
+    ip -6 route add 2606:b740:49::/48 dev singtun0 || true
+
     # Start Tailscaled
     mkdir -p /var/run/tailscale /var/lib/tailscale
     tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/var/run/tailscale/tailscaled.sock &
