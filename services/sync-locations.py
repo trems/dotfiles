@@ -17,6 +17,50 @@ def main():
     config = configparser.ConfigParser()
     config.read(INI_PATH)
     
+    # Parse AWG section for global configuration parameters
+    awg_config = {}
+    if "awg" in config and "awg" in config["awg"]:
+        try:
+            awg_val = config.get("awg", "awg")
+            if awg_val.startswith("\"") and awg_val.endswith("\""):
+                awg_val = awg_val[1:-1]
+            unescaped_awg_bytes = codecs.escape_decode(bytes(awg_val, "utf-8"))[0]
+            unescaped_awg_str = unescaped_awg_bytes.decode("utf-8", "ignore")
+            awg_data = json.loads(unescaped_awg_str)
+            template = awg_data.get("template", "")
+            
+            # Parse the wireguard template
+            tpl_parser = configparser.ConfigParser()
+            tpl_parser.read_string(template)
+            
+            if "Interface" in tpl_parser:
+                for k, v in tpl_parser["Interface"].items():
+                    if k.lower() != "privatekey": # Don't write private key to git
+                        awg_config[k.lower()] = v
+            if "Peer" in tpl_parser:
+                for k, v in tpl_parser["Peer"].items():
+                    if k.lower() == "publickey":
+                        awg_config["peer_publickey"] = v
+        except Exception as e:
+            print(f"Warning: Failed to parse [awg] section ({e})")
+            
+    # Parse obfs section for VLESS config
+    vless_config = {}
+    if "obfs" in config and "xray\\obfs\\xray" in config["obfs"]:
+        try:
+            xray_val = config.get("obfs", "xray\\obfs\\xray")
+            if xray_val.startswith("\"") and xray_val.endswith("\""):
+                xray_val = xray_val[1:-1]
+            unescaped_xray_bytes = codecs.escape_decode(bytes(xray_val, "utf-8"))[0]
+            unescaped_xray_str = unescaped_xray_bytes.decode("utf-8", "ignore")
+            xray_data = json.loads(unescaped_xray_str)
+            for outbound in xray_data.get("outbounds", []):
+                if outbound.get("type") == "vless":
+                    vless_config = outbound
+                    break
+        except Exception as e:
+            print(f"Warning: Failed to parse [obfs] section ({e})")
+    
     if "hosts" not in config or "hosts" not in config["hosts"]:
         print("Error: Could not find [hosts] section in INI file.")
         return
@@ -77,6 +121,20 @@ def main():
     # Save to JSON
     with open(JSON_PATH, "w") as f:
         json.dump(new_locations, f, indent=2, sort_keys=True)
+
+    # Save AWG global configs to JSON
+    if awg_config:
+        CONFIG_PATH = os.path.join(os.path.dirname(__file__), "redshield-config.json")
+        with open(CONFIG_PATH, "w") as f:
+            json.dump(awg_config, f, indent=2, sort_keys=True)
+        print(f"Successfully synchronized global AWG config to {CONFIG_PATH}")
+
+    # Save VLESS config to JSON
+    if vless_config:
+        VLESS_PATH = os.path.join(os.path.dirname(__file__), "redshield-vless.json")
+        with open(VLESS_PATH, "w") as f:
+            json.dump(vless_config, f, indent=2, sort_keys=True)
+        print(f"Successfully synchronized VLESS config to {VLESS_PATH}")
 
     print(f"Successfully synchronized {len(new_locations)} locations to {JSON_PATH}")
 

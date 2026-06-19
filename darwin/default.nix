@@ -9,7 +9,24 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
   nix = {
-    settings = {};
+    settings = {
+      trusted-users = [ "root" user ];
+    };
+    buildMachines = [
+      {
+        hostName = "192.168.0.102"; # home-laptop2 IP (or use "home-laptop2" if Tailscale MagicDNS is enabled)
+        sshUser = "mike";
+        sshKey = "/Users/${user}/.ssh/id_ed25519";
+        systems = [ "x86_64-linux" "aarch64-linux" ];
+        maxJobs = 4;
+        speedFactor = 1;
+        supportedFeatures = [ "kvm" "benchmark" "nixos-test" "big-parallel" ];
+      }
+    ];
+    distributedBuilds = true;
+    extraOptions = ''
+      builders-use-substitutes = true
+    '';
   };
 
   environment = {
@@ -22,10 +39,24 @@
     interactiveShellInit = ''
       eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
+
+    # Declarative Nix custom config for Determinate Nix remote building
+    etc."nix/nix.custom.conf".text = ''
+      # Managed by nix-darwin in dotfiles
+      builders = ssh://mike@192.168.0.102 x86_64-linux /Users/${user}/.ssh/id_ed25519 4 1 kvm,benchmark,nixos-test - -
+      builders-use-substitutes = true
+      trusted-users = root ${user}
+    '';
   };
 
   programs = {
     gnupg.agent.enable = true;
+    ssh.knownHosts = {
+      home-laptop2 = {
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIteJxePAOsUTL2ZANy1jXwzhbt/UepwU1U+Iq/1pkj1";
+        extraHostNames = [ "192.168.0.102" "home-laptop2" ];
+      };
+    };
     zsh = {
       enable = true; # Create /etc/zshrc that loads the nix-darwin environment.
       interactiveShellInit = ''
@@ -59,6 +90,7 @@
       "orbstack"
       "codex"
       "antigravity"
+      "antigravity-cli"
       "karabiner-elements"
       "handy"
     ];
