@@ -15,6 +15,10 @@
     agenix.url = "github:yaxitech/ragenix";
     deploy-rs.url = "github:serokell/deploy-rs";
     mac-app-util.url = "github:hraban/mac-app-util";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -25,6 +29,7 @@
     home-manager,
     deploy-rs,
     agenix,
+    disko,
   }: let
     publicKeys = import ./secrets/pubkeys.nix;
     systemDarwin = "aarch64-darwin";
@@ -85,6 +90,11 @@
                   mode = "400";
                   owner = user;
                 };
+                rs-private-key = {
+                  file = ./secrets/rs-private-key.age;
+                  mode = "400";
+                  owner = "root";
+                };
               };
             };
           }
@@ -131,16 +141,38 @@
           }
         ];
       };
+      undercity = nixpkgs.lib.nixosSystem {
+        system = systemLinux;
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/undercity/configuration.nix
+          agenix.nixosModules.default
+          {
+            _module.args = {inherit publicKeys;};
+            nix = nixSettings ["mike"];
+          }
+        ];
+      };
     };
     deploy = {
       nodes = {
         home-laptop2 = {
           remoteBuild = true;
-          hostname = "192.168.0.102";
+          hostname = "100.68.180.48";
           sshUser = "mike";
+          sshOpts = [ "-o" "StrictHostKeyChecking=no" "-o" "UserKnownHostsFile=/dev/null" ];
           profiles.system = {
             user = "root";
             path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.home-laptop2;
+          };
+        };
+        undercity = {
+          remoteBuild = false;
+          hostname = "192.144.12.164";
+          sshUser = "mike";
+          profiles.system = {
+            user = "root";
+            path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.undercity;
           };
         };
       };

@@ -218,6 +218,12 @@ EOF
       {
         "action": "sniff"
       },
+      {
+        "outbound": "direct",
+        "domain_suffix": [
+          "bybit.com"
+        ]
+      },
       $BYPASS_RU_RULES
       {
         "outbound": "direct",
