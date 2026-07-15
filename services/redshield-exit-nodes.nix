@@ -42,7 +42,17 @@ let
 
     RULE_SETS_CONFIG=""
     BYPASS_RU_RULES=""
+    DNS_RULES=""
     if [ "$BYPASS_RU" = "true" ]; then
+        DNS_RULES='
+      {
+        "rule_set": [
+          "geosite-category-ru",
+          "geoip-ru"
+        ],
+        "server": "dns-direct"
+      },'
+
         RULE_SETS_CONFIG='
   "rule_set": [
     {
@@ -90,7 +100,8 @@ let
           "yandex.ru",
           "yandex.net",
           "vk.com",
-          "gosuslugi.ru"
+          "gosuslugi.ru",
+          "bybit.com"
         ]
       },
       {
@@ -124,7 +135,7 @@ H4 = $AWG_H4
 
 [Peer]
 PublicKey = $VPN_PUBLIC_KEY
-AllowedIPs = 0.0.0.0/0, ::/0
+AllowedIPs = 0.0.0.0/0
 Endpoint = $VPN_ENDPOINT
 PersistentKeepalive = 25
 EOF
@@ -152,13 +163,38 @@ EOF
     "level": "warn",
     "timestamp": true
   },
+  "dns": {
+    "servers": [
+      {
+        "type": "udp",
+        "tag": "dns-direct",
+        "server": "1.1.1.1"
+      },
+      {
+        "type": "udp",
+        "tag": "dns-vpn",
+        "server": "8.8.8.8",
+        "detour": "auto"
+      }
+    ],
+    "rules": [
+      $DNS_RULES
+      {
+        "domain_suffix": [
+          "bybit.com"
+        ],
+        "server": "dns-direct"
+      }
+    ],
+    "final": "dns-vpn",
+    "strategy": "ipv4_only"
+  },
   "inbounds": [
     {
       "type": "tun",
       "interface_name": "singtun0",
       "address": [
-        "172.18.0.1/30",
-        "fd00::1/126"
+        "172.18.0.1/30"
       ],
       "auto_route": true,
       "strict_route": true,
@@ -247,7 +283,8 @@ EOF
         ]
       }
     ],
-    "auto_detect_interface": true
+    "auto_detect_interface": true,
+    "default_domain_resolver": "dns-vpn"
   }
 }
 EOF
@@ -265,10 +302,6 @@ EOF
         fi
         sleep 0.5
     done
-    # Add route for Tailscale controlplane via singtun0 in main table to prevent routing loop with host
-    ip route add 192.200.0.0/21 dev singtun0 || true
-    ip -6 route add 2606:b740:49::/48 dev singtun0 || true
-
     # Start Tailscaled
     mkdir -p /var/run/tailscale /var/lib/tailscale
     tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/var/run/tailscale/tailscaled.sock &
@@ -277,6 +310,7 @@ EOF
 
     # Connect to Tailnet
     tailscale up \
+      --login-server="$HEADSCALE_URL" \
       --auth-key="$TAILSCALE_AUTH_KEY" \
       --hostname="$TAILSCALE_HOSTNAME" \
       --advertise-exit-node \
@@ -293,7 +327,7 @@ EOF
 
   geosite-category-ru-srs = pkgs.fetchurl {
     url = "https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-category-ru.srs";
-    sha256 = "05zhdcasp1r9pys0cz7qii8szqipz6pg2pjsnnvwyv8i703l6jbb";
+    sha256 = "0afb8df5qmnkfrj1xpng6gg3lpbsliwsypdai6qjpdx374xkidan";
   };
 
   antizapret-srs = pkgs.fetchurl {
@@ -356,14 +390,14 @@ EOF
       "--device=/dev/net/tun:/dev/net/tun"
       "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
       "--sysctl=net.ipv4.ip_forward=1"
-      "--sysctl=net.ipv6.conf.all.forwarding=1"
       "--dns=1.1.1.1"
       "--dns=8.8.8.8"
     ];
     environmentFiles = [ "/run/rsv/env" ];
     environment = {
       TAILSCALE_HOSTNAME = node.hostname;
-      VPN_ADDRESS = awgConfig.address;
+      HEADSCALE_URL = cfg.headscaleUrl;
+      VPN_ADDRESS = head (splitString "," awgConfig.address);
       VPN_PUBLIC_KEY = awgConfig.peer_publickey;
       VPN_DNS = awgConfig.dns;
       VPN_ENDPOINT = node.endpoint;
@@ -406,6 +440,11 @@ in {
       description = "Path to Red Shield VPN private key secret";
     };
 
+    headscaleUrl = mkOption {
+      type = types.str;
+      description = "URL of the Headscale control plane server";
+    };
+
     nodes = mkOption {
       type = types.listOf types.str;
       default = [];
@@ -418,9 +457,7 @@ in {
     boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
     # Systemd service to prep combined environment file before containers start
-    systemd.services = let
-      routingNodes = filter (node: node != "russia" && node != "belarus" && node != "kazakhstan") cfg.nodes;
-    in {
+    systemd.services = {
       rsv-prep-env = {
         description = "Prepare Environment File for Red Shield VPN containers";
         wantedBy = [ "multi-user.target" ];
@@ -449,42 +486,6 @@ in {
         };
         script = ''
           ${pkgs.docker}/bin/docker load -i ${rsvImage}
-        '';
-      };
-
-      rsv-host-route = {
-        description = "Route Tailscale Controlplane through a working Red Shield VPN container";
-        after = [ "docker.service" ] ++ (map (id: "docker-rsv-${id}.service") cfg.nodes);
-        wants = map (id: "docker-rsv-${id}.service") cfg.nodes;
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
-        script = ''
-          CONTAINER_IP=""
-          for id in ${concatStringsSep " " routingNodes}; do
-            if ${pkgs.docker}/bin/docker inspect -f '{{.State.Running}}' rsv-$id 2>/dev/null | grep -q "true"; then
-              IP=$(${pkgs.docker}/bin/docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rsv-$id 2>/dev/null)
-              if [ -n "$IP" ]; then
-                CONTAINER_IP="$IP"
-                echo "Selected container rsv-$id with IP $CONTAINER_IP for routing"
-                break
-              fi
-            fi
-          done
-
-          if [ -n "$CONTAINER_IP" ]; then
-            echo "Adding route for Tailscale controlplane (192.200.0.0/21) via $CONTAINER_IP"
-            ${pkgs.iproute2}/bin/ip route replace 192.200.0.0/21 via "$CONTAINER_IP"
-          else
-            echo "Error: No running non-blocked Red Shield VPN container found to route Tailscale traffic!" >&2
-            exit 1
-          fi
-        '';
-        preStop = ''
-          echo "Removing Tailscale controlplane route"
-          ${pkgs.iproute2}/bin/ip route del 192.200.0.0/21 2>/dev/null || true
         '';
       };
     } // (genAttrs (map (id: "docker-rsv-${id}") cfg.nodes) (serviceName: {

@@ -19,6 +19,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -30,6 +34,7 @@
     deploy-rs,
     agenix,
     disko,
+    hermes-agent,
   }: let
     publicKeys = import ./secrets/pubkeys.nix;
     systemDarwin = "aarch64-darwin";
@@ -135,8 +140,9 @@
         modules = [
           ./hosts/home-laptop2/configuration.nix
           agenix.nixosModules.default
+          hermes-agent.nixosModules.default
           {
-            _module.args = {inherit publicKeys;};
+            _module.args = {inherit publicKeys inputs;};
             nix = nixSettings ["mike"];
           }
         ];
@@ -158,7 +164,7 @@
       nodes = {
         home-laptop2 = {
           remoteBuild = true;
-          hostname = "100.68.180.48";
+          hostname = "192.168.0.102";
           sshUser = "mike";
           sshOpts = [ "-o" "StrictHostKeyChecking=no" "-o" "UserKnownHostsFile=/dev/null" ];
           profiles.system = {
@@ -167,7 +173,7 @@
           };
         };
         undercity = {
-          remoteBuild = false;
+          remoteBuild = true;
           hostname = "192.144.12.164";
           sshUser = "mike";
           profiles.system = {

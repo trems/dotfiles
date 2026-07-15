@@ -33,6 +33,9 @@
     systemPackages = with pkgs; [
       home-manager # all packages managed by home-manager
       python3
+      amneziawg-tools
+      amneziawg-go
+      wireguard-tools
     ];
     # add fish to /etc/shells. Don't forget to change login shell: chsh -s /path/to/fish
     shells = [pkgs.fish];
@@ -47,6 +50,25 @@
       builders-use-substitutes = true
       trusted-users = root ${user}
     '';
+
+    # Configure dnsmasq to query servers in strict order (corp DNS first)
+    etc."dnsmasq.conf".text = ''
+      strict-order
+    '';
+  };
+
+  networking.dns = [ "127.0.0.1" ];
+  networking.knownNetworkServices = [ "Wi-Fi" "Thunderbolt Bridge" ];
+
+  services.dnsmasq = {
+    enable = true;
+    servers = [
+      "10.15.12.100"
+      "10.15.12.200"
+      "100.100.100.100"
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
   };
 
   programs = {
@@ -97,6 +119,8 @@
     taps = [];
     masApps = {};
   };
+
+
 
   services = {
     openssh.enable = true;

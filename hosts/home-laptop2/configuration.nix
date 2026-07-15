@@ -16,6 +16,7 @@ in {
     # ../../services/sing-box.nix
     ../../services/redshield-exit-nodes.nix
     # ../../services/dae.nix # пока что dae не умеет в salamander obfs
+    ../../services/hermes-agent.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -71,6 +72,7 @@ in {
     secrets = {
       tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
       rs-private-key.file = ../../secrets/rs-private-key.age;
+      hermes-env.file = ../../secrets/hermes-env.age;
     };
   };
 
@@ -78,7 +80,8 @@ in {
     enable = true;
     tailscaleAuthKeyPath = config.age.secrets.tailscale-auth-key.path;
     redshieldPrivateKeyPath = config.age.secrets.rs-private-key.path;
-    nodes = [ "poland" "kazakhstan" "netherlands" "germany" ];
+    headscaleUrl = "https://undercity.sharashin.ru:18443";
+    nodes = [ "kazakhstan" "netherlands" "germany" "canada" ];
   };
 
   security.sudo.extraRules = [

@@ -10,6 +10,8 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
+    ./headscale.nix
+    ./proxies.nix
   ];
 
   # Use GRUB bootloader with dual EFI + legacy BIOS support
@@ -35,6 +37,11 @@ in {
     neovim
     btop
   ];
+
+  # Define agenix secrets
+  age.secrets = {
+    subscription-uuid.file = ../../secrets/subscription-uuid.age;
+  };
 
   # Define the primary user account
   users.users.${user} = {
