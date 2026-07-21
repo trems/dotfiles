@@ -199,6 +199,12 @@ EOF
       "auto_route": true,
       "strict_route": true,
       "stack": "gvisor"
+    },
+    {
+      "type": "socks",
+      "tag": "socks-in",
+      "listen": "0.0.0.0",
+      "listen_port": 1080
     }
   ],
   "outbounds": [
@@ -281,6 +287,12 @@ EOF
         "ip_cidr": [
           "$VLESS_SERVER"
         ]
+      },
+      {
+        "outbound": "direct",
+        "domain_suffix": [
+          "sharashin.ru"
+        ]
       }
     ],
     "auto_detect_interface": true,
@@ -313,6 +325,7 @@ EOF
       --login-server="$HEADSCALE_URL" \
       --auth-key="$TAILSCALE_AUTH_KEY" \
       --hostname="$TAILSCALE_HOSTNAME" \
+      --advertise-tags=tag:exit-node \
       --advertise-exit-node \
       --accept-dns=false \
       --snat-subnet-routes=false
@@ -327,7 +340,7 @@ EOF
 
   geosite-category-ru-srs = pkgs.fetchurl {
     url = "https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-category-ru.srs";
-    sha256 = "0afb8df5qmnkfrj1xpng6gg3lpbsliwsypdai6qjpdx374xkidan";
+    sha256 = "sha256-NTsS6Rqrsh6uFmuMR6Wgj2CF1cpjHiVtjXqAeRSoPMk=";
   };
 
   antizapret-srs = pkgs.fetchurl {
@@ -382,9 +395,21 @@ EOF
     else throw "Red Shield VPN exit node location '${name}' is not defined in redshield-locations.json"
   );
 
+  # Sort nodes alphabetically to ensure deterministic order and port mapping
+  sortedNodes = builtins.sort (a: b: a < b) cfg.nodes;
+  
+  # Map each node name to a host port starting at 10800
+  nodePorts = lib.listToAttrs (lib.imap0 (idx: name: {
+    name = name;
+    value = 10800 + idx;
+  }) sortedNodes);
+
   # Helper function to generate exit node container definitions
   mkExitNodeContainer = id: node: {
     image = "rsv-exit-node:latest";
+    ports = [
+      "127.0.0.1:${toString nodePorts.${id}}:1080"
+    ];
     extraOptions = [
       "--cap-add=NET_ADMIN"
       "--device=/dev/net/tun:/dev/net/tun"

@@ -47,6 +47,13 @@
       "tag:exit-node" = [ "default@" ];
       "tag:client" = [ "default@" ];
     };
+    autoApprovers = {
+      routes = {
+        "0.0.0.0/0" = [ "tag:exit-node" ];
+        "::/0" = [ "tag:exit-node" ];
+      };
+      exitNode = [ "tag:exit-node" ];
+    };
     acls = [
       {
         action = "accept";

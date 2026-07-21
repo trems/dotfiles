@@ -13,10 +13,10 @@ in {
     # ../../services/blocky.nix
     ../../services/monitoring
     # ../../services/media-server.nix
-    # ../../services/sing-box.nix
+    ../../services/sing-box.nix
     ../../services/redshield-exit-nodes.nix
     # ../../services/dae.nix # пока что dae не умеет в salamander obfs
-    ../../services/hermes-agent.nix
+    # ../../services/hermes-agent.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -81,7 +81,7 @@ in {
     tailscaleAuthKeyPath = config.age.secrets.tailscale-auth-key.path;
     redshieldPrivateKeyPath = config.age.secrets.rs-private-key.path;
     headscaleUrl = "https://undercity.sharashin.ru:18443";
-    nodes = [ "kazakhstan" "netherlands" "germany" "canada" ];
+    nodes = [ "kazakhstan" "netherlands" "france" "canada" ];
   };
 
   security.sudo.extraRules = [
