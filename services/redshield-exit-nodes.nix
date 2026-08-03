@@ -309,6 +309,7 @@ EOF
 
     # Start Sing-box daemon
     sing-box run -c /etc/sing-box/config.json >/var/log/sing-box-run.log 2>&1 &
+    SINGBOX_PID=$!
 
     # Set up normal exit-node NAT masquerading for awg0 (VPN tunnel NAT)
     iptables -t nat -A POSTROUTING -o awg0 -j MASQUERADE
@@ -323,20 +324,18 @@ EOF
     # Start Tailscaled
     mkdir -p /var/run/tailscale /var/lib/tailscale
     tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/var/run/tailscale/tailscaled.sock &
+    TAILSCALE_PID=$!
 
     sleep 2
 
     # Connect to Tailnet with retries (up to 5 attempts)
-    # Reset settings persisted in the state volume from older versions.
     # The tagged ephemeral Headscale pre-auth key supplies both the
     # tag:exit-node tag and the node's ephemeral identity.
     TS_CONNECTED=false
     for i in {1..5}; do
         if tailscale up \
-          --reset \
           --login-server="$HEADSCALE_URL" \
           --auth-key="$TAILSCALE_AUTH_KEY" \
-          --force-reauth \
           --hostname="$TAILSCALE_HOSTNAME" \
           --advertise-exit-node \
           --accept-dns=false \
@@ -363,12 +362,12 @@ EOF
         sleep $CHECK_INTERVAL
         HEALTHY=true
 
-        # 1. Process checks
-        if ! pgrep tailscaled >/dev/null 2>&1; then
+        # 1. Process checks using signal 0
+        if ! kill -0 $TAILSCALE_PID >/dev/null 2>&1; then
             echo "Watchdog alert: tailscaled process dead" >&2
             HEALTHY=false
         fi
-        if ! pgrep sing-box >/dev/null 2>&1; then
+        if ! kill -0 $SINGBOX_PID >/dev/null 2>&1; then
             echo "Watchdog alert: sing-box process dead" >&2
             HEALTHY=false
         fi
@@ -442,6 +441,7 @@ EOF
         pkgs.gnugrep
         pkgs.gawk
         pkgs.cacert
+        pkgs.procps
         sysctl-wrapper
         entrypoint
         pkgs.sing-box
