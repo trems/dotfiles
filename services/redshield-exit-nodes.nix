@@ -40,6 +40,12 @@ let
         mknod /dev/net/tun c 10 200
     fi
 
+    # Keep the Headscale control plane reachable when the host Tailscale
+    # client is disabled. The VPN policy route is installed below, so pin
+    # the control-plane hostname to its public address before that happens.
+    grep -q 'undercity.sharashin.ru' /etc/hosts || \
+      echo '192.144.12.164 undercity.sharashin.ru' >> /etc/hosts
+
     RULE_SETS_CONFIG=""
     BYPASS_RU_RULES=""
     DNS_RULES=""
@@ -320,17 +326,80 @@ EOF
 
     sleep 2
 
-    # Connect to Tailnet
-    tailscale up \
-      --login-server="$HEADSCALE_URL" \
-      --auth-key="$TAILSCALE_AUTH_KEY" \
-      --hostname="$TAILSCALE_HOSTNAME" \
-      --advertise-tags=tag:exit-node \
-      --advertise-exit-node \
-      --accept-dns=false \
-      --snat-subnet-routes=false
+    # Connect to Tailnet with retries (up to 5 attempts)
+    # Reset settings persisted in the state volume from older versions.
+    # The tagged ephemeral Headscale pre-auth key supplies both the
+    # tag:exit-node tag and the node's ephemeral identity.
+    TS_CONNECTED=false
+    for i in {1..5}; do
+        if tailscale up \
+          --reset \
+          --login-server="$HEADSCALE_URL" \
+          --auth-key="$TAILSCALE_AUTH_KEY" \
+          --force-reauth \
+          --hostname="$TAILSCALE_HOSTNAME" \
+          --advertise-exit-node \
+          --accept-dns=false \
+          --snat-subnet-routes=false; then
+            TS_CONNECTED=true
+            break
+        fi
+        echo "tailscale up attempt $i failed, retrying in 5s..." >&2
+        sleep 5
+    done
 
-    wait -n
+    if [ "$TS_CONNECTED" != "true" ]; then
+        echo "Failed to connect to Tailscale after 5 attempts. Exiting..." >&2
+        exit 1
+    fi
+
+    # Active Watchdog Loop (replacing wait -n)
+    FAIL_COUNT=0
+    MAX_FAILS=3
+    CHECK_INTERVAL=30
+
+    echo "Starting rsv exit-node watchdog loop..."
+    while true; do
+        sleep $CHECK_INTERVAL
+        HEALTHY=true
+
+        # 1. Process checks
+        if ! pgrep tailscaled >/dev/null 2>&1; then
+            echo "Watchdog alert: tailscaled process dead" >&2
+            HEALTHY=false
+        fi
+        if ! pgrep sing-box >/dev/null 2>&1; then
+            echo "Watchdog alert: sing-box process dead" >&2
+            HEALTHY=false
+        fi
+
+        # 2. Tailscale status check
+        if [ "$HEALTHY" = "true" ]; then
+            if ! tailscale status >/dev/null 2>&1; then
+                echo "Watchdog alert: tailscale status check failed" >&2
+                HEALTHY=false
+            fi
+        fi
+
+        # 3. SOCKS proxy outbound connectivity check
+        if [ "$HEALTHY" = "true" ]; then
+            if ! curl -s --max-time 10 --socks5-hostname 127.0.0.1:1080 http://cp.cloudflare.com/generate_204 >/dev/null 2>&1; then
+                echo "Watchdog alert: SOCKS proxy outbound probe failed" >&2
+                HEALTHY=false
+            fi
+        fi
+
+        if [ "$HEALTHY" = "true" ]; then
+            FAIL_COUNT=0
+        else
+            FAIL_COUNT=$((FAIL_COUNT + 1))
+            echo "Watchdog: consecutive failure count = $FAIL_COUNT / $MAX_FAILS" >&2
+            if [ "$FAIL_COUNT" -ge "$MAX_FAILS" ]; then
+                echo "Watchdog: Max failures reached. Exiting container to trigger auto-restart..." >&2
+                exit 1
+            fi
+        fi
+    done
   '';
 
   geoip-ru-srs = pkgs.fetchurl {
@@ -417,6 +486,10 @@ EOF
       "--sysctl=net.ipv4.ip_forward=1"
       "--dns=1.1.1.1"
       "--dns=8.8.8.8"
+      "--health-cmd=curl -s --max-time 5 --socks5-hostname 127.0.0.1:1080 http://cp.cloudflare.com/generate_204 || exit 1"
+      "--health-interval=30s"
+      "--health-timeout=10s"
+      "--health-retries=3"
     ];
     environmentFiles = [ "/run/rsv/env" ];
     environment = {
@@ -516,6 +589,10 @@ in {
     } // (genAttrs (map (id: "docker-rsv-${id}") cfg.nodes) (serviceName: {
       after = [ "rsv-prep-env.service" "rsv-load-image.service" ];
       wants = [ "rsv-prep-env.service" "rsv-load-image.service" ];
+      serviceConfig = {
+        Restart = mkForce "always";
+        RestartSec = "10s";
+      };
     }));
 
     virtualisation.oci-containers = {

@@ -71,6 +71,7 @@ in {
   age = {
     secrets = {
       tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
+      tailscale-exit-node-auth-key.file = ../../secrets/tailscale-exit-node-auth-key.age;
       rs-private-key.file = ../../secrets/rs-private-key.age;
       hermes-env.file = ../../secrets/hermes-env.age;
     };
@@ -78,10 +79,10 @@ in {
 
   services.redshield-exit-nodes = {
     enable = true;
-    tailscaleAuthKeyPath = config.age.secrets.tailscale-auth-key.path;
+    tailscaleAuthKeyPath = config.age.secrets.tailscale-exit-node-auth-key.path;
     redshieldPrivateKeyPath = config.age.secrets.rs-private-key.path;
     headscaleUrl = "https://undercity.sharashin.ru:18443";
-    nodes = [ "kazakhstan" "netherlands" "france" "canada" ];
+    nodes = [ "canada" "france" "kazakhstan" "netherlands" "new-york" ];
   };
 
   security.sudo.extraRules = [

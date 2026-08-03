@@ -17,17 +17,6 @@
         override_local_dns = true;
         nameservers = {
           global = [ "1.1.1.1" "8.8.8.8" ];
-          split = {
-            "authng.k8s.dev-el" = [ "10.15.12.100" ];
-            "k8s.tns-stage-el" = [ "10.15.12.100" ];
-            "moderation-dm" = [ "10.15.12.100" ];
-            "moderation-el" = [ "10.15.12.100" ];
-            "nb.clv2" = [ "10.15.12.100" ];
-            "rwb.ru" = [ "10.15.12.100" "10.15.12.200" ];
-            "wb-cloud.ru" = [ "10.15.12.100" ];
-            "wb.ru" = [ "10.15.12.100" "10.15.12.200" ];
-            "wildberries.ru" = [ "10.15.12.100" "10.15.12.200" ];
-          };
         };
       };
       policy = {
