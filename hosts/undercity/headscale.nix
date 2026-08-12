@@ -36,6 +36,8 @@
       "tag:exit-node" = [ "default@" ];
       "tag:client" = [ "default@" ];
     };
+    # Automatically approve default exit node routes (0.0.0.0/0 and ::/0) for tagged exit nodes
+    # Required for ephemeral rsv-* Docker containers so exit routes become active without manual intervention
     autoApprovers = {
       routes = {
         "0.0.0.0/0" = [ "tag:exit-node" ];
