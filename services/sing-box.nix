@@ -5,7 +5,8 @@
   ...
 }: let
   # Dynamically list enabled exit nodes on home-laptop2
-  activeNodes = config.services.redshield-exit-nodes.nodes;
+  rawActiveNodes = config.services.redshield-exit-nodes.nodes;
+  activeNodes = map (n: if builtins.isString n then n else n.location) rawActiveNodes;
 
   # Load mapping from redshield-locations.json (in the same directory)
   locations = builtins.fromJSON (builtins.readFile ./redshield-locations.json);
