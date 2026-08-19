@@ -46,6 +46,11 @@ let
     grep -q 'undercity.sharashin.ru' /etc/hosts || \
       echo '192.144.12.164 undercity.sharashin.ru' >> /etc/hosts
 
+    ETH0_GW=$(ip route show default dev eth0 2>/dev/null | awk '{print $3}' | head -n1)
+    if [ -n "$ETH0_GW" ]; then
+        ip route replace 192.144.12.164 via "$ETH0_GW" dev eth0
+    fi
+
     RULE_SETS_CONFIG=""
     BYPASS_RU_RULES=""
     DNS_RULES=""
@@ -285,7 +290,8 @@ EOF
           "172.16.0.0/12",
           "192.168.0.0/16",
           "100.64.0.0/10",
-          "100.100.100.100/32"
+          "100.100.100.100/32",
+          "192.144.12.164/32"
         ]
       },
       {
@@ -328,24 +334,29 @@ EOF
 
     sleep 2
 
-    # Connect to Tailnet with retries (up to 5 attempts)
-    # The tagged ephemeral Headscale pre-auth key supplies both the
-    # tag:exit-node tag and the node's ephemeral identity.
+    # Connect to Tailnet with retries
+    # Attempt to reconnect using existing state first to preserve Headscale identity
     TS_CONNECTED=false
-    for i in {1..5}; do
-        if tailscale up \
-          --login-server="$HEADSCALE_URL" \
-          --auth-key="$TAILSCALE_AUTH_KEY" \
-          --hostname="$TAILSCALE_HOSTNAME" \
-          --advertise-exit-node \
-          --accept-dns=false \
-          --snat-subnet-routes=false; then
-            TS_CONNECTED=true
-            break
-        fi
-        echo "tailscale up attempt $i failed, retrying in 5s..." >&2
-        sleep 5
-    done
+    if tailscale status >/dev/null 2>&1 && tailscale up --advertise-exit-node --accept-dns=false --snat-subnet-routes=true >/dev/null 2>&1; then
+        echo "Tailscale reconnected using existing state."
+        TS_CONNECTED=true
+    else
+        echo "Existing state missing or invalid, authenticating with auth-key..."
+        for i in {1..5}; do
+            if tailscale up \
+              --login-server="$HEADSCALE_URL" \
+              --auth-key="$TAILSCALE_AUTH_KEY" \
+              --hostname="$TAILSCALE_HOSTNAME" \
+              --advertise-exit-node \
+              --accept-dns=false \
+              --snat-subnet-routes=true; then
+                TS_CONNECTED=true
+                break
+            fi
+            echo "tailscale up attempt $i failed, retrying in 5s..." >&2
+            sleep 5
+        done
+    fi
 
     if [ "$TS_CONNECTED" != "true" ]; then
         echo "Failed to connect to Tailscale after 5 attempts. Exiting..." >&2
@@ -486,9 +497,9 @@ EOF
       "--sysctl=net.ipv4.ip_forward=1"
       "--dns=1.1.1.1"
       "--dns=8.8.8.8"
-      "--health-cmd=curl -s --max-time 5 --socks5-hostname 127.0.0.1:1080 http://cp.cloudflare.com/generate_204 || exit 1"
+      "--health-cmd=curl -s --max-time 15 --socks5-hostname 127.0.0.1:1080 http://cp.cloudflare.com/generate_204 || exit 1"
       "--health-interval=30s"
-      "--health-timeout=10s"
+      "--health-timeout=20s"
       "--health-retries=3"
     ];
     environmentFiles = [ "/run/rsv/env" ];
