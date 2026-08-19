@@ -82,7 +82,17 @@ in {
     tailscaleAuthKeyPath = config.age.secrets.tailscale-exit-node-auth-key.path;
     redshieldPrivateKeyPath = config.age.secrets.rs-private-key.path;
     headscaleUrl = "https://undercity.sharashin.ru:18443";
-    nodes = [ "canada" "kazakhstan" "latvia" "spain" "georgia" ];
+    nodes = [
+      "canada"
+      "kazakhstan"
+      "latvia"
+      "spain"
+      "georgia"
+      {
+        location = "netherlands";
+        proxyRelay = "aec1d5cec4-a1b1-1";
+      }
+    ];
   };
 
   security.sudo.extraRules = [

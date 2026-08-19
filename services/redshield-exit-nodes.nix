@@ -166,6 +166,46 @@ EOF
         iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
     fi
 
+    RELAY_OUTBOUND=""
+    VLESS_DETOUR=""
+    RELAY_IP_RULE=""
+    if [ -n "$RELAY_SERVER" ]; then
+        VLESS_DETOUR='"detour": "relay",'
+        RELAY_OUTBOUND='
+    {
+      "type": "vless",
+      "tag": "relay",
+      "server": "'"$RELAY_SERVER"'",
+      "server_port": '"$RELAY_PORT"',
+      "uuid": "'"$VLESS_UUID"'",
+      "flow": "",
+      "tls": {
+        "enabled": true,
+        "server_name": "'"$VLESS_SNI"'",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "'"$VLESS_PUBLIC_KEY"'",
+          "short_id": "'"$VLESS_SHORT_ID"'"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "'"$VLESS_SERVICE_NAME"'"
+      }
+    },'
+        RELAY_IP_RULE='
+      {
+        "outbound": "direct",
+        "ip_cidr": [
+          "'"$RELAY_SERVER"'"
+        ]
+      },'
+    fi
+
     # Write Sing-box configuration
     mkdir -p /etc/sing-box
     cat <<EOF > /etc/sing-box/config.json
@@ -237,6 +277,7 @@ EOF
       "server_port": $VLESS_PORT,
       "uuid": "$VLESS_UUID",
       "flow": "",
+      $VLESS_DETOUR
       "tls": {
         "enabled": true,
         "server_name": "$VLESS_SNI",
@@ -255,6 +296,7 @@ EOF
         "service_name": "$VLESS_SERVICE_NAME"
       }
     },
+    $RELAY_OUTBOUND
     {
       "type": "direct",
       "tag": "awg",
@@ -300,6 +342,7 @@ EOF
           "$VLESS_SERVER"
         ]
       },
+      $RELAY_IP_RULE
       {
         "outbound": "direct",
         "domain_suffix": [
@@ -469,20 +512,45 @@ EOF
   awgConfig = builtins.fromJSON (builtins.readFile ./redshield-config.json);
   vlessConfig = builtins.fromJSON (builtins.readFile ./redshield-vless.json);
 
-  enabledNodes = genAttrs cfg.nodes (name:
-    if locations ? ${name}
-    then locations.${name}
-    else throw "Red Shield VPN exit node location '${name}' is not defined in redshield-locations.json"
-  );
+  normalizedNodes = map (n:
+    if builtins.isString n then { location = n; proxyRelay = null; } else n
+  ) cfg.nodes;
 
-  # Sort nodes alphabetically to ensure deterministic order and port mapping
-  sortedNodes = builtins.sort (a: b: a < b) cfg.nodes;
+  enabledNodes = listToAttrs (map (nodeCfg:
+    let
+      locName = nodeCfg.location;
+      relayName = nodeCfg.proxyRelay;
+      
+      locData =
+        if locations ? ${locName}
+        then locations.${locName}
+        else throw "Red Shield VPN exit node location '${locName}' is not defined in redshield-locations.json";
+
+      relayData =
+        if relayName != null
+        then
+          if locations ? ${relayName}
+          then locations.${relayName}
+          else throw "Red Shield VPN relay location '${relayName}' is not defined in redshield-locations.json"
+        else null;
+    in {
+      name = locName;
+      value = locData // {
+        id = locName;
+        proxyRelay = relayName;
+        relayEndpoint = if relayData != null then relayData.endpoint else null;
+      };
+    }
+  ) normalizedNodes);
+
+  # Sort node names alphabetically to ensure deterministic order and port mapping
+  sortedNodeNames = builtins.sort (a: b: a < b) (attrNames enabledNodes);
   
   # Map each node name to a host port starting at 10800
-  nodePorts = lib.listToAttrs (lib.imap0 (idx: name: {
+  nodePorts = listToAttrs (imap0 (idx: name: {
     name = name;
     value = 10800 + idx;
-  }) sortedNodes);
+  }) sortedNodeNames);
 
   # Helper function to generate exit node container definitions
   mkExitNodeContainer = id: node: {
@@ -529,6 +597,8 @@ EOF
       VLESS_PUBLIC_KEY = vlessConfig.tls.reality.public_key;
       VLESS_SHORT_ID = vlessConfig.tls.reality.short_id;
       VLESS_SERVICE_NAME = vlessConfig.transport.service_name;
+      RELAY_SERVER = if node.relayEndpoint != null then head (splitString ":" node.relayEndpoint) else "";
+      RELAY_PORT = toString vlessConfig.server_port;
     };
     volumes = [
       "/var/lib/rsv-multitun/${id}:/var/lib/tailscale"
@@ -555,9 +625,21 @@ in {
     };
 
     nodes = mkOption {
-      type = types.listOf types.str;
+      type = types.listOf (types.coercedTo types.str (loc: { location = loc; proxyRelay = null; }) (types.submodule {
+        options = {
+          location = mkOption {
+            type = types.str;
+            description = "Location name (e.g. netherlands, canada, latvia)";
+          };
+          proxyRelay = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = "Optional proxy relay location name (e.g. aec1d5cec4-a1b1-1)";
+          };
+        };
+      }));
       default = [];
-      description = "List of exit node location names to enable (e.g. [ \"latvia\" \"kazakhstan\" \"france\" ])";
+      description = "List of exit node location names or objects (e.g. [ \"canada\" { location = \"netherlands\"; proxyRelay = \"aec1d5cec4-a1b1-1\"; } ])";
     };
   };
 
@@ -597,7 +679,7 @@ in {
           ${pkgs.docker}/bin/docker load -i ${rsvImage}
         '';
       };
-    } // (genAttrs (map (id: "docker-rsv-${id}") cfg.nodes) (serviceName: {
+    } // (genAttrs (map (id: "docker-rsv-${id}") sortedNodeNames) (serviceName: {
       after = [ "rsv-prep-env.service" "rsv-load-image.service" ];
       wants = [ "rsv-prep-env.service" "rsv-load-image.service" ];
       serviceConfig = {
