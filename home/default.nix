@@ -73,7 +73,7 @@ in {
   ];
 
   targets =
-    if pkgs.stdenv.isDarwin
+    if pkgs.stdenv.hostPlatform.isDarwin
     then {
       darwin.linkApps.enable = true;
     }

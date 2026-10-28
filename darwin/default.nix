@@ -51,21 +51,29 @@
       trusted-users = root ${user}
     '';
 
-    # Configure dnsmasq to query servers in strict order (corp DNS first)
+    # Configure dnsmasq to query servers in strict order (corp DNS first) and prevent negative cache poisoning
     etc."dnsmasq.conf".text = ''
       strict-order
+      no-negcache
+      clear-on-reload
     '';
   };
 
   networking.dns = [ "127.0.0.1" ];
+  networking.search = [ "sharashin.mesh" ];
   networking.knownNetworkServices = [ "Wi-Fi" "Thunderbolt Bridge" ];
 
   services.dnsmasq = {
     enable = true;
     servers = [
+      # Split DNS: Route Tailnet/Headscale domains and reverse lookups to 100.100.100.100
+      "/sharashin.mesh/100.100.100.100"
+      "/100.in-addr.arpa/100.100.100.100"
+      "/0.e.1.a.c.5.1.1.a.7.d.f.ip6.arpa/fd7a:115c:a1e0::53"
+
+      # Default upstream servers (strict order: corp DNS first, then public fallback)
       "10.15.12.100"
       "10.15.12.200"
-      "100.100.100.100"
       "1.1.1.1"
       "8.8.8.8"
     ];
@@ -83,12 +91,14 @@
       enable = true; # Create /etc/zshrc that loads the nix-darwin environment.
       interactiveShellInit = ''
         alias drs="sudo darwin-rebuild switch --flake ~/dotfiles/"
+        alias dns-flush="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder dnsmasq"
       '';
     };
     fish = {
       enable = true; # required for login shell
       interactiveShellInit = ''
         alias drs="sudo darwin-rebuild switch --flake ~/dotfiles/"
+        alias dns-flush="sudo dscacheutil -flushcache; and sudo killall -HUP mDNSResponder dnsmasq"
       '';
     };
   };
