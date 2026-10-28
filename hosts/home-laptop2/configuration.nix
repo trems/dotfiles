@@ -17,6 +17,7 @@ in {
     ../../services/redshield-exit-nodes.nix
     # ../../services/dae.nix # пока что dae не умеет в salamander obfs
     # ../../services/hermes-agent.nix
+    ../../services/home-assistant.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -61,6 +62,7 @@ in {
       enable = true;
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
     };
+    my-home-assistant.enable = true;
     # my-media-server = {
     #   enable = true;
     #   user = user;
@@ -88,10 +90,7 @@ in {
       "latvia"
       "spain"
       "georgia"
-      {
-        location = "netherlands";
-        proxyRelay = "aec1d5cec4-a1b1-1";
-      }
+      "netherlands"
     ];
   };
 
