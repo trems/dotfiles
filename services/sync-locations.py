@@ -102,8 +102,14 @@ def main():
         clean_name = re.sub(r"[^a-z0-9_-]", "-", clean_name)
         clean_name = re.sub(r"-+", "-", clean_name).strip("-")
         
+        # Protocol endpoints
+        awg_ip = loc.get("awg_ip") or hosts[0]
+        xray_ip = loc.get("xray_ip") or hosts[0]
+        xray_port = loc.get("xray_port", 443)
+        xray_sni = loc.get("xray_sni", "node44.lmdscdn.ru")
+
         hostname = f"rsv-{clean_name}"
-        endpoint = f"{hosts[0]}:{awg_port}"
+        endpoint = f"{awg_ip}:{awg_port}"
         
         # Determine bypassRu status: preserve existing if present, otherwise default to True
         existing_loc = existing_locations.get(clean_name, {})
@@ -115,6 +121,10 @@ def main():
         new_locations[clean_name] = {
             "hostname": hostname,
             "endpoint": endpoint,
+            "awg_ip": awg_ip,
+            "xray_ip": xray_ip,
+            "xray_port": xray_port,
+            "xray_sni": xray_sni,
             "bypassRu": bypass_ru
         }
 

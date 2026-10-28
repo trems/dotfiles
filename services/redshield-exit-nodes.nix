@@ -181,7 +181,7 @@ EOF
       "flow": "",
       "tls": {
         "enabled": true,
-        "server_name": "'"$VLESS_SNI"'",
+        "server_name": "'"$RELAY_SNI"'",
         "utls": {
           "enabled": true,
           "fingerprint": "firefox"
@@ -263,8 +263,7 @@ EOF
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "vless",
-        "awg"
+        "vless"
       ],
       "url": "http://cp.cloudflare.com/generate_204",
       "interval": "1m",
@@ -380,13 +379,14 @@ EOF
     # Connect to Tailnet with retries
     # Attempt to reconnect using existing state first to preserve Headscale identity
     TS_CONNECTED=false
-    if tailscale status >/dev/null 2>&1 && tailscale up --advertise-exit-node --accept-dns=false --snat-subnet-routes=true >/dev/null 2>&1; then
+    if tailscale status >/dev/null 2>&1 && timeout 15 tailscale up --advertise-exit-node --accept-dns=false --snat-subnet-routes=true >/dev/null 2>&1; then
         echo "Tailscale reconnected using existing state."
         TS_CONNECTED=true
     else
         echo "Existing state missing or invalid, authenticating with auth-key..."
         for i in {1..5}; do
-            if tailscale up \
+            if timeout 30 tailscale up \
+              --reset \
               --login-server="$HEADSCALE_URL" \
               --auth-key="$TAILSCALE_AUTH_KEY" \
               --hostname="$TAILSCALE_HOSTNAME" \
@@ -408,7 +408,7 @@ EOF
 
     # Active Watchdog Loop (replacing wait -n)
     FAIL_COUNT=0
-    MAX_FAILS=3
+    MAX_FAILS=10
     CHECK_INTERVAL=30
 
     echo "Starting rsv exit-node watchdog loop..."
@@ -436,7 +436,7 @@ EOF
 
         # 3. SOCKS proxy outbound connectivity check
         if [ "$HEALTHY" = "true" ]; then
-            if ! curl -s --max-time 10 --socks5-hostname 127.0.0.1:1080 http://cp.cloudflare.com/generate_204 >/dev/null 2>&1; then
+            if ! curl -s --max-time 15 --connect-timeout 5 --socks5-hostname 127.0.0.1:1080 http://cp.cloudflare.com/generate_204 >/dev/null 2>&1; then
                 echo "Watchdog alert: SOCKS proxy outbound probe failed" >&2
                 HEALTHY=false
             fi
@@ -538,7 +538,8 @@ EOF
       value = locData // {
         id = locName;
         proxyRelay = relayName;
-        relayEndpoint = if relayData != null then relayData.endpoint else null;
+        relayEndpoint = if relayData != null then (if relayData ? xray_ip && relayData.xray_ip != null && relayData.xray_ip != "" then relayData.xray_ip else relayData.endpoint) else null;
+        relaySni = if relayData != null then (relayData.xray_sni or vlessConfig.tls.server_name) else null;
       };
     }
   ) normalizedNodes);
@@ -568,7 +569,7 @@ EOF
       "--health-cmd=curl -s --max-time 15 --socks5-hostname 127.0.0.1:1080 http://cp.cloudflare.com/generate_204 || exit 1"
       "--health-interval=30s"
       "--health-timeout=20s"
-      "--health-retries=3"
+      "--health-retries=5"
     ];
     environmentFiles = [ "/run/rsv/env" ];
     environment = {
@@ -590,15 +591,16 @@ EOF
       AWG_H2 = awgConfig.h2;
       AWG_H3 = awgConfig.h3;
       AWG_H4 = awgConfig.h4;
-      VLESS_SERVER = head (splitString ":" node.endpoint);
-      VLESS_PORT = toString vlessConfig.server_port;
+      VLESS_SERVER = if node ? xray_ip && node.xray_ip != null && node.xray_ip != "" then node.xray_ip else (head (splitString ":" node.endpoint));
+      VLESS_PORT = toString (node.xray_port or vlessConfig.server_port);
       VLESS_UUID = vlessConfig.uuid;
-      VLESS_SNI = vlessConfig.tls.server_name;
+      VLESS_SNI = node.xray_sni or vlessConfig.tls.server_name;
       VLESS_PUBLIC_KEY = vlessConfig.tls.reality.public_key;
       VLESS_SHORT_ID = vlessConfig.tls.reality.short_id;
       VLESS_SERVICE_NAME = vlessConfig.transport.service_name;
       RELAY_SERVER = if node.relayEndpoint != null then head (splitString ":" node.relayEndpoint) else "";
       RELAY_PORT = toString vlessConfig.server_port;
+      RELAY_SNI = if node.relaySni != null then node.relaySni else vlessConfig.tls.server_name;
     };
     volumes = [
       "/var/lib/rsv-multitun/${id}:/var/lib/tailscale"

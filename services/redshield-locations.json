@@ -1,212 +1,353 @@
 {
-  "aec1d5cec4-a1b1-1": {
-    "bypassRu": true,
-    "endpoint": "51.250.92.61:55777",
-    "hostname": "rsv-aec1d5cec4-a1b1-1"
-  },
-  "aec1d5cec4-a1b1-2": {
-    "bypassRu": true,
-    "endpoint": "84.201.138.49:55777",
-    "hostname": "rsv-aec1d5cec4-a1b1-2"
-  },
-  "aec1d5cec4-a1b1-3-cdcec2dbc9": {
+  "aec1d5cec4-a1b1-3": {
+    "awg_ip": "217.19.122.117",
     "bypassRu": true,
     "endpoint": "217.19.122.117:55777",
-    "hostname": "rsv-aec1d5cec4-a1b1-3-cdcec2dbc9"
+    "hostname": "rsv-aec1d5cec4-a1b1-3",
+    "xray_ip": "217.19.122.117",
+    "xray_port": 443,
+    "xray_sni": "playercdn.cdnvideo.ru"
   },
-  "aec1d5cec4-a1b1-4": {
-    "bypassRu": true,
-    "endpoint": "158.160.227.184:55777",
-    "hostname": "rsv-aec1d5cec4-a1b1-4"
-  },
-  "aec1d5cec4-a1b1-5-cdcec2dbc9": {
+  "aec1d5cec4-a1b1-5": {
+    "awg_ip": "185.141.227.71",
     "bypassRu": true,
     "endpoint": "185.141.227.71:55777",
-    "hostname": "rsv-aec1d5cec4-a1b1-5-cdcec2dbc9"
+    "hostname": "rsv-aec1d5cec4-a1b1-5",
+    "xray_ip": "185.141.227.71",
+    "xray_port": 443,
+    "xray_sni": "playercdn.cdnvideo.ru"
   },
   "argentina": {
+    "awg_ip": "185.21.252.19",
     "bypassRu": true,
     "endpoint": "185.21.252.19:55777",
-    "hostname": "rsv-argentina"
+    "hostname": "rsv-argentina",
+    "xray_ip": "185.21.252.19",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "armenia": {
+    "awg_ip": "108.165.187.19",
     "bypassRu": true,
-    "endpoint": "104.252.128.250:55777",
-    "hostname": "rsv-armenia"
+    "endpoint": "108.165.187.19:55777",
+    "hostname": "rsv-armenia",
+    "xray_ip": "108.165.187.13",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "austria": {
+    "awg_ip": "166.88.177.254",
     "bypassRu": true,
-    "endpoint": "166.88.177.5:55777",
-    "hostname": "rsv-austria"
+    "endpoint": "166.88.177.254:55777",
+    "hostname": "rsv-austria",
+    "xray_ip": "166.88.177.253",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "belarus": {
+    "awg_ip": "108.165.187.18",
     "bypassRu": true,
-    "endpoint": "104.252.128.249:55777",
-    "hostname": "rsv-belarus"
+    "endpoint": "108.165.187.18:55777",
+    "hostname": "rsv-belarus",
+    "xray_ip": "108.165.187.12",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "brazil": {
+    "awg_ip": "201.182.96.220",
     "bypassRu": true,
     "endpoint": "201.182.96.220:55777",
-    "hostname": "rsv-brazil"
+    "hostname": "rsv-brazil",
+    "xray_ip": "201.182.96.220",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "canada": {
+    "awg_ip": "108.165.187.33",
     "bypassRu": true,
-    "endpoint": "104.252.128.233:55777",
-    "hostname": "rsv-canada"
+    "endpoint": "108.165.187.33:55777",
+    "hostname": "rsv-canada",
+    "xray_ip": "108.165.187.26",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "cyprus": {
+    "awg_ip": "185.191.206.4",
     "bypassRu": true,
     "endpoint": "185.191.206.4:55777",
-    "hostname": "rsv-cyprus"
+    "hostname": "rsv-cyprus",
+    "xray_ip": "185.191.206.4",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "czech-republic": {
+    "awg_ip": "50.114.23.247",
     "bypassRu": true,
-    "endpoint": "50.114.23.5:55777",
-    "hostname": "rsv-czech-republic"
+    "endpoint": "50.114.23.247:55777",
+    "hostname": "rsv-czech-republic",
+    "xray_ip": "50.114.23.246",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "finland": {
+    "awg_ip": "45.38.50.253",
     "bypassRu": true,
-    "endpoint": "45.38.50.47:55777",
-    "hostname": "rsv-finland"
+    "endpoint": "45.38.50.253:55777",
+    "hostname": "rsv-finland",
+    "xray_ip": "45.38.50.254",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "france": {
+    "awg_ip": "166.88.150.239",
     "bypassRu": true,
-    "endpoint": "166.88.150.5:55777",
-    "hostname": "rsv-france"
+    "endpoint": "166.88.150.239:55777",
+    "hostname": "rsv-france",
+    "xray_ip": "166.88.150.238",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "georgia": {
+    "awg_ip": "108.165.187.20",
     "bypassRu": true,
-    "endpoint": "104.252.128.251:55777",
-    "hostname": "rsv-georgia"
+    "endpoint": "108.165.187.20:55777",
+    "hostname": "rsv-georgia",
+    "xray_ip": "108.165.187.14",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "germany": {
+    "awg_ip": "166.0.218.253",
     "bypassRu": true,
-    "endpoint": "166.0.218.26:55777",
-    "hostname": "rsv-germany"
+    "endpoint": "166.0.218.253:55777",
+    "hostname": "rsv-germany",
+    "xray_ip": "166.0.218.252",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "hong-kong": {
+    "awg_ip": "108.165.187.36",
     "bypassRu": true,
-    "endpoint": "104.252.128.236:55777",
-    "hostname": "rsv-hong-kong"
+    "endpoint": "108.165.187.36:55777",
+    "hostname": "rsv-hong-kong",
+    "xray_ip": "108.165.187.29",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "hungary": {
+    "awg_ip": "166.0.123.241",
     "bypassRu": true,
-    "endpoint": "166.0.123.5:55777",
-    "hostname": "rsv-hungary"
+    "endpoint": "166.0.123.241:55777",
+    "hostname": "rsv-hungary",
+    "xray_ip": "166.0.123.240",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "israel": {
+    "awg_ip": "108.165.187.30",
     "bypassRu": true,
-    "endpoint": "104.252.128.230:55777",
-    "hostname": "rsv-israel"
+    "endpoint": "108.165.187.30:55777",
+    "hostname": "rsv-israel",
+    "xray_ip": "108.165.187.23",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "italy": {
+    "awg_ip": "166.88.196.246",
     "bypassRu": true,
-    "endpoint": "166.88.196.5:55777",
-    "hostname": "rsv-italy"
+    "endpoint": "166.88.196.246:55777",
+    "hostname": "rsv-italy",
+    "xray_ip": "166.88.196.245",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "japan": {
+    "awg_ip": "43.230.163.117",
     "bypassRu": true,
     "endpoint": "43.230.163.117:55777",
-    "hostname": "rsv-japan"
+    "hostname": "rsv-japan",
+    "xray_ip": "43.230.163.117",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "kazakhstan": {
+    "awg_ip": "108.165.187.17",
     "bypassRu": true,
-    "endpoint": "104.252.128.254:55777",
-    "hostname": "rsv-kazakhstan"
+    "endpoint": "108.165.187.17:55777",
+    "hostname": "rsv-kazakhstan",
+    "xray_ip": "108.165.187.11",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "latvia": {
+    "awg_ip": "108.165.187.8",
     "bypassRu": true,
-    "endpoint": "104.252.128.53:55777",
-    "hostname": "rsv-latvia"
+    "endpoint": "108.165.187.8:55777",
+    "hostname": "rsv-latvia",
+    "xray_ip": "108.165.187.5",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "lithuania": {
+    "awg_ip": "108.165.187.53",
     "bypassRu": true,
-    "endpoint": "193.124.18.234:55777",
-    "hostname": "rsv-lithuania"
+    "endpoint": "108.165.187.53:55777",
+    "hostname": "rsv-lithuania",
+    "xray_ip": "108.165.187.6",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "los-angeles": {
+    "awg_ip": "104.128.72.67",
     "bypassRu": true,
-    "endpoint": "172.96.142.167:55777",
-    "hostname": "rsv-los-angeles"
+    "endpoint": "104.128.72.67:55777",
+    "hostname": "rsv-los-angeles",
+    "xray_ip": "172.96.142.198",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "netherlands": {
+    "awg_ip": "166.0.113.245",
     "bypassRu": true,
-    "endpoint": "166.0.113.8:55777",
-    "hostname": "rsv-netherlands"
+    "endpoint": "166.0.113.245:55777",
+    "hostname": "rsv-netherlands",
+    "xray_ip": "166.0.113.244",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "new-york": {
+    "awg_ip": "185.150.189.133",
     "bypassRu": true,
-    "endpoint": "172.93.109.208:55777",
-    "hostname": "rsv-new-york"
+    "endpoint": "185.150.189.133:55777",
+    "hostname": "rsv-new-york",
+    "xray_ip": "172.93.109.209",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "poland": {
+    "awg_ip": "136.0.175.253",
     "bypassRu": true,
-    "endpoint": "136.0.175.5:55777",
-    "hostname": "rsv-poland"
+    "endpoint": "136.0.175.253:55777",
+    "hostname": "rsv-poland",
+    "xray_ip": "136.0.175.252",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "portugal": {
+    "awg_ip": "166.1.44.252",
     "bypassRu": true,
-    "endpoint": "166.1.44.250:55777",
-    "hostname": "rsv-portugal"
+    "endpoint": "166.1.44.252:55777",
+    "hostname": "rsv-portugal",
+    "xray_ip": "166.1.44.251",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "russia": {
+    "awg_ip": "108.165.187.10",
     "bypassRu": true,
-    "endpoint": "193.124.18.67:55777",
-    "hostname": "rsv-russia"
+    "endpoint": "108.165.187.10:55777",
+    "hostname": "rsv-russia",
+    "xray_ip": "108.165.187.7",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "serbia": {
+    "awg_ip": "108.165.187.35",
     "bypassRu": true,
-    "endpoint": "104.252.128.235:55777",
-    "hostname": "rsv-serbia"
+    "endpoint": "108.165.187.35:55777",
+    "hostname": "rsv-serbia",
+    "xray_ip": "108.165.187.28",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "singapore": {
+    "awg_ip": "210.16.67.117",
     "bypassRu": true,
     "endpoint": "210.16.67.117:55777",
-    "hostname": "rsv-singapore"
+    "hostname": "rsv-singapore",
+    "xray_ip": "210.16.67.117",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "spain": {
+    "awg_ip": "108.165.187.32",
     "bypassRu": true,
-    "endpoint": "104.252.128.232:55777",
-    "hostname": "rsv-spain"
+    "endpoint": "108.165.187.32:55777",
+    "hostname": "rsv-spain",
+    "xray_ip": "108.165.187.25",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "sweden": {
+    "awg_ip": "166.1.72.238",
     "bypassRu": true,
-    "endpoint": "166.1.72.7:55777",
-    "hostname": "rsv-sweden"
+    "endpoint": "166.1.72.238:55777",
+    "hostname": "rsv-sweden",
+    "xray_ip": "166.1.72.237",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "switzerland": {
+    "awg_ip": "166.88.133.238",
     "bypassRu": true,
-    "endpoint": "166.88.133.5:55777",
-    "hostname": "rsv-switzerland"
+    "endpoint": "166.88.133.238:55777",
+    "hostname": "rsv-switzerland",
+    "xray_ip": "166.88.133.237",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "thailand": {
+    "awg_ip": "108.165.187.31",
     "bypassRu": true,
-    "endpoint": "104.252.128.231:55777",
-    "hostname": "rsv-thailand"
+    "endpoint": "108.165.187.31:55777",
+    "hostname": "rsv-thailand",
+    "xray_ip": "108.165.187.24",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "turkey": {
+    "awg_ip": "110.172.145.142",
     "bypassRu": true,
     "endpoint": "110.172.145.142:55777",
-    "hostname": "rsv-turkey"
+    "hostname": "rsv-turkey",
+    "xray_ip": "110.172.145.142",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "uae": {
+    "awg_ip": "108.165.187.34",
     "bypassRu": true,
-    "endpoint": "104.252.128.234:55777",
-    "hostname": "rsv-uae"
+    "endpoint": "108.165.187.34:55777",
+    "hostname": "rsv-uae",
+    "xray_ip": "108.165.187.27",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "ukraine": {
+    "awg_ip": "108.165.187.21",
     "bypassRu": true,
-    "endpoint": "104.252.128.252:55777",
-    "hostname": "rsv-ukraine"
+    "endpoint": "108.165.187.21:55777",
+    "hostname": "rsv-ukraine",
+    "xray_ip": "108.165.187.15",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "united-kingdom": {
+    "awg_ip": "166.88.151.255",
     "bypassRu": true,
-    "endpoint": "166.88.151.5:55777",
-    "hostname": "rsv-united-kingdom"
+    "endpoint": "166.88.151.255:55777",
+    "hostname": "rsv-united-kingdom",
+    "xray_ip": "166.88.151.254",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   },
   "uzbekistan": {
+    "awg_ip": "108.165.187.22",
     "bypassRu": true,
-    "endpoint": "104.252.128.253:55777",
-    "hostname": "rsv-uzbekistan"
+    "endpoint": "108.165.187.22:55777",
+    "hostname": "rsv-uzbekistan",
+    "xray_ip": "108.165.187.16",
+    "xray_port": 443,
+    "xray_sni": "node44.lmdscdn.ru"
   }
 }
