@@ -8,6 +8,7 @@ in {
   "rs-private-key.age".publicKeys = pk.all;
   "tailscale-auth-key.age".publicKeys = pk.all;
   "tailscale-exit-node-auth-key.age".publicKeys = pk.all;
+  "tailscale-ironforge-auth-key.age".publicKeys = pk.all;
   "subscription-uuid.age".publicKeys = pk.all;
   "hermes-env.age".publicKeys = pk.all;
 }

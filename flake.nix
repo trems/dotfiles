@@ -159,6 +159,18 @@
           }
         ];
       };
+      ironforge = nixpkgs.lib.nixosSystem {
+        system = systemLinux;
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/ironforge/configuration.nix
+          agenix.nixosModules.default
+          {
+            _module.args = {inherit publicKeys;};
+            nix = nixSettings ["mike"];
+          }
+        ];
+      };
     };
     deploy = {
       nodes = {
@@ -179,6 +191,15 @@
           profiles.system = {
             user = "root";
             path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.undercity;
+          };
+        };
+        ironforge = {
+          remoteBuild = false;
+          hostname = "89.110.65.104";
+          sshUser = "mike";
+          profiles.system = {
+            user = "root";
+            path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.ironforge;
           };
         };
       };
