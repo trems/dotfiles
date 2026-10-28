@@ -12,13 +12,13 @@
   vlessOutbounds = lib.mapAttrsToList (name: node: {
     type = "vless";
     tag = "vless-${name}";
-    server = lib.head (lib.splitString ":" node.endpoint);
-    server_port = vlessConfig.server_port;
+    server = if node ? xray_ip && node.xray_ip != null && node.xray_ip != "" then node.xray_ip else (lib.head (lib.splitString ":" node.endpoint));
+    server_port = node.xray_port or vlessConfig.server_port;
     uuid = vlessConfig.uuid;
     flow = "";
     tls = {
       enabled = true;
-      server_name = vlessConfig.tls.server_name;
+      server_name = node.xray_sni or vlessConfig.tls.server_name;
       utls = {
         enabled = true;
         fingerprint = vlessConfig.tls.utls.fingerprint;
@@ -126,7 +126,8 @@
         os.makedirs(out_dir, exist_ok=True)
 
         def get_node_info(name, node):
-            server_ip = node["endpoint"].split(":")[0]
+            server_ip = node.get("xray_ip") or node["endpoint"].split(":")[0]
+            sni = node.get("xray_sni") or vless_config["tls"]["server_name"]
             if name.startswith("aec1d5cec4-a1b1"):
                 match = re.search(r"aec1d5cec4-a1b1-([0-9]+)", name)
                 display_num = match.group(1) if match else "x"
@@ -138,7 +139,7 @@
                     "display_name": display_name,
                     "server_ip": server_ip,
                     "vless_uuid": vless_config["uuid"],
-                    "vless_sni": vless_config["tls"]["server_name"],
+                    "vless_sni": sni,
                     "vless_pbk": tls_real["public_key"],
                     "vless_sid": tls_real["short_id"],
                     "vless_service_name": trans["service_name"]
@@ -338,7 +339,7 @@ in {
                   header_up Proxy-Authorization {header.Proxy-Authorization}
               }
 
-              respond "Welcome to my website" 200
+              reverse_proxy http://127.0.0.1:2586
           }
         '';
       };

@@ -12,6 +12,7 @@ in {
     ./disko.nix
     ./headscale.nix
     ./proxies.nix
+    ./ntfy.nix
   ];
 
   # Use GRUB bootloader with dual EFI + legacy BIOS support
@@ -30,6 +31,8 @@ in {
 
   time.timeZone = "Asia/Yekaterinburg";
   i18n.defaultLocale = "en_US.UTF-8";
+
+  services.dbus.implementation = "dbus";
 
   environment.systemPackages = with pkgs; [
     git

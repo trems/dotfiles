@@ -11,4 +11,6 @@ in {
   "tailscale-ironforge-auth-key.age".publicKeys = pk.all;
   "subscription-uuid.age".publicKeys = pk.all;
   "hermes-env.age".publicKeys = pk.all;
+  "ntfy-token.age".publicKeys = pk.all;
+  "ntfy-admin-password.age".publicKeys = pk.all;
 }
