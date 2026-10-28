@@ -59,12 +59,11 @@
       {
         action = "accept";
         src = [ "oneplus12" ];
-        dst = [ "mbp:*" ];
-      }
-      {
-        action = "accept";
-        src = [ "*" ];
-        dst = [ "autogroup:internet:*" ];
+        dst = [
+          "mbp:*"
+          "tag:exit-node:*"
+          "autogroup:internet:*"
+        ];
       }
     ];
   };
