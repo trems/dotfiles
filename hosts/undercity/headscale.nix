@@ -30,6 +30,7 @@
     hosts = {
       "mbp" = "100.64.0.1";
       "oneplus12" = "100.64.0.8";
+      "macbook-air-m1" = "100.64.0.18";
     };
     tagOwners = {
       "tag:lenovo" = [ "default@" ];
@@ -59,6 +60,15 @@
       {
         action = "accept";
         src = [ "oneplus12" ];
+        dst = [
+          "mbp:*"
+          "tag:exit-node:*"
+          "autogroup:internet:*"
+        ];
+      }
+      {
+        action = "accept";
+        src = [ "macbook-air-m1" ];
         dst = [
           "mbp:*"
           "tag:exit-node:*"
