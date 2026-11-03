@@ -12,7 +12,7 @@ in {
     ./hardware-configuration.nix
     # ../../services/blocky.nix
     ../../services/monitoring
-    # ../../services/media-server.nix
+    ../../services/media-server.nix
     ../../services/sing-box.nix
     ../../services/redshield-exit-nodes.nix
     # ../../services/dae.nix # пока что dae не умеет в salamander obfs
@@ -63,11 +63,11 @@ in {
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
     };
     my-home-assistant.enable = true;
-    # my-media-server = {
-    #   enable = true;
-    #   user = user;
-    #   # sharePath по умолчанию будет /srv/share
-    # };
+    my-media-server = {
+      enable = true;
+      user = user;
+      # sharePath по умолчанию будет /srv/share
+    };
   };
 
   age = {
