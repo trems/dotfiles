@@ -19,10 +19,6 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hermes-agent = {
-      url = "github:NousResearch/hermes-agent";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs @ {
@@ -34,7 +30,6 @@
     deploy-rs,
     agenix,
     disko,
-    hermes-agent,
   }: let
     publicKeys = import ./secrets/pubkeys.nix;
     systemDarwin = "aarch64-darwin";
@@ -140,9 +135,8 @@
         modules = [
           ./hosts/home-laptop2/configuration.nix
           agenix.nixosModules.default
-          hermes-agent.nixosModules.default
           {
-            _module.args = {inherit publicKeys inputs;};
+            _module.args = {inherit publicKeys;};
             nix = nixSettings ["mike"];
           }
         ];

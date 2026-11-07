@@ -16,7 +16,6 @@ in {
     ../../services/sing-box.nix
     ../../services/redshield-exit-nodes.nix
     # ../../services/dae.nix # пока что dae не умеет в salamander obfs
-    # ../../services/hermes-agent.nix
     ../../services/home-assistant.nix
   ];
 
@@ -75,7 +74,6 @@ in {
       tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
       tailscale-exit-node-auth-key.file = ../../secrets/tailscale-exit-node-auth-key.age;
       rs-private-key.file = ../../secrets/rs-private-key.age;
-      hermes-env.file = ../../secrets/hermes-env.age;
     };
   };
 
