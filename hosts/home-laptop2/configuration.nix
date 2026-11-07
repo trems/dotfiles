@@ -23,6 +23,18 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = ["xt_TPROXY" "nf_tproxy_ipv4"];
 
+  # Беречь батарею: ноутбук всегда на зарядке с закрытой крышкой, поэтому снижаем нагрев.
+  # Лимита заряда это не даёт: в sysfs нет charge_control_end_threshold, а прошивка TM2113
+  # не обрабатывает команду батареи 0x10 в WMI MiInterface (GET проверен 2026-11-04,
+  # BIOS RMARB5B0P0B0B), хотя другие команды работают; регистров LONL/HBDA в ACPI нет.
+  # Гасим консоль, иначе под закрытой крышкой (HandleLidSwitch = "ignore") горит экран.
+  boot.kernelParams = ["consoleblank=60"];
+  systemd.tmpfiles.rules = [
+    # Отключаем turbo boost: убирает самые горячие пики под нагрузкой.
+    "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
+    "w /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - balance_power"
+  ];
+
   networking = {
     hostName = "home-laptop2"; # должно совпадать с именем в flake!
     networkmanager.enable = true;
