@@ -30,6 +30,7 @@ in {
       yq-go
       ffmpeg
       resterm
+      glab
 
       go-task
       gnumake

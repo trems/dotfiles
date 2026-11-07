@@ -121,6 +121,7 @@
       "brave-browser"
       "orbstack"
       "codex"
+      "claude-code"
       "antigravity"
       "antigravity-cli"
       "karabiner-elements"
