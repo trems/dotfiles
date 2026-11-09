@@ -15,6 +15,10 @@
     agenix.url = "github:yaxitech/ragenix";
     deploy-rs.url = "github:serokell/deploy-rs";
     mac-app-util.url = "github:hraban/mac-app-util";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -25,6 +29,7 @@
     home-manager,
     deploy-rs,
     agenix,
+    disko,
   }: let
     publicKeys = import ./secrets/pubkeys.nix;
     systemDarwin = "aarch64-darwin";
@@ -74,7 +79,8 @@
               ];
             };
             users.users.${user}.home = "/Users/${user}";
-            nix = nixSettings [user];
+            #nix = nixSettings [user];
+            nix.enable = false;
             age = {
               identityPaths = ["/Users/${user}/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key"];
               secrets = {
@@ -83,6 +89,11 @@
                   file = ./secrets/hy2-client.yaml.age;
                   mode = "400";
                   owner = user;
+                };
+                rs-private-key = {
+                  file = ./secrets/rs-private-key.age;
+                  mode = "400";
+                  owner = "root";
                 };
               };
             };
@@ -94,6 +105,9 @@
     # $ sudo darwin-rebuild build --flake .#macbook-air-m1
     darwinConfigurations = {
       "macbook-air-m1" = mkDarwinSystem {
+        user = "m";
+      };
+      "mbp" = mkDarwinSystem {
         user = "m";
       };
     };
@@ -108,9 +122,6 @@
             home = {
               username = user;
               homeDirectory = "/home/${user}";
-              packages = with pkgsLinux; [
-                # tailscale
-              ];
             };
             programs.home-manager.enable = true;
           }
@@ -130,6 +141,30 @@
           }
         ];
       };
+      undercity = nixpkgs.lib.nixosSystem {
+        system = systemLinux;
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/undercity/configuration.nix
+          agenix.nixosModules.default
+          {
+            _module.args = {inherit publicKeys;};
+            nix = nixSettings ["mike"];
+          }
+        ];
+      };
+      ironforge = nixpkgs.lib.nixosSystem {
+        system = systemLinux;
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/ironforge/configuration.nix
+          agenix.nixosModules.default
+          {
+            _module.args = {inherit publicKeys;};
+            nix = nixSettings ["mike"];
+          }
+        ];
+      };
     };
     deploy = {
       nodes = {
@@ -137,9 +172,28 @@
           remoteBuild = true;
           hostname = "192.168.0.102";
           sshUser = "mike";
+          sshOpts = [ "-o" "StrictHostKeyChecking=no" "-o" "UserKnownHostsFile=/dev/null" ];
           profiles.system = {
             user = "root";
             path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.home-laptop2;
+          };
+        };
+        undercity = {
+          remoteBuild = true;
+          hostname = "192.144.12.164";
+          sshUser = "mike";
+          profiles.system = {
+            user = "root";
+            path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.undercity;
+          };
+        };
+        ironforge = {
+          remoteBuild = false;
+          hostname = "89.110.65.104";
+          sshUser = "mike";
+          profiles.system = {
+            user = "root";
+            path = deploy-rs.lib.${systemLinux}.activate.nixos self.nixosConfigurations.ironforge;
           };
         };
       };
