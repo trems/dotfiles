@@ -14,9 +14,11 @@ config = {
 	},
 	default_domain = "local",
 	default_workspace = "home",
-	set_environment_variables = {},
-	enable_kitty_keyboard = false,
-	front_end = "WebGpu",
+	set_environment_variables = {
+		AGY_CLI_DISABLE_ESCAPE_SEQUENCE_OPTIMIZATIONS = "1",
+	},
+	enable_kitty_keyboard = true,
+	front_end = "OpenGL",
 	quick_select_patterns = {
 		"v[0-9]+.+", -- golang version tag from 'git describe'
 	},
