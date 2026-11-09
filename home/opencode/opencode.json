@@ -1,0 +1,108 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "providers": {
+    "tns-ai": {
+      "name": "TnS AI",
+      "package": "@opencode/ai/providers/openai-compatible",
+      "settings": {
+        "baseURL": "https://ur-llm-proxy.wb.ru/v1",
+        "apiKey": "{env:WB_AI_DEV}"
+      },
+      "models": {
+        "glm": {
+          "name": "GLM-5.3 Flash",
+          "body": {
+            "chat_template_kwargs": {
+              // enable_thinking этот деплой игнорирует: мышление включено всегда, управляется только effort
+              "clear_thinking": true // если false, то opencode отправляет прошлые рассуждения модели в каждом запросе
+            }
+          },
+          "capabilities": {
+            "tools": true,
+            "input": [
+              "text" // эмпирически выяснил, что прием картинок у нас выключен
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 386000,
+            "output": 16000
+          },
+          "variants": [ // effort доходит до модели только через chat_template_kwargs, top-level reasoning_effort прокси выбрасывает
+            {
+              "id": "low", // фактически без рассуждений: think закрывается сразу
+              "body": { "chat_template_kwargs": { "reasoning_effort": "low" } }
+            },
+            {
+              "id": "high",
+              "body": { "chat_template_kwargs": { "reasoning_effort": "high" } }
+            },
+            {
+              "id": "max",
+              "body": { "chat_template_kwargs": { "reasoning_effort": "max" } }
+            }
+          ]
+        },
+        "glm-max": {
+          "name": "GLM-5.3",
+          "body": {
+            "chat_template_kwargs": {
+              "enable_thinking": true, // у этого деплоя мышление выключено по умолчанию
+              "clear_thinking": true // если false, то opencode отправляет прошлые рассуждения модели в каждом запросе
+            }
+          },
+          "capabilities": {
+            "tools": true,
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 386000,
+            "output": 16000
+          },
+          "variants": [
+            {
+              "id": "nothink",
+              "body": { "chat_template_kwargs": { "enable_thinking": false } }
+            },
+            {
+              "id": "low",
+              "body": { "chat_template_kwargs": { "reasoning_effort": "low" } }
+            },
+            {
+              "id": "high",
+              "body": { "chat_template_kwargs": { "reasoning_effort": "high" } }
+            },
+            {
+              "id": "max",
+              "body": { "chat_template_kwargs": { "reasoning_effort": "max" } }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "plugins": [
+    "@dietrichgebert/ponytail"
+  ],
+  "mcp": {
+    "servers": {
+      "playwright": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@playwright/mcp@latest",
+          "--browser",
+          "chromium"
+        ]
+      }
+    }
+  }
+}

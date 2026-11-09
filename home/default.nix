@@ -68,6 +68,7 @@ in {
     ./karabiner
     ./golang
     ./herdr
+    ./opencode
 
     #services
     ./git-sync
