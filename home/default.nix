@@ -67,6 +67,7 @@ in {
     ./direnv
     ./karabiner
     ./golang
+    ./herdr
 
     #services
     ./git-sync

@@ -126,6 +126,7 @@
       "antigravity-cli"
       "karabiner-elements"
       "handy"
+      "herdr-app"
     ];
     taps = [];
     masApps = {};
