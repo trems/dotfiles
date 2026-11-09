@@ -6,7 +6,7 @@
   "ansi": [
     "#1b1d2b",
     "#ff757f",
-    "#c3e88d",
+    "#78d3a3",
     "#ffc777",
     "#82aaff",
     "#c099ff",
@@ -14,7 +14,7 @@
     "#828bb8",
     "#444a73",
     "#ff757f",
-    "#c3e88d",
+    "#78d3a3",
     "#ffc777",
     "#82aaff",
     "#c099ff",
@@ -43,7 +43,7 @@
     "selection": "#2d3f76",
     "working": "#ffc777",
     "blocked": "#ff757f",
-    "done": "#c3e88d",
+    "done": "#78d3a3",
     "idle": "#828bb8",
     "unknown": "#545c7e"
   }

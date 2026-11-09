@@ -30,5 +30,8 @@
 
     "herdr-app/themes/tokyonight.json".source =
       mkMutableSymlink "${dotfiles}/home/herdr/herdr-app/themes/tokyonight.json";
+
+    "herdr-app/layouts/custom.json".source =
+      mkMutableSymlink "${dotfiles}/home/herdr/herdr-app/layouts/custom.json";
   };
 }
