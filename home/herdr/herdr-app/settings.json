@@ -1,10 +1,10 @@
 {
-  "theme": "tokyonight-moon",
-  "zoom": 1,
+  "zoom": 1.0,
   "sounds": {
     "enabled": true
   },
   "font_ligatures": false,
-  "minimum_contrast": 1,
-  "option_as_alt": "on"
+  "minimum_contrast": 1.0,
+  "option_as_alt": "on",
+  "theme": "tokyonight-moon"
 }
