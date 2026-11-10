@@ -33,15 +33,27 @@
           "variants": [ // effort доходит до модели только через chat_template_kwargs, top-level reasoning_effort прокси выбрасывает
             {
               "id": "low", // фактически без рассуждений: think закрывается сразу
-              "body": { "chat_template_kwargs": { "reasoning_effort": "low" } }
+              "body": {
+                "chat_template_kwargs": {
+                  "reasoning_effort": "low"
+                }
+              }
             },
             {
               "id": "high",
-              "body": { "chat_template_kwargs": { "reasoning_effort": "high" } }
+              "body": {
+                "chat_template_kwargs": {
+                  "reasoning_effort": "high"
+                }
+              }
             },
             {
               "id": "max",
-              "body": { "chat_template_kwargs": { "reasoning_effort": "max" } }
+              "body": {
+                "chat_template_kwargs": {
+                  "reasoning_effort": "max"
+                }
+              }
             }
           ]
         },
@@ -69,19 +81,35 @@
           "variants": [
             {
               "id": "nothink",
-              "body": { "chat_template_kwargs": { "enable_thinking": false } }
+              "body": {
+                "chat_template_kwargs": {
+                  "enable_thinking": false
+                }
+              }
             },
             {
               "id": "low",
-              "body": { "chat_template_kwargs": { "reasoning_effort": "low" } }
+              "body": {
+                "chat_template_kwargs": {
+                  "reasoning_effort": "low"
+                }
+              }
             },
             {
               "id": "high",
-              "body": { "chat_template_kwargs": { "reasoning_effort": "high" } }
+              "body": {
+                "chat_template_kwargs": {
+                  "reasoning_effort": "high"
+                }
+              }
             },
             {
               "id": "max",
-              "body": { "chat_template_kwargs": { "reasoning_effort": "max" } }
+              "body": {
+                "chat_template_kwargs": {
+                  "reasoning_effort": "max"
+                }
+              }
             }
           ]
         }
