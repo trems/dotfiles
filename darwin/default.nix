@@ -113,14 +113,11 @@
       autoUpdate = true;
     };
     brews = [
-      "qwen-code" # unstable nixpkgs contains old version
       "opencode"
-      "pi-coding-agent"
     ];
     casks = [
       "brave-browser"
       "orbstack"
-      "codex"
       "claude-code"
       "antigravity"
       "antigravity-cli"
