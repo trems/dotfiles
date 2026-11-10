@@ -29,18 +29,7 @@
               "id": "spaces",
               "type": "block",
               "content": {
-                "mod": "spaces"
-              },
-              "size": {
-                "weight": 1
-              },
-              "min": 90
-            },
-            {
-              "id": "agents",
-              "type": "block",
-              "content": {
-                "mod": "agents"
+                "mod": "over9k"
               },
               "size": {
                 "weight": 1
@@ -114,8 +103,7 @@
                     "color": "accent"
                   },
                   "radius": 0,
-                  "gap": 8,
-                  "lone": false
+                  "gap": 0
                 }
               }
             },
@@ -154,7 +142,7 @@
             }
           ],
           "padding": 0,
-          "gap": 8
+          "gap": 0
         },
         {
           "id": "status",
@@ -172,8 +160,8 @@
   ],
   "background": "canvas",
   "terminal_padding": [
-    14,
-    12
+    4,
+    2
   ],
   "divider": {
     "width": 1,
