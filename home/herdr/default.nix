@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   mkMutableSymlink,
   dotfiles,
@@ -36,5 +37,23 @@
 
     "herdr-app/layouts/custom.json".source =
       mkMutableSymlink "${dotfiles}/home/herdr/herdr-app/layouts/custom.json";
-  };
+  }
+  # Свои моды (over9k): по папке, т.к. в herdr-app/mods лежат и встроенные моды,
+  # которые Herdr синхронизирует сам. Herdr 0.1.14 не грузит SVG-иконки мода
+  # через симлинк (исправлено в herdr-app#427, ещё не в релизе).
+  // lib.genAttrs' [
+    "over9k"
+    "over9k-close"
+    "over9k-handoff"
+    "over9k-menu"
+    "over9k-new-menu"
+    "over9k-options"
+    "over9k-panel"
+    "over9k-rename"
+    "over9k-server-stop"
+    "over9k-switcher"
+  ] (name:
+    lib.nameValuePair "herdr-app/mods/${name}" {
+      source = mkMutableSymlink "${dotfiles}/home/herdr/herdr-app/mods/${name}";
+    });
 }
