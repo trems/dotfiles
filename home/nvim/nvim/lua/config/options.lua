@@ -6,5 +6,3 @@ vim.o.wrap = true
 vim.o.virtualedit = "block,onemore"
 vim.o.spelllang = "en,ru"
 vim.o.spelloptions = "camel"
--- mouse reporting freezes Herdr.app in alt screen; not used anyway
-vim.o.mouse = ""
