@@ -19,8 +19,14 @@
     "cmd-shift-p": "app.palette",
     "cmd-,": "app.settings",
     "cmd-d": "pane.split:right",
+    "cmd-\\": "pane.split:right",
     "cmd-shift-d": "pane.split:down",
+    "cmd--": "pane.split:down",
     "cmd-shift-enter": "pane.zoom",
+    "ctrl-h": "pane.go:left",
+    "ctrl-j": "pane.go:down",
+    "ctrl-k": "pane.go:up",
+    "ctrl-l": "pane.go:right",
     "cmd-alt-left": "pane.go:left",
     "cmd-alt-right": "pane.go:right",
     "cmd-alt-up": "pane.go:up",
@@ -36,7 +42,7 @@
     "cmd-b": "layout.toggle:sidebar",
     "cmd-=": "app.zoom_in",
     "cmd-+": "app.zoom_in",
-    "cmd--": "app.zoom_out",
+    "cmd-_": "app.zoom_out",
     "cmd-0": "app.zoom_reset",
     "cmd-1": "tab.select:1",
     "cmd-2": "tab.select:2",
@@ -62,11 +68,16 @@
     "cmd-c": "terminal.copy",
     "cmd-v": "terminal.paste",
     "ctrl-v": "terminal.paste_image",
+    "cmd-z": "send:\u001f",
     "alt-left": "send:\u001bb",
     "alt-right": "send:\u001bf",
     "alt-backspace": "send:\u0017",
     "cmd-left": "send:\u0001",
     "cmd-right": "send:\u0005",
     "cmd-backspace": "send:\u0015"
+  },
+  "mod:over9k-switcher": {
+    "ctrl-tab": "over9k-switcher.next",
+    "ctrl-shift-tab": "over9k-switcher.prev"
   }
 }
