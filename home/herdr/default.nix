@@ -17,6 +17,9 @@
     "herdr-core/config.toml".source =
       mkMutableSymlink "${dotfiles}/home/herdr/herdr-core/config.toml";
 
+    "herdr-core/templates".source =
+      mkMutableSymlink "${dotfiles}/home/herdr/herdr-core/templates";
+
     # herdr-app (GUI): симлинкуем только пользовательские файлы настроек и темы,
     # чтобы runtime-файлы (сокеты, кэш, состояние сессии) не загрязняли git.
     "herdr-app/settings.json".source =
