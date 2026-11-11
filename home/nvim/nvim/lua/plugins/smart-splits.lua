@@ -3,6 +3,12 @@ return {
     "mrjones2014/smart-splits.nvim",
     -- enabled = false,
     lazy = false,
+    opts = {
+      -- в Herdr нет мультиплексора для smart-splits: на краю отдаём переход Herdr
+      at_edge = vim.env.HC_TERMINAL_ID and function(ctx)
+        vim.system({ "herdr-app", "do", "pane.go", "--direction", ctx.direction })
+      end or nil,
+    },
     -- stylua: ignore
     keys = {
       { "<C-h>", function() require("smart-splits").move_cursor_left() end, mode = { "n" }, desc = "Move left", },

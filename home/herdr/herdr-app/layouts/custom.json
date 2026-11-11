@@ -153,6 +153,16 @@
           "size": {
             "px": 28
           }
+        },
+        {
+          "id": "smart-nav",
+          "type": "block",
+          "content": {
+            "mod": "smart-nav"
+          },
+          "size": {
+            "px": 0
+          }
         }
       ],
       "resizable": false

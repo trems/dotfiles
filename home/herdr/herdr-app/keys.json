@@ -64,6 +64,10 @@
     "ctrl-9": "space.select:9"
   },
   "terminal": {
+    "ctrl-h": "smart-nav.left",
+    "ctrl-j": "smart-nav.down",
+    "ctrl-k": "smart-nav.up",
+    "ctrl-l": "smart-nav.right",
     "cmd-f": "terminal.search",
     "cmd-c": "terminal.copy",
     "cmd-v": "terminal.paste",
