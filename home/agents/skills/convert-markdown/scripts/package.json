@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "html-to-docx": "^1.8.0",
+    "marked": "^18.1.2"
+  }
+}

@@ -44,7 +44,10 @@
       system = systemDarwin;
       config.allowUnfree = true;
     };
-    pkgsLinux = import nixpkgs {system = systemLinux;};
+    pkgsLinux = import nixpkgs {
+      system = systemLinux;
+      config.allowUnfree = true;
+    };
     forAllSystems = nixpkgs.lib.genAttrs [systemLinux systemDarwin];
     nixSettings = users: {
       settings = {

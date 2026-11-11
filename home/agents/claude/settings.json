@@ -1,0 +1,69 @@
+{
+  "permissions": {
+    "ask": [],
+    "defaultMode": "auto"
+  },
+  "model": "opus",
+  "worktree": {
+    "baseRef": "fresh"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "sh \"$HOME/.config/herdr-app/mods/over9k/claude-statusline.sh\"",
+    "refreshInterval": 5
+  },
+  "enabledPlugins": {
+    "ponytail@ponytail": true,
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
+  },
+  "language": "Русский",
+  "sandbox": {
+    "enabled": false
+  },
+  "feedbackDrafts": "notify",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "medium"
+    }
+  },
+  "dialogExpiry": "never",
+  "pluginConfigs": {
+    "ponytail@ponytail": {
+      "options": {
+        "ledger": false,
+        "sendNames": true
+      }
+    },
+    "cc-plugin-agents-md@builtin": {
+      "options": {
+        "instructionFiles": "claude-md-or-agents-md"
+      }
+    }
+  },
+  "timeFormat": "24-hour",
+  "theme": "auto",
+  "editorMode": "normal",
+  "preferredNotifChannel": "auto",
+  "idleCompaction": true,
+  "switchModelsOnFlag": false,
+  "remoteControlAtStartup": false,
+  "inputNeededNotifEnabled": false,
+  "agentPushNotifEnabled": false,
+  "autoMode": {
+    "allow": [
+      "$defaults",
+      "Any action in the built-in browser (mcp__Claude_Browser__*) on https://tracker.wb.ru is allowed without asking: reading pages, opening and filling forms, creating and editing tasks, changing fields, links, assignees and sprints, posting comments. Applies only while the tab's origin is tracker.wb.ru."
+    ]
+  }
+}

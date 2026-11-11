@@ -69,6 +69,7 @@ in {
     ./golang
     ./herdr
     ./opencode
+    ./agents
 
     #services
     ./git-sync
