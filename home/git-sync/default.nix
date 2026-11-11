@@ -18,4 +18,11 @@
     };
   };
 
+  # без этого флага git-sync отказывается синхронизировать ветку
+  programs.git.includes = [
+    {
+      condition = "gitdir:${dotfiles}/";
+      contents.git-sync.syncEnabled = true;
+    }
+  ];
 }
