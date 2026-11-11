@@ -83,6 +83,15 @@
         dst = [ "home-laptop2:1081" ];
       }
     ];
+    # Tailscale SSH на корпоративный Lenovo (на ноде нужен `tailscale set --ssh`)
+    ssh = [
+      {
+        action = "accept";
+        src = [ "default@" ];
+        dst = [ "tag:lenovo" ];
+        users = [ "sharashin.mihail" ];
+      }
+    ];
   };
 
   # Open firewall ports:
