@@ -31,6 +31,7 @@
       "mbp" = "100.64.0.1";
       "oneplus12" = "100.64.0.8";
       "macbook-air-m1" = "100.64.0.18";
+      "home-laptop2" = "100.64.0.2";
     };
     tagOwners = {
       "tag:lenovo" = [ "default@" ];
@@ -74,6 +75,12 @@
           "tag:exit-node:*"
           "autogroup:internet:*"
         ];
+      }
+      # корпоративный Lenovo: только HTTP-прокси sing-box для LLM API (services/sing-box.nix)
+      {
+        action = "accept";
+        src = [ "tag:lenovo" ];
+        dst = [ "home-laptop2:1081" ];
       }
     ];
   };

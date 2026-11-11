@@ -37,6 +37,8 @@
   # List of tags for urltest group
   rsvTags = map (name: getHostName name) activeNodes;
 in {
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [1081];
+
   services.sing-box = {
     enable = true;
     settings = {
@@ -52,7 +54,8 @@ in {
         {
           type = "http";
           tag = "http-in";
-          listen = "127.0.0.1";
+          # снаружи доступен только через tailscale0 (firewall выше), в tailnet — только Lenovo (headscale ACL)
+          listen = "0.0.0.0";
           listen_port = 1081;
         }
       ];
@@ -79,6 +82,9 @@ in {
             domain_suffix = [
               "openai.com"
               "chatgpt.com"
+              "anthropic.com"
+              "claude.ai"
+              "claude.com"
             ];
             outbound = "rsv-auto";
           }
