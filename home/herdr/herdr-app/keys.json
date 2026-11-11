@@ -1,5 +1,6 @@
 {
   "global": {
+    "cmd-a": "mod.open:leader",
     "cmd-q": "app.quit",
     "cmd-h": "app.hide",
     "cmd-alt-h": "app.hide_others",

@@ -52,6 +52,7 @@
     "over9k-rename"
     "over9k-server-stop"
     "over9k-switcher"
+    "leader"
     "smart-nav"
   ] (name:
     lib.nameValuePair "herdr-app/mods/${name}" {
