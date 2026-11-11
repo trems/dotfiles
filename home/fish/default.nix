@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   mkMutableSymlink,
   dotfiles,
   ...
@@ -12,6 +13,18 @@ in {
   xdg.configFile."fish/themes".source = mkMutableSymlink "${fishFiles}/themes";
 
   home.shell.enableFishIntegration = true;
+
+  # On non-NixOS Linux the user comes from SSSD, so `chsh` is unavailable.
+  # Hand interactive bash sessions over to fish instead.
+  programs.bash = lib.mkIf pkgs.stdenv.isLinux {
+    enable = true;
+    initExtra = ''
+      if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
+        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+        exec ${lib.getExe config.programs.fish.package} $LOGIN_OPTION
+      fi
+    '';
+  };
 
   programs.fish = {
     enable = true;
