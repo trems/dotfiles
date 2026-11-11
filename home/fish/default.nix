@@ -16,7 +16,7 @@ in {
 
   # On non-NixOS Linux the user comes from SSSD, so `chsh` is unavailable.
   # Hand interactive bash sessions over to fish instead.
-  programs.bash = lib.mkIf pkgs.stdenv.isLinux {
+  programs.bash = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
     initExtra = ''
       if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
