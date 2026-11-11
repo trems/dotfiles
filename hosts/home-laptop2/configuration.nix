@@ -12,14 +12,28 @@ in {
     ./hardware-configuration.nix
     # ../../services/blocky.nix
     ../../services/monitoring
-    # ../../services/media-server.nix
+    ../../services/media-server.nix
     ../../services/sing-box.nix
+    ../../services/redshield-exit-nodes.nix
     # ../../services/dae.nix # пока что dae не умеет в salamander obfs
+    ../../services/home-assistant.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = ["xt_TPROXY" "nf_tproxy_ipv4"];
+
+  # Беречь батарею: ноутбук всегда на зарядке с закрытой крышкой, поэтому снижаем нагрев.
+  # Лимита заряда это не даёт: в sysfs нет charge_control_end_threshold, а прошивка TM2113
+  # не обрабатывает команду батареи 0x10 в WMI MiInterface (GET проверен 2026-11-04,
+  # BIOS RMARB5B0P0B0B), хотя другие команды работают; регистров LONL/HBDA в ACPI нет.
+  # Гасим консоль, иначе под закрытой крышкой (HandleLidSwitch = "ignore") горит экран.
+  boot.kernelParams = ["consoleblank=60"];
+  systemd.tmpfiles.rules = [
+    # Отключаем turbo boost: убирает самые горячие пики под нагрузкой.
+    "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
+    "w /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - balance_power"
+  ];
 
   networking = {
     hostName = "home-laptop2"; # должно совпадать с именем в flake!
@@ -34,13 +48,14 @@ in {
     wget
     neovim
     btop
+    herdr-core
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager"];
-    openssh.authorizedKeys.keys = with publicKeys; [macbook-air-m1];
+    extraGroups = ["wheel" "networkmanager" "docker"];
+    openssh.authorizedKeys.keys = with publicKeys; [macbook-air-m1 mbp];
 
     packages = with pkgs; [
       tree
@@ -59,17 +74,35 @@ in {
       enable = true;
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
     };
-    # my-media-server = {
-    #   enable = true;
-    #   user = user;
-    #   # sharePath по умолчанию будет /srv/share
-    # };
+    my-home-assistant.enable = true;
+    my-media-server = {
+      enable = true;
+      user = user;
+      # sharePath по умолчанию будет /srv/share
+    };
   };
 
   age = {
     secrets = {
       tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
+      tailscale-exit-node-auth-key.file = ../../secrets/tailscale-exit-node-auth-key.age;
+      rs-private-key.file = ../../secrets/rs-private-key.age;
     };
+  };
+
+  services.redshield-exit-nodes = {
+    enable = true;
+    tailscaleAuthKeyPath = config.age.secrets.tailscale-exit-node-auth-key.path;
+    redshieldPrivateKeyPath = config.age.secrets.rs-private-key.path;
+    headscaleUrl = "https://undercity.sharashin.ru:18443";
+    nodes = [
+      "canada"
+      "kazakhstan"
+      "latvia"
+      "spain"
+      "georgia"
+      "netherlands"
+    ];
   };
 
   security.sudo.extraRules = [

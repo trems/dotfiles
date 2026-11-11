@@ -1,0 +1,27 @@
+{
+  "server": "<server>",
+  "server_port": 443,
+  "tag": "proxy",
+  "tls": {
+    "alpn": [
+      "h2"
+    ],
+    "enabled": true,
+    "reality": {
+      "enabled": true,
+      "public_key": "PVlnR_I9tZ8hKhOHW6ySpSofhsaShcBQ_JV2-0TePVA",
+      "short_id": "8a7a76ecec0b12b8"
+    },
+    "server_name": "node44.lmdscdn.ru",
+    "utls": {
+      "enabled": true,
+      "fingerprint": "firefox"
+    }
+  },
+  "transport": {
+    "service_name": "livestreamcontent",
+    "type": "grpc"
+  },
+  "type": "vless",
+  "uuid": "2c53cb02-ec8d-4d53-9583-bfccc254ea23"
+}

@@ -29,9 +29,9 @@ gui:
     defaultFgColor:
       - "#c8d3f5"
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --paging=never
+      command: delta --paging=never
 notARepository: "skip"
 keybinding:
   universal:

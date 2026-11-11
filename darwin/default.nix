@@ -9,29 +9,98 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
   nix = {
-    settings = {};
+    settings = {
+      trusted-users = [ "root" user ];
+    };
+    buildMachines = [
+      {
+        hostName = "192.168.0.102"; # home-laptop2 IP (or use "home-laptop2" if Tailscale MagicDNS is enabled)
+        sshUser = "mike";
+        sshKey = "/Users/${user}/.ssh/id_ed25519";
+        systems = [ "x86_64-linux" "aarch64-linux" ];
+        maxJobs = 4;
+        speedFactor = 1;
+        supportedFeatures = [ "kvm" "benchmark" "nixos-test" "big-parallel" ];
+      }
+    ];
+    distributedBuilds = true;
+    extraOptions = ''
+      builders-use-substitutes = true
+    '';
   };
 
   environment = {
     systemPackages = with pkgs; [
       home-manager # all packages managed by home-manager
+      python3
+      amneziawg-tools
+      amneziawg-go
+      wireguard-tools
     ];
     # add fish to /etc/shells. Don't forget to change login shell: chsh -s /path/to/fish
     shells = [pkgs.fish];
     interactiveShellInit = ''
       eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
+
+    # Declarative Nix custom config for Determinate Nix remote building
+    etc."nix/nix.custom.conf".text = ''
+      # Managed by nix-darwin in dotfiles
+      builders = ssh://mike@192.168.0.102 x86_64-linux /Users/${user}/.ssh/id_ed25519 4 1 kvm,benchmark,nixos-test - -
+      builders-use-substitutes = true
+      trusted-users = root ${user}
+    '';
+
+    # Configure dnsmasq to query servers in strict order (corp DNS first) and prevent negative cache poisoning
+    etc."dnsmasq.conf".text = ''
+      strict-order
+      no-negcache
+      clear-on-reload
+    '';
+  };
+
+  networking.dns = [ "127.0.0.1" ];
+  networking.search = [ "sharashin.mesh" ];
+  networking.knownNetworkServices = [ "Wi-Fi" "Thunderbolt Bridge" ];
+
+  services.dnsmasq = {
+    enable = true;
+    servers = [
+      # Split DNS: Route Tailnet/Headscale domains and reverse lookups to 100.100.100.100
+      "/sharashin.mesh/100.100.100.100"
+      "/100.in-addr.arpa/100.100.100.100"
+      "/0.e.1.a.c.5.1.1.a.7.d.f.ip6.arpa/fd7a:115c:a1e0::53"
+
+      # Default upstream servers (strict order: corp DNS first, then public fallback)
+      "10.15.12.100"
+      "10.15.12.200"
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
   };
 
   programs = {
     gnupg.agent.enable = true;
+    ssh.knownHosts = {
+      home-laptop2 = {
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIteJxePAOsUTL2ZANy1jXwzhbt/UepwU1U+Iq/1pkj1";
+        extraHostNames = [ "192.168.0.102" "home-laptop2" ];
+      };
+    };
     zsh = {
       enable = true; # Create /etc/zshrc that loads the nix-darwin environment.
       interactiveShellInit = ''
         alias drs="sudo darwin-rebuild switch --flake ~/dotfiles/"
+        alias dns-flush="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder dnsmasq"
       '';
     };
-    fish.enable = true; # required for login shell
+    fish = {
+      enable = true; # required for login shell
+      interactiveShellInit = ''
+        alias drs="sudo darwin-rebuild switch --flake ~/dotfiles/"
+        alias dns-flush="sudo dscacheutil -flushcache; and sudo killall -HUP mDNSResponder dnsmasq"
+      '';
+    };
   };
 
   fonts.packages = [
@@ -45,23 +114,28 @@
     };
     brews = [
       "qwen-code" # unstable nixpkgs contains old version
-      "gemini-cli"
       "opencode"
+      "pi-coding-agent"
     ];
     casks = [
+      "brave-browser"
       "orbstack"
       "codex"
+      "claude-code"
+      "antigravity"
+      "antigravity-cli"
+      "karabiner-elements"
+      "handy"
+      "herdr-app"
     ];
     taps = [];
     masApps = {};
   };
 
+
+
   services = {
     openssh.enable = true;
-    tailscale = {
-      enable = true;
-      overrideLocalDns = false;
-    };
   };
 
   system = {

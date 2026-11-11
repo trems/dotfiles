@@ -16,13 +16,10 @@ in {
       "$HOME/.cargo/bin"
       "$HOME/go/bin"
     ]; # Extra directories to prepend to PATH, e.g. "$HOME/.local/bin" or "\${xdg.configHome}/emacs/bin"
-    sessionVariables = {
-      EDITOR = "nvim";
-    }; # environment variables
+    sessionVariables = {}; # environment variables
 
     packages = with pkgs; [
       graphviz
-      nerd-fonts.jetbrains-mono
       grpcurl
       nmap
       s3cmd
@@ -32,6 +29,8 @@ in {
       hysteria
       yq-go
       ffmpeg
+      resterm
+      glab
 
       go-task
       gnumake
@@ -45,9 +44,6 @@ in {
 
       rustup
       nodejs_24
-
-      # qwen-code
-      # opencode
     ];
   };
   xdg.enable = true;
@@ -64,23 +60,22 @@ in {
     ./ripgrep
     ./fzf
     ./fd
+    ./btop.nix
     ./eza
     ./k9s
     ./kube
     ./direnv
     ./karabiner
     ./golang
-    ./proxychains.nix
+    ./herdr
 
     #services
     ./git-sync
     ./syncthing
   ];
 
-  fonts.fontconfig.enable = true;
-
   targets =
-    if pkgs.stdenv.isDarwin
+    if pkgs.stdenv.hostPlatform.isDarwin
     then {
       darwin.linkApps.enable = true;
     }
