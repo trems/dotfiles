@@ -1,28 +1,41 @@
 {
   config,
   pkgs,
-  mkMutableSymlink,
+  lib,
   dotfiles,
   ...
-}:
-
-{
-  services.git-sync = {
+}: let
+  # pull-only: коммиты и push — руками; merge --ff-only сам откажется,
+  # если ветка разошлась или локальные правки пересекаются с входящими.
+  # ssh берётся системный из PATH: nix-овый не видит SSSD-пользователей на Lenovo
+  pull = pkgs.writeShellScript "dotfiles-pull" ''
+    cd ${dotfiles} && ${pkgs.git}/bin/git fetch -q origin && ${pkgs.git}/bin/git merge -q --ff-only '@{u}'
+  '';
+in {
+  launchd.agents.dotfiles-pull = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     enable = true;
-    repositories = {
-      dotfiles = {
-        path = "${dotfiles}";
-        uri = "git@github.com:trems/dotfiles.git";
-        interval = 4000;
-      };
+    config = {
+      ProgramArguments = ["${pull}"];
+      StartInterval = 600;
+      RunAtLoad = true;
+      StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/dotfiles-pull.log";
     };
   };
 
-  # без этого флага git-sync отказывается синхронизировать ветку
-  programs.git.includes = [
-    {
-      condition = "gitdir:${dotfiles}/";
-      contents.git-sync.syncEnabled = true;
-    }
-  ];
+  systemd.user = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+    services.dotfiles-pull = {
+      Unit.Description = "Pull dotfiles (fast-forward only)";
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pull}";
+      };
+    };
+    timers.dotfiles-pull = {
+      Timer = {
+        OnStartupSec = "1min";
+        OnUnitActiveSec = "10min";
+      };
+      Install.WantedBy = ["timers.target"];
+    };
+  };
 }
