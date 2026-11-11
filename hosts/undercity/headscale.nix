@@ -94,6 +94,12 @@
     ];
   };
 
+  # политику из файла headscale перечитывает только по SIGHUP
+  systemd.services.headscale = {
+    reloadTriggers = [ config.environment.etc."headscale/acl.hujson".source ];
+    serviceConfig.ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+  };
+
   # Open firewall ports:
   # - 18443 (Headscale client access)
   networking.firewall.allowedTCPPorts = [ 18443 ];
