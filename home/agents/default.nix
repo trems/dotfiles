@@ -31,11 +31,14 @@ in {
     // {
       # общий для macOS и Linux: пути в нём только через $HOME
       ".claude/settings.json".source = mkMutableSymlink "${dotfiles}/home/agents/claude/settings.json";
+      ".gemini/antigravity-cli/settings.json".source = mkMutableSymlink "${dotfiles}/home/agents/agy/settings.json";
+      ".gemini/antigravity-cli/keybindings.json".source = mkMutableSymlink "${dotfiles}/home/agents/agy/keybindings.json";
     };
 
   # на macOS агенты ставятся из brew (darwin/default.nix)
   home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux [
     (proxied "claude" pkgs.claude-code)
     (proxied "opencode" pkgs.opencode)
+    (proxied "agy" pkgs.antigravity-cli)
   ];
 }

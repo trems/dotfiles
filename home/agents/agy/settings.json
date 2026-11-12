@@ -1,0 +1,40 @@
+{
+  "agentMode": "auto",
+  "allowNonWorkspaceAccess": true,
+  "altScreenMode": "always",
+  "colorScheme": "tokyo night",
+  "model": "Gemini 3.8 Flash (High)",
+  "notifications": true,
+  "permissions": {
+    "allow": [
+      "command(curl -s --connect-timeout 5 --max-time 10 'wttr.in/Sochi?format=%C:+%t+(feels+like+%f),+Wind:+%w,+Humidity:+%h')",
+      "command(ls)",
+      "command(echo)",
+      "command(grep)",
+      "command(head)",
+      "command(git reflog)",
+      "command(git worktree)",
+      "command(git -C /Users/m/work/user-profile-admin-tui status -s)",
+      "command(git -C /Users/m/work/user-profile-admin-tui diff --stat)",
+      "command(stat)"
+    ]
+  },
+  "pickerGrouping": "grouped",
+  "queuedMessages": "send-immediately",
+  "showFeedbackSurvey": false,
+  "statusLine": {
+    "type": "command",
+    "command": "sh \"$HOME/.config/herdr-app/mods/over9k/antigravity/agy-statusline.sh\"",
+    "stack_with_default": true
+  },
+  "title": {
+    "type": "command",
+    "command": "sh \"$HOME/.config/herdr-app/mods/over9k/antigravity/agy-title.sh\""
+  },
+  "toolPermission": "always-proceed",
+  "trustedWorkspaces": [
+    "/Users/m/work/userinfo-batch-token",
+    "/Users/m/antigravity-patcheer",
+    "/Users/m/work/herdr-app"
+  ]
+}
