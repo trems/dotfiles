@@ -85,9 +85,6 @@ in {
               "anthropic.com"
               "claude.ai"
               "claude.com"
-              # agy: Gemini API и Google OAuth из RU недоступны
-              "googleapis.com"
-              "google.com"
             ];
             outbound = "rsv-auto";
           }
