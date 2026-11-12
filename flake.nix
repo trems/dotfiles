@@ -90,12 +90,6 @@
             age = {
               identityPaths = ["/Users/${user}/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key"];
               secrets = {
-                hysteria2-client-conf = {
-                  name = "hy2-client.yaml";
-                  file = ./secrets/hy2-client.yaml.age;
-                  mode = "400";
-                  owner = user;
-                };
                 rs-private-key = {
                   file = ./secrets/rs-private-key.age;
                   mode = "400";

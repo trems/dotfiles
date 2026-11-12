@@ -26,7 +26,6 @@ in {
       imagemagick
       tokei
       postgresql
-      hysteria
       yq-go
       ffmpeg
       resterm

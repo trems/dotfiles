@@ -10,18 +10,15 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    # ../../services/blocky.nix
     ../../services/monitoring
     ../../services/media-server.nix
     ../../services/sing-box.nix
     ../../services/redshield-exit-nodes.nix
-    # ../../services/dae.nix # пока что dae не умеет в salamander obfs
     ../../services/home-assistant.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelModules = ["xt_TPROXY" "nf_tproxy_ipv4"];
 
   # Беречь батарею: ноутбук всегда на зарядке с закрытой крышкой, поэтому снижаем нагрев.
   # Лимита заряда это не даёт: в sysfs нет charge_control_end_threshold, а прошивка TM2113
