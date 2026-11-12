@@ -14,7 +14,7 @@
           "body": {
             "chat_template_kwargs": {
               // enable_thinking этот деплой игнорирует: мышление включено всегда, управляется только effort
-              "clear_thinking": true // если false, то opencode отправляет прошлые рассуждения модели в каждом запросе
+              "clear_thinking": false // если false, то opencode отправляет прошлые рассуждения модели в каждом запросе
             }
           },
           "capabilities": {

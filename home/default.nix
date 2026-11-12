@@ -67,7 +67,6 @@ in {
     ./karabiner
     ./golang
     ./herdr
-    ./opencode
     ./agents
 
     #services

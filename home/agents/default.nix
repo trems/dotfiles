@@ -27,6 +27,8 @@
       exec ${lib.getExe pkg} "$@"
     '';
 in {
+  imports = [ ./opencode ];
+
   home.file =
     lib.mergeAttrsList (map linkSkill skills)
     // {
