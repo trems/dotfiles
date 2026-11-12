@@ -63,6 +63,9 @@
         src = [ "oneplus12" ];
         dst = [
           "mbp:*"
+          "home-laptop2:*"
+          # Herdr Android → herdr-core на Lenovo (Tailscale SSH, правило ssh ниже)
+          "tag:lenovo:22"
           "tag:exit-node:*"
           "autogroup:internet:*"
         ];
@@ -90,6 +93,13 @@
         src = [ "default@" ];
         dst = [ "tag:lenovo" ];
         users = [ "sharashin.mihail" ];
+      }
+      # Tailscale SSH на home-laptop2 (services.tailscale.extraSetFlags в его configuration.nix)
+      {
+        action = "accept";
+        src = [ "default@" ];
+        dst = [ "tag:client" ];
+        users = [ "mike" ];
       }
     ];
   };

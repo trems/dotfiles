@@ -70,6 +70,8 @@ in {
     tailscale = {
       enable = true;
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
+      # Tailscale SSH для телефона; доступ задаёт ssh-политика headscale (hosts/undercity/headscale.nix)
+      extraSetFlags = ["--ssh"];
     };
     my-home-assistant.enable = true;
     my-media-server = {
