@@ -90,6 +90,7 @@
     zsh = {
       enable = true; # Create /etc/zshrc that loads the nix-darwin environment.
       interactiveShellInit = ''
+        export AGY_CLI_DISABLE_AUTO_UPDATE=1
         alias drs="sudo darwin-rebuild switch --flake ~/dotfiles/"
         alias dns-flush="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder dnsmasq"
       '';
@@ -130,6 +131,17 @@
   };
 
 
+
+  # Re-patch Antigravity (agy) binaries after cask/app updates. Runs after the
+  # homebrew bundle step on every `darwin-rebuild switch`. The script is
+  # self-contained (stdlib only) and idempotent; it exits non-zero when a
+  # target needed a patch but wasn't patched — surface that as a loud warning.
+  system.activationScripts.postActivation.text = ''
+    echo "patching antigravity binaries..." >&2
+    if ! /usr/bin/python3 ${./antigravity-patch.py} >&2; then
+      echo ">> antigravity patch FAILED — agy may be unpatched (details above) <<" >&2
+    fi
+  '';
 
   services = {
     openssh.enable = true;
