@@ -77,6 +77,8 @@
           {
             home-manager = {
               users.${user} = import ./home;
+              # чужие файлы на месте управляемых переименовываются в *.backup, а не валят switch
+              backupFileExtension = "backup";
               sharedModules = [
                 mac-app-util.homeManagerModules.default
               ];

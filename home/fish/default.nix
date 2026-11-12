@@ -51,8 +51,13 @@ in {
       envsource ~/.env
       npm config set prefix '~/npm-packages' && fish_add_path '~/npm-packages/bin' && set -U NODE_PATH ~/.npm-packages/lib/node_modules
     '';
-    shellAliases = {
-      v = "nvim";
-    };
+    shellAliases =
+      {
+        v = "nvim";
+      }
+      # на macOS аналог — drs (darwin/default.nix)
+      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+        hms = "home-manager switch -b backup --flake ~/dotfiles/";
+      };
   };
 }
