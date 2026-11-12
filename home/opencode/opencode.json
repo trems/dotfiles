@@ -6,7 +6,7 @@
       "package": "@opencode/ai/providers/openai-compatible",
       "settings": {
         "baseURL": "https://ur-llm-proxy.wb.ru/v1",
-        "apiKey": "{env:WB_AI_DEV}"
+        "apiKey": "{file:~/.local/share/agenix/tns-ai-key}" // age.secrets.tns-ai-key в home/agents
       },
       "models": {
         "glm": {

@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   mkMutableSymlink,
@@ -34,6 +35,13 @@ in {
       ".gemini/antigravity-cli/settings.json".source = mkMutableSymlink "${dotfiles}/home/agents/agy/settings.json";
       ".gemini/antigravity-cli/keybindings.json".source = mkMutableSymlink "${dotfiles}/home/agents/agy/keybindings.json";
     };
+
+  # путь явный и одинаковый на обеих машинах: opencode.json читает его через {file:~/...},
+  # а дефолтный ($XDG_RUNTIME_DIR / DARWIN_USER_TEMP_DIR) в {file:} не раскрывается
+  age.secrets.tns-ai-key = {
+    file = ../../secrets/wb/tns-ai-key.age;
+    path = "${config.home.homeDirectory}/.local/share/agenix/tns-ai-key";
+  };
 
   # на macOS агенты ставятся из brew (darwin/default.nix)
   home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux [

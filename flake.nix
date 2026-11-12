@@ -81,6 +81,7 @@
               backupFileExtension = "backup";
               sharedModules = [
                 mac-app-util.homeManagerModules.default
+                agenix.homeManagerModules.default
               ];
             };
             users.users.${user}.home = "/Users/${user}";
@@ -123,6 +124,7 @@
         pkgs = pkgsLinux;
         modules = [
           ./home
+          agenix.homeManagerModules.default
           {
             home = {
               username = user;

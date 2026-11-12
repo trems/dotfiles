@@ -12,4 +12,5 @@ in {
   "subscription-uuid.age".publicKeys = pk.all;
   "ntfy-token.age".publicKeys = pk.all;
   "ntfy-admin-password.age".publicKeys = pk.all;
+  "wb/tns-ai-key.age".publicKeys = with pk; [mbp lenovo];
 }
